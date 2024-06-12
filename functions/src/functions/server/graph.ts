@@ -13,12 +13,6 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-exports.myfunction = functions.firestore
-  .document("/words/{word}")
-  .onCreate((snap /* context */) => {
-    console.log("onCreate", snap.data());
-  });
-
 export const query = async (req: express.Request, res: express.Response) => {
   const { word } = req.params;
   const doc = db.doc(`/words/${word}`);
