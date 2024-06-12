@@ -10,7 +10,7 @@
 import { defineComponent } from "vue";
 import { getFunctions, httpsCallable } from "firebase/functions";
 
-const functions = getFunctions();
+const functions = getFunctions(undefined, "");
 const testFunction = httpsCallable(functions, 'test');
 
 export default defineComponent({

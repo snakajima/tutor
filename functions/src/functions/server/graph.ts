@@ -12,8 +12,9 @@ export const query = async (req: express.Request, res: express.Response) => {
         params: {
           model: "gpt-4o",
           apiKey: functions.config().openai_api.key,
-          baseURL: "https://api.openai.com/v1/chat/completions",
+          // baseURL: "https://api.openai.com/v1/chat/completions",
         },
+        isResult: true,
         inputs: { prompt: "Hello" },
       },
     }

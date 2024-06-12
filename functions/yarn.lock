@@ -191,14 +191,14 @@
   resolved "https://registry.yarnpkg.com/@google/generative-ai/-/generative-ai-0.11.5.tgz#b031c9508061bc8650a6470ef7d77122c083d70a"
   integrity sha512-DviMgrnljEKh6qkDT2pVFW+NEuVhggqBUoEnyy2PNL7l4ewxXRJubk3PctC9yPl1AdRIlhqP7E076QQt+IWuTg==
 
-"@graphai/agents@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@graphai/agents/-/agents-0.0.6.tgz#2d775ad470b84e04ed90720ed634eb15afc31677"
-  integrity sha512-Kht5l9l61l+r8D5MaVTZY9E6oy97pij0CCTB0OCoungvVdKRmzKa04ONPceLPLZtRf4Ol1wzhuklxAoNSzlsaA==
+"@graphai/agents@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@graphai/agents/-/agents-0.0.8.tgz#72613b75bbf328dc36c0f7bcd53710212f2467b3"
+  integrity sha512-GpLr7uHnU6H+sexHjwR1iAtCSco6asruDJkitAbaQ/6HKR8Fzo31kFj03XqMw3k4wAmUJ3qo0SmTjYj1ZyPk9w==
   dependencies:
     "@graphai/data_agents" "^0.0.2"
     "@graphai/input_agents" "^0.0.3"
-    "@graphai/llm_agents" "^0.0.4"
+    "@graphai/llm_agents" "^0.0.5"
     "@graphai/service_agents" "^0.0.3"
     "@graphai/sleeper_agents" "^0.0.2"
     "@graphai/vanilla" "^0.0.2"
@@ -217,10 +217,10 @@
   dependencies:
     "@inquirer/prompts" "^5.0.0"
 
-"@graphai/llm_agents@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@graphai/llm_agents/-/llm_agents-0.0.4.tgz#4721f38edff2a4aa4d06994e2f2ff8fae621d8ac"
-  integrity sha512-0h/1f+5d8ZxQzDXkF7sW/SBo0ocr2LGtCE0UV4Hqt7WfbW81oX749N6TBG2H+9bYEOUpw3p82B/8IUi/U6TSNA==
+"@graphai/llm_agents@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@graphai/llm_agents/-/llm_agents-0.0.5.tgz#59dcd45aab8ccf655f67a5c1becaf72ef1c3ef05"
+  integrity sha512-hRnsMRXTaZ2rFCII9qsqMeKdJ429TqaWQmAaKfTzJLNVVrXQv4djsgRCiuN0kJ9ytD98XxytEf77bH0+FJHUXg==
   dependencies:
     "@anthropic-ai/sdk" "^0.21.0"
     "@google/generative-ai" "^0.11.4"
