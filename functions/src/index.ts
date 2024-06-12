@@ -10,7 +10,7 @@ import exportIfNeeded from "./common/exportifneeded";
 //   response.send("Hello from Firebase!");
 // });
 
-// exportIfNeeded("test", "tests/test", exports);
+exportIfNeeded("test", "server/test", exports);
 
 exportIfNeeded("hono_server", "server/hono", exports);
 exportIfNeeded("express_server", "server/express", exports);
