@@ -1,8 +1,5 @@
 import * as functions from "firebase-functions";
-// import { initializeApp } from "firebase/app";
-// import { getFirestore } from "firebase/firestore";
 import * as admin from "firebase-admin";
-// import { doc, setDoc } from "firebase/firestore"; 
 import * as express from "express";
 import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
@@ -10,7 +7,6 @@ import * as agents from "@graphai/agents";
 if (!admin.apps.length) {
   admin.initializeApp();
 }
-
 const db = admin.firestore();
 
 export const graph_template = {
@@ -103,7 +99,7 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
   console.log("onCreate", snapshot.data(), word);
   const doc = db.doc(`/words/${word}`);
 
-  const graph_data:any = Object.assign({}, graph_template);
+  const graph_data:GraphData = Object.assign({}, graph_template);
   graph_data.nodes.word = { value: word };
   const graph = new GraphAI(graph_data, agents);
   const result = await graph.run();
@@ -112,31 +108,11 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
   })
 };
 
-export const query = async (req: express.Request, res: express.Response) => {
-  const { word } = req.params;
+export const register = async (req: express.Request, res: express.Response) => {
+  const word = req.params.word.toLowerCase();
   const doc = db.doc(`/words/${word}`);
   await doc.create({
     word,
   });
   res.json({ success:true, word });
 };
-
-export const test = async (req: express.Request, res: express.Response) => {
-    const graphdata: GraphData = {
-      version: 0.5,
-      nodes: {
-        source: {
-          value: "Hello World"
-        },
-        result: {
-          agent: "copyAgent",
-          inputs: [":source"],
-          isResult: true,
-        }
-      }
-    }
-    const graph = new GraphAI(graphdata, agents);
-    const result = await graph.run();  
-    res.json(result);
-  };
-  
