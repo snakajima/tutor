@@ -4,6 +4,7 @@ import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
 
 export const query = async (req: express.Request, res: express.Response) => {
+  // const { word } = req.params;
   const graphdata: GraphData = {
     version: 0.5,
     nodes: {

@@ -9,5 +9,5 @@ export const app = express();
 app.use(express.json());
 app.get("/api/hello", hello_response);
 app.get("/api/test", test);
-app.get("/api/query", query);
+app.get("/api/word/:word", query);
 
