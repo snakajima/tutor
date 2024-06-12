@@ -1,6 +1,7 @@
 // import * as functions from "firebase-functions";
 import * as functions from "firebase-functions";
 import exportIfNeeded from "./common/exportifneeded";
+import { onWordCreate } from "./functions/server/graph";
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -16,7 +17,5 @@ exportIfNeeded("express_server", "server/express", exports);
 
 exports.onWordCreate = functions.region("asia-northeast1").firestore
   .document("/words/{word}")
-  .onCreate((snap /* context */) => {
-    console.log("onCreate", snap.data());
-  });
+  .onCreate(onWordCreate);
 

@@ -13,6 +13,17 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
+export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSnapshot, context: functions.EventContext<{
+  word: string;
+}>) => {
+  const { word } = context.params;
+  console.log("onCreate", snapshot.data(), word);
+  const doc = db.doc(`/words/${word}/samples/1`);
+  await doc.create({
+    message: `Hello World, ${word}`,
+  });
+};
+
 export const query = async (req: express.Request, res: express.Response) => {
   const { word } = req.params;
   const doc = db.doc(`/words/${word}`);
