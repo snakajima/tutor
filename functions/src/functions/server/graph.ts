@@ -1,10 +1,32 @@
 import * as functions from "firebase-functions";
+// import { initializeApp } from "firebase/app";
+// import { getFirestore } from "firebase/firestore";
+import * as admin from "firebase-admin";
+// import { doc, setDoc } from "firebase/firestore"; 
 import * as express from "express";
 import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
 
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
+
+const db = admin.firestore();
+
+exports.myfunction = functions.firestore
+  .document("/words/{word}")
+  .onCreate((snap /* context */) => {
+    console.log("onCreate", snap.data());
+  });
+
 export const query = async (req: express.Request, res: express.Response) => {
-  // const { word } = req.params;
+  const { word } = req.params;
+  const doc = db.doc(`/words/${word}`);
+  await doc.create({
+    message: "Hello",
+    word: word,
+  });
+
   const graphdata: GraphData = {
     version: 0.5,
     nodes: {
