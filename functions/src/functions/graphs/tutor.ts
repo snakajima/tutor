@@ -108,6 +108,20 @@ export const graph_tutor = {
         isResult: true,
         inputs: [":root_llm.choices.$0.message.content"],
       },
+      story_llm: {
+        agent: "openAIAgent",
+        params: {
+          model: "gpt-4o",
+          apiKey: ":apiKey",
+          system: "Write a short story using the given word multiple times within 200 words.",
+        },
+        inputs: { prompt: ":word" },
+      },
+      story: {
+        agent: "copyAgent",
+        isResult: true,
+        inputs: [":story_llm.choices.$0.message.content"],
+      },
     },
   };
 
