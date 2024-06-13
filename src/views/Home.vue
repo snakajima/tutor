@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row">
     <div class="basis-1/4 bg-indigo-500 text-white text-lg">
-      <div v-for="word in words" @click="handleOnWord(word)">
+      <div v-for="word in words" @click="selectWord(word)">
         {{ word }}
       </div>
     </div>
@@ -11,9 +11,9 @@
         <div class="mt-2 font-bold">意味：英語<Toggle :flag="flags.meaning" @toggle="toggle('meaning')"/></div>
         <div class="ml-2" v-if="flags.meaning" v-html="md.render(selectedWord.result.meaning)" />
         <div class="mt-2 font-bold">意味：日本語<Toggle :flag="flags.meaning_jp" @toggle="toggle('meaning_jp')"/></div>
-        <div class="ml-2" v-html="md.render(selectedWord.result.meaning_jp)" />
-        <div class="mt-2 font-bold">語源<Toggle :flag="false" @toggle="toggle('root')"/></div>
-        <div class="ml-2" v-html="md.render(selectedWord.result.root)" />
+        <div class="ml-2" v-if="flags.meaning_jp" v-html="md.render(selectedWord.result.meaning_jp)" />
+        <div class="mt-2 font-bold">語源<Toggle :flag="flags.root" @toggle="toggle('root')"/></div>
+        <div class="ml-2" v-if="flags.root" v-html="md.render(selectedWord.result.root)" />
         <div class="mt-2 font-bold">類義語</div>
         <div class="ml-2">
           <div v-for="item in selectedWord.result.similar">
@@ -69,11 +69,12 @@ export default defineComponent({
     onUnmounted(() => {
       unsub();
     });
-    const handleOnWord = async (word:string) => {
+    const selectWord = async (word:string) => {
       const docRef = doc(refWords, word)
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
       selectedWord.value = data;
+      flags.value = {};
     };
     const toggle = (key:string) => {
       console.log(key);
@@ -82,7 +83,7 @@ export default defineComponent({
       flags.value = value;
     };
     return {
-      words, handleOnWord, selectedWord, md, toggle, flags
+      words, selectWord, selectedWord, md, toggle, flags
     }
   }
 });
