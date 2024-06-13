@@ -9,16 +9,23 @@
       <div v-if="selectedWord" class="m-1 ml-2">
         <div class="text-3xl">{{ selectedWord.word }}</div>
         <div class="mt-2 font-bold">意味：英語</div>
-        <div class="mt-0.5 ml-2" v-html="md.render(selectedWord.result.meaning)" />
+        <div class="ml-2" v-html="md.render(selectedWord.result.meaning)" />
         <div class="mt-2 font-bold">意味：日本語</div>
-        <div class="mt-0.5 ml-2" v-html="md.render(selectedWord.result.meaning_jp)" />
+        <div class="ml-2" v-html="md.render(selectedWord.result.meaning_jp)" />
         <div class="mt-2 font-bold">語源</div>
-        <div class="mt-0.5 ml-2" v-html="md.render(selectedWord.result.root)" />
-        <div>
-          {{ selectedWord.result.similar }}
+        <div class="ml-2" v-html="md.render(selectedWord.result.root)" />
+        <div class="mt-2 font-bold">類義語</div>
+        <div class="ml-2">
+          <div v-for="item in selectedWord.result.similar">
+            <span class="font-bold">{{ item.word }}</span> : {{ item.jp }}
+          </div>
         </div>
-        <div>
-          {{ selectedWord.result.samples }}
+        <div class="mt-2 font-bold">例文</div>
+        <div class="ml-2">
+          <div v-for="item in selectedWord.result.samples">
+            <div>{{ item.en }}</div>
+            <div class="ml-2">{{ item.jp }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -58,16 +65,10 @@ export default defineComponent({
       unsub();
     });
     const handleOnWord = async (word:string) => {
-      console.log(word);
       const docRef = doc(refWords, word)
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
       selectedWord.value = data;
-      console.log(selectedWord.value);
-      if (data) {
-        const result = md.render(data.result.meaning);
-        console.log(result);
-      }
     };
     return {
       words, handleOnWord, selectedWord, md
