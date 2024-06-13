@@ -8,9 +8,9 @@
     <div class="basis-3/4 text-left">
       <div v-if="selectedWord" class="m-1 ml-2">
         <div class="text-3xl">{{ selectedWord.word }}</div>
-        <div class="mt-2 font-bold">意味：英語<Toggle :flag="true" @toggle="toggle('meaning')"/></div>
-        <div class="ml-2" v-html="md.render(selectedWord.result.meaning)" />
-        <div class="mt-2 font-bold">意味：日本語<Toggle :flag="false" @toggle="toggle('meaning_jp')"/></div>
+        <div class="mt-2 font-bold">意味：英語<Toggle :flag="flags.meaning" @toggle="toggle('meaning')"/></div>
+        <div class="ml-2" v-if="flags.meaning" v-html="md.render(selectedWord.result.meaning)" />
+        <div class="mt-2 font-bold">意味：日本語<Toggle :flag="flags.meaning_jp" @toggle="toggle('meaning_jp')"/></div>
         <div class="ml-2" v-html="md.render(selectedWord.result.meaning_jp)" />
         <div class="mt-2 font-bold">語源<Toggle :flag="false" @toggle="toggle('root')"/></div>
         <div class="ml-2" v-html="md.render(selectedWord.result.root)" />
@@ -54,6 +54,7 @@ export default defineComponent({
   },
   setup() {
     const words = ref<Array<string>>([]);
+    const flags = ref<Record<string, boolean>>({});
     const selectedWord = ref<Record<string, any> | undefined>(undefined);
     const refWords = collection(db, "words");
     const unsub = onSnapshot(refWords, (snapshot) => {
@@ -76,9 +77,12 @@ export default defineComponent({
     };
     const toggle = (key:string) => {
       console.log(key);
+      const value = flags.value;
+      value[key] = !value[key]; 
+      flags.value = value;
     };
     return {
-      words, handleOnWord, selectedWord, md, toggle
+      words, handleOnWord, selectedWord, md, toggle, flags
     }
   }
 });
