@@ -6,7 +6,26 @@
       </div>
     </div>
     <div class="basis-3/4">
-      contents
+      <div v-if="selectedWord">
+        <div>
+          {{ selectedWord.word }}
+        </div>
+        <div>
+          {{ selectedWord.result.meaning }}
+        </div>
+        <div>
+          {{ selectedWord.result.meaning_jp }}
+        </div>
+        <div>
+          {{ selectedWord.result.root }}
+        </div>
+        <div>
+          {{ selectedWord.result.similar }}
+        </div>
+        <div>
+          {{ selectedWord.result.samples }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +36,7 @@ import { firebaseConfig } from "../config/project";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import "firebase/firestore";
-import { collection, doc, setDoc, getDocs, onSnapshot } from "firebase/firestore"; 
+import { collection, doc, setDoc, getDoc, onSnapshot } from "firebase/firestore"; 
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -26,7 +45,8 @@ export default defineComponent({
   name: "HomePage",
   components: {},
   setup() {
-    const words = ref<Array<string>>([])
+    const words = ref<Array<string>>([]);
+    const selectedWord = ref<Record<string, any> | undefined>(undefined);
     const refWords = collection(db, "words");
     const unsub = onSnapshot(refWords, (snapshot) => {
       const ids:Array<string> = [];
@@ -40,11 +60,15 @@ export default defineComponent({
     onUnmounted(() => {
       unsub();
     });
-    const handleOnWord = (word:string) => {
+    const handleOnWord = async (word:string) => {
       console.log(word);
+      const docRef = doc(refWords, word)
+      const docSnap = await getDoc(docRef);
+      selectedWord.value = docSnap.data();
+      console.log(selectedWord.value);
     };
     return {
-      words, handleOnWord
+      words, handleOnWord, selectedWord
     }
   }
 });
