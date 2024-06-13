@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-row">
     <div class="basis-1/4 bg-indigo-500 text-white text-lg">
-      <div>word</div>
+      <div v-for="word in words" @click="handleOnWord(word)">
+        {{ word }}
+      </div>
     </div>
     <div class="basis-3/4">
       contents
@@ -10,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onUnmounted } from "vue";
+import { defineComponent, onUnmounted, ref } from "vue";
 import { firebaseConfig } from "../config/project";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
@@ -24,17 +26,26 @@ export default defineComponent({
   name: "HomePage",
   components: {},
   setup() {
-    const words = collection(db, "words");
-    const unsub = onSnapshot(words, (snapshot) => {
+    const words = ref<Array<string>>([])
+    const refWords = collection(db, "words");
+    const unsub = onSnapshot(refWords, (snapshot) => {
+      const ids:Array<string> = [];
       snapshot.forEach((doc:any) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id);
+        ids.push(doc.id);
       });
+      words.value = ids;
+      console.log(ids);
     });
     onUnmounted(() => {
       unsub();
     });
-    return {}
+    const handleOnWord = (word:string) => {
+      console.log(word);
+    };
+    return {
+      words, handleOnWord
+    }
   }
 });
 </script>
