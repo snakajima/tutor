@@ -36,7 +36,7 @@
 import { defineComponent, onUnmounted, ref } from "vue";
 import { firebaseConfig } from "../config/project";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
 import "firebase/firestore";
 import { collection, doc, getDoc, onSnapshot } from "firebase/firestore"; 
 import markdownit from 'markdown-it';
@@ -56,11 +56,12 @@ export default defineComponent({
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
     const sampleFlags = ref<Array<boolean>>([]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const selectedWord = ref<Record<string, any> | undefined>(undefined);
     const refWords = collection(db, "words");
     const unsub = onSnapshot(refWords, (snapshot) => {
       const ids:Array<string> = [];
-      snapshot.forEach((doc:any) => {
+      snapshot.forEach((doc:QueryDocumentSnapshot<DocumentData, DocumentData>) => {
         // doc.data() is never undefined for query doc snapshots
         ids.push(doc.id);
       });
