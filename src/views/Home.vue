@@ -10,9 +10,9 @@
         <div class="text-3xl">{{ selectedWord.word }}</div>
         <div class="mt-2 font-bold">例文<Toggle :flag="flags.samples" @toggle="toggle('samples')"/></div>
         <div class="ml-2" v-if="flags.samples">
-          <div v-for="item in selectedWord.result.samples">
-            <div>{{ item.en }}</div>
-            <div class="ml-2">{{ item.jp }}</div>
+          <div v-for="(item, index) in selectedWord.result.samples">
+            <div>{{ item.en }}<Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)"/></div>
+            <div class="ml-2" v-if="sampleFlags[index]">{{ item.jp }}</div>
           </div>
         </div>
         <div class="mt-2 font-bold">意味：英語<Toggle :flag="flags.meaning" @toggle="toggle('meaning')"/></div>
@@ -38,7 +38,7 @@ import { firebaseConfig } from "../config/project";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import "firebase/firestore";
-import { collection, doc, setDoc, getDoc, onSnapshot } from "firebase/firestore"; 
+import { collection, doc, getDoc, onSnapshot } from "firebase/firestore"; 
 import markdownit from 'markdown-it';
 import '@material-design-icons/font/filled.css';
 import Toggle from '../components/Toggle.vue';
@@ -55,6 +55,7 @@ export default defineComponent({
   setup() {
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
+    const sampleFlags = ref<Array<boolean>>([]);
     const selectedWord = ref<Record<string, any> | undefined>(undefined);
     const refWords = collection(db, "words");
     const unsub = onSnapshot(refWords, (snapshot) => {
@@ -75,15 +76,23 @@ export default defineComponent({
       const data = docSnap.data();
       selectedWord.value = data;
       flags.value = {};
+      sampleFlags.value = [];
     };
     const toggle = (key:string) => {
-      console.log(key);
       const value = flags.value;
       value[key] = !value[key]; 
       flags.value = value;
+      if (key === "samples") {
+        sampleFlags.value = [];
+      }
+    };
+    const toggleSample = (index:number) => {
+      const value = sampleFlags.value;
+      value[index] = !value[index]; 
+      sampleFlags.value = value;
     };
     return {
-      words, selectWord, selectedWord, md, toggle, flags
+      words, selectWord, selectedWord, md, toggle, flags, sampleFlags, toggleSample
     }
   }
 });
