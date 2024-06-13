@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row">
     <div class="basis-1/4 bg-indigo-500 text-white text-lg">
-      <div v-for="word in words" @click="selectWord(word)">
+      <div v-for="word in words" @click="selectWord(word)" :key="word">
         {{ word }}
       </div>
     </div>
@@ -10,7 +10,7 @@
         <div class="text-3xl">{{ selectedWord.word }}</div>
         <div class="mt-2 font-bold">例文<Toggle :flag="flags.samples" @toggle="toggle('samples')"/></div>
         <div class="ml-2" v-if="flags.samples">
-          <div v-for="(item, index) in selectedWord.result.samples">
+          <div v-for="(item, index) in selectedWord.result.samples" :key="item.en">
             <div>{{ item.en }}<Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)"/></div>
             <div class="ml-2" v-if="sampleFlags[index]">{{ item.jp }}</div>
           </div>
@@ -21,7 +21,7 @@
         <div class="ml-2" v-if="flags.meaning_jp" v-html="md.render(selectedWord.result.meaning_jp)" />
         <div class="mt-2 font-bold">類義語<Toggle :flag="flags.similar" @toggle="toggle('similar')"/></div>
         <div class="ml-2" v-if="flags.similar">
-          <div v-for="item in selectedWord.result.similar">
+          <div v-for="item in selectedWord.result.similar" :key="item.word">
             <span class="font-bold">{{ item.word }}</span> : {{ item.jp }}
           </div>
         </div>
@@ -65,7 +65,7 @@ export default defineComponent({
         ids.push(doc.id);
       });
       words.value = ids;
-      console.log(ids);
+      // console.log(ids);
     });
     onUnmounted(() => {
       unsub();

@@ -15,7 +15,6 @@ export default defineComponent({
   props: {
     flag: {
       type: Boolean,
-      required: true,
     },
   },
   emits: ['toggle'],
