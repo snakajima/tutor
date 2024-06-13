@@ -157,13 +157,9 @@ const main = async () => {
           apiKey: process.env.OPENAI_API_KEY,
           word: ":word",
         },
+        isResult: true,
         graph: graph_tutor
       },
-      result: {
-        agent: "copyAgent",
-        inputs: [":tutor"],
-        isResult: true,
-      }
     }
   };
   const graph = new GraphAI(graph_data, agents);
