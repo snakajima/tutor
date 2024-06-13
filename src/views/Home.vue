@@ -5,20 +5,15 @@
         {{ word }}
       </div>
     </div>
-    <div class="basis-3/4">
-      <div v-if="selectedWord">
-        <div>
-          {{ selectedWord.word }}
-        </div>
-        <div>
-          {{ selectedWord.result.meaning }}
-        </div>
-        <div>
-          {{ selectedWord.result.meaning_jp }}
-        </div>
-        <div>
-          {{ selectedWord.result.root }}
-        </div>
+    <div class="basis-3/4 text-left">
+      <div v-if="selectedWord" class="m-1 ml-2">
+        <div class="text-3xl">{{ selectedWord.word }}</div>
+        <div class="mt-2 font-bold">意味：英語</div>
+        <div class="mt-0.5 ml-2" v-html="md.render(selectedWord.result.meaning)" />
+        <div class="mt-2 font-bold">意味：日本語</div>
+        <div class="mt-0.5 ml-2" v-html="md.render(selectedWord.result.meaning_jp)" />
+        <div class="mt-2 font-bold">語源</div>
+        <div class="mt-0.5 ml-2" v-html="md.render(selectedWord.result.root)" />
         <div>
           {{ selectedWord.result.similar }}
         </div>
@@ -37,6 +32,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import "firebase/firestore";
 import { collection, doc, setDoc, getDoc, onSnapshot } from "firebase/firestore"; 
+import markdownit from 'markdown-it'
+const md = markdownit()
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -64,11 +61,16 @@ export default defineComponent({
       console.log(word);
       const docRef = doc(refWords, word)
       const docSnap = await getDoc(docRef);
-      selectedWord.value = docSnap.data();
+      const data = docSnap.data();
+      selectedWord.value = data;
       console.log(selectedWord.value);
+      if (data) {
+        const result = md.render(data.result.meaning);
+        console.log(result);
+      }
     };
     return {
-      words, handleOnWord, selectedWord
+      words, handleOnWord, selectedWord, md
     }
   }
 });
