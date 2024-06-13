@@ -87,7 +87,10 @@ export const graph_tutor = {
       version: 0.3,
       nodes: {
         word: {
-          value: "hinder",
+          agent: "textInputAgent",
+          params: {
+            message: "勉強したい英語の単語を入力してください:",
+          },
         },
         tutor: {
           agent: "nestedAgent",
