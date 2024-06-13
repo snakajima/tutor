@@ -89,7 +89,7 @@ export const graph_tutor = {
       },
       inputs: { prompt: ":word" },
     },
-    antomym: {
+    antonym: {
       agent: "jsonParserAgent",
       isResult: true,
       inputs: [":antonym_llm.choices.$0.message.content"],
