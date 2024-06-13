@@ -91,14 +91,14 @@ export const graph_tutor = {
         tutor: {
           agent: "nestedAgent",
           inputs: {
-            apiKey: undefined,
+            apiKey: "abc",
             word: ":word",
           },
           graph: graph_tutor
         },
         result: {
           agent: "copyAgent",
-          inputs: [":word"],
+          inputs: [":tutor"],
           isResult: true,
         }
       }
