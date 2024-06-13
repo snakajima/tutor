@@ -10,7 +10,20 @@ export const graph_tutor = {
         params: {
           model: "gpt-4o",
           apiKey: ":apiKey",
-          system: "You are a dictionary writer. Write the meaning of the given word.",
+          system: "You are a dictionary writer. Write the meaning of the given word.\n" +
+            "[Sample]" +
+            "**hinder** (verb)\n" +
+            "\n" +
+            "1. To create difficulties for someone or something, resulting in delay or obstruction in progress.\n" +
+            "   - Example: The heavy snowfall hindered the rescue efforts.\n" +
+            "\n" +
+            "2. To prevent or impede the accomplishment, progress, or success of something.\n" +
+            "   - Example: Poor health can hinder a person's ability to work.\n" +
+            "\n" +
+            "**hinder** (adjective) [archaic]\n" +
+            "\n" +
+            "1. Situated at the back or rear.\n" +
+            "   - Example: The horse's hinder legs were caught in the fence.",
         },
         inputs: { prompt: ":word" },
       },
@@ -109,7 +122,7 @@ export const graph_tutor = {
     };
     const graph = new GraphAI(graph_data, agents);
     const result = await graph.run();
-    console.log(result);
+    console.log("%o", result);
   }
 
   main();
