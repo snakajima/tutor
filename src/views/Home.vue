@@ -8,11 +8,11 @@
     <div class="basis-3/4 text-left">
       <div v-if="selectedWord" class="m-1 ml-2">
         <div class="text-3xl">{{ selectedWord.word }}</div>
-        <div class="mt-2 font-bold">意味：英語<Toggle :flag="true"/></div>
+        <div class="mt-2 font-bold">意味：英語<Toggle :flag="true" @toggle="toggle('meaning')"/></div>
         <div class="ml-2" v-html="md.render(selectedWord.result.meaning)" />
-        <div class="mt-2 font-bold">意味：日本語<Toggle :flag="false"/></div>
+        <div class="mt-2 font-bold">意味：日本語<Toggle :flag="false" @toggle="toggle('meaning_jp')"/></div>
         <div class="ml-2" v-html="md.render(selectedWord.result.meaning_jp)" />
-        <div class="mt-2 font-bold">語源</div>
+        <div class="mt-2 font-bold">語源<Toggle :flag="false" @toggle="toggle('root')"/></div>
         <div class="ml-2" v-html="md.render(selectedWord.result.root)" />
         <div class="mt-2 font-bold">類義語</div>
         <div class="ml-2">
