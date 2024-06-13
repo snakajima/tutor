@@ -68,7 +68,7 @@ export const graph_tutor = {
           model: "gpt-4o",
           apiKey: ":apiKey",
           system:
-            "与えられた英単語をと類似するいくつか英単語を並べて、日本語で違いを説明して。フォーマットはJSONで、以下のフォーマットで。\n" +
+            "与えられた英単語と類似する意味の英単語をいくつか並べて、日本語で違いを説明して。フォーマットはJSONで、以下のフォーマットで。\n" +
             "```json\n[{word:'Awesome.', jp:'本当に素晴らしいことを強調したい時に使います。']\n```",
         },
         inputs: { prompt: ":word" },
@@ -77,6 +77,22 @@ export const graph_tutor = {
         agent: "jsonParserAgent",
         isResult: true,
         inputs: [":similar_llm.choices.$0.message.content"],
+      },
+      antonym_llm: {
+        agent: "openAIAgent",
+        params: {
+          model: "gpt-4o",
+          apiKey: ":apiKey",
+          system:
+            "与えられた英単語と反対の意味を持つ英単語をいくつか並べて、日本語で違いを説明して。フォーマットはJSONで、以下のフォーマットで。\n" +
+            "```json\n[{word:'Awesome.', jp:'本当に素晴らしいことを強調したい時に使います。']\n```",
+        },
+        inputs: { prompt: ":word" },
+      },
+      antomym: {
+        agent: "jsonParserAgent",
+        isResult: true,
+        inputs: [":antonym_llm.choices.$0.message.content"],
       },
       root_llm: {
         agent: "openAIAgent",
