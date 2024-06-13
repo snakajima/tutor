@@ -122,6 +122,22 @@ export const graph_tutor = {
         isResult: true,
         inputs: [":story_llm.choices.$0.message.content"],
       },
+      vocab_llm: {
+        agent: "openAIAgent",
+        params: {
+          model: "gpt-4o",
+          apiKey: ":apiKey",
+          system:
+            "あなたは英語の教師です。与えられた文章から、比較的難しい英単語を１０個選び、文章中での日本語に訳して。フォーマットはJSONで、以下のフォーマットで。\n" +
+            "```json\n[{en:'Hello.', jp:'こんにちは。']\n```",
+        },
+        inputs: { prompt: ":story" },
+      },
+      vocab: {
+        agent: "jsonParserAgent",
+        isResult: true,
+        inputs: [":vocab_llm.choices.$0.message.content"],
+      },
     },
   };
 
