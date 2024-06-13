@@ -74,8 +74,11 @@ export default defineComponent({
       const data = docSnap.data();
       selectedWord.value = data;
     };
+    const toggle = (key:string) => {
+      console.log(key);
+    };
     return {
-      words, handleOnWord, selectedWord, md
+      words, handleOnWord, selectedWord, md, toggle
     }
   }
 });
