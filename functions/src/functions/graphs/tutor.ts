@@ -92,7 +92,7 @@ export const graph_tutor = {
         tutor: {
           agent: "nestedAgent",
           inputs: {
-            apiKey: "abc",
+            apiKey: process.env.OPENAI_API_KEY,
             word: ":word",
           },
           graph: graph_tutor
