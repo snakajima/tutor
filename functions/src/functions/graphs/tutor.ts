@@ -1,5 +1,6 @@
 import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
+import "dotenv/config";
 
 export const graph_tutor = {
     version: 0.3,
