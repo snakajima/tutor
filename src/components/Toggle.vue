@@ -6,15 +6,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onUnmounted, ref } from "vue";
+import { defineComponent } from "vue";
 import '@material-design-icons/font/filled.css';
 
 export default defineComponent({
   name: "HomePage",
   components: {},
-  props: ['flag'],
+  props: {
+    flag: {
+      type: Boolean,
+      required: true,
+    },
+  },
   emits: ['toggle'],
-  setup(props) {
+  setup() {
     return {}
   }
 });
