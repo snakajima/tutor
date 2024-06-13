@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span @click="$emit('toggle')">
     <span v-if="flag" class="material-icons">keyboard_arrow_down</span>
     <span v-else class="material-icons">keyboard_arrow_up</span>
   </span>
@@ -13,6 +13,7 @@ export default defineComponent({
   name: "HomePage",
   components: {},
   props: ['flag'],
+  emits: ['toggle'],
   setup(props) {
     return {}
   }
