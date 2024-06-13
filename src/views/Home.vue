@@ -10,12 +10,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onUnmounted } from "vue";
 import { firebaseConfig } from "../config/project";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import "firebase/firestore";
-import { collection, doc, setDoc, getDocs } from "firebase/firestore"; 
+import { collection, doc, setDoc, getDocs, onSnapshot } from "firebase/firestore"; 
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -25,14 +25,15 @@ export default defineComponent({
   components: {},
   setup() {
     const words = collection(db, "words");
-    const foo = async () => {
-      const querySnapshot = await getDocs(words);
-      querySnapshot.forEach((doc:any) => {
+    const unsub = onSnapshot(words, (snapshot) => {
+      snapshot.forEach((doc:any) => {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id);
       });
-    };
-    foo();
+    });
+    onUnmounted(() => {
+      unsub();
+    });
     return {}
   }
 });
