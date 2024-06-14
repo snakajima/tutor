@@ -33,6 +33,8 @@
         </div>
         <div class="mt-2 font-bold">語源<Toggle :flag="flags.root" @toggle="toggle('root')"/></div>
         <div class="ml-2" v-if="flags.root" v-html="md.render(selectedWord.result.root)" />
+        <div class="mt-2 font-bold" v-if="selectedWord.result.story">読み物<Toggle :flag="flags.samples" @toggle="toggle('story')"/></div>
+        <div class="ml-2" v-if="flags.story" v-html="md.render(selectedWord.result.story)" />
       </div>
     </div>
   </div>
