@@ -8,7 +8,8 @@
     <div class="basis-3/4 text-left">
       <div v-if="selectedWord" class="m-1 ml-2">
         <div class="text-3xl">{{ selectedWord.word }}</div>
-        <div class="mt-2 font-bold">例文<Toggle :flag="flags.samples" @toggle="toggle('samples')"/></div>
+        <div v-if="selectedWord.result">
+          <div class="mt-2 font-bold">例文<Toggle :flag="flags.samples" @toggle="toggle('samples')"/></div>
         <div class="ml-2" v-if="flags.samples">
           <div v-for="(item, index) in selectedWord.result.samples" :key="item.en">
             <div>{{ item.en }}<Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)"/></div>
@@ -35,6 +36,7 @@
         <div class="ml-2" v-if="flags.root" v-html="md.render(selectedWord.result.root)" />
         <div class="mt-2 font-bold" v-if="selectedWord.result.story">読み物<Toggle :flag="flags.samples" @toggle="toggle('story')"/></div>
         <div class="ml-2" v-if="flags.story" v-html="md.render(selectedWord.result.story)" />
+        </div>
       </div>
     </div>
   </div>
@@ -83,9 +85,20 @@ export default defineComponent({
       const docRef = doc(refWords, word)
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
-      selectedWord.value = data;
-      flags.value = {};
-      sampleFlags.value = [];
+      if (data) {
+        selectedWord.value = data;
+        flags.value = {};
+        sampleFlags.value = [];
+      } else {
+        console.log("no data yet");
+        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/book1/${word}`;
+        try {
+          const res = await fetch(url);
+          console.log(res.status);
+        } catch(e) {
+          console.error(e);
+        }
+      }
     };
     const toggle = (key:string) => {
       const value = flags.value;
