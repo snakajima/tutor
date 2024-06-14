@@ -67,23 +67,15 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const selectedWord = ref<Record<string, any> | undefined>(undefined);
     const refWords = collection(db, "words");
-    const unsub = onSnapshot(refWords, (snapshot) => {
-      const ids:Array<string> = [];
-      snapshot.forEach((doc:QueryDocumentSnapshot<DocumentData, DocumentData>) => {
-        // doc.data() is never undefined for query doc snapshots
-        ids.push(doc.id);
-      });
-      words.value = ids;
-      // console.log(ids);
-    });
     onUnmounted(() => {
-      unsub();
     });
     const openBook = async(bookId:string) => {
       const refDoc = doc(db, `/books/${bookId}`);
       const docBook = await getDoc(refDoc);
       const data = docBook.data();
-      console.log("%o", data!.words);
+      if (data) {
+        words.value = data.words;
+      }
     };
     openBook("book1");
 
