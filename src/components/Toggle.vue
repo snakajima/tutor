@@ -1,7 +1,7 @@
 <template>
   <span @click="$emit('toggle')">
-    <span v-if="flag" class="material-icons">keyboard_arrow_up</span>
-    <span v-else class="material-icons">keyboard_arrow_down</span>
+    <span v-if="flag" class="material-icons translate-y-2">keyboard_arrow_up</span>
+    <span v-else class="material-icons translate-y-2">keyboard_arrow_down</span>
   </span>
 </template>
 
