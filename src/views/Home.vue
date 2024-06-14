@@ -6,7 +6,8 @@
       </div>
     </div>
     <div class="basis-3/4 text-left">
-      <div v-if="selectedWord" class="m-1 ml-2">
+      <div v-if="selectedWord">
+        <div v-if="selectedWord" class="m-1 ml-2">
         <div class="text-3xl">{{ selectedWord.word }}</div>
         <div v-if="selectedWord.result">
           <div class="mt-2 font-bold">例文<Toggle :flag="flags.samples" @toggle="toggle('samples')"/></div>
@@ -36,6 +37,10 @@
         <div class="ml-2" v-if="flags.root" v-html="md.render(selectedWord.result.root)" />
         <div class="mt-2 font-bold" v-if="selectedWord.result.story">読み物<Toggle :flag="flags.samples" @toggle="toggle('story')"/></div>
         <div class="ml-2" v-if="flags.story" v-html="md.render(selectedWord.result.story)" />
+        </div>
+        </div>
+        <div v-else>
+          AI is generating...
         </div>
       </div>
     </div>
