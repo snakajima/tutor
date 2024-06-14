@@ -68,13 +68,19 @@ export default defineComponent({
     Toggle,
   },
   setup() {
+    const unsubs:Array<any> = [];
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
     const sampleFlags = ref<Array<boolean>>([]);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const selectedWord = ref<Record<string, any> | undefined>(undefined);
     const refWords = collection(db, "words");
+    const cleanup = () => {
+      unsubs.forEach((unsub) => unsub());
+      unsubs.length = 0;
+    };
     onUnmounted(() => {
+      cleanup();
     });
     const openBook = async(bookId:string) => {
       const refDoc = doc(db, `/books/${bookId}`);
@@ -87,6 +93,7 @@ export default defineComponent({
     openBook("book1");
 
     const selectWord = async (word:string) => {
+      cleanup();
       const docRef = doc(refWords, word)
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
@@ -100,6 +107,13 @@ export default defineComponent({
         try {
           const res = await fetch(url);
           console.log(res.status);
+          const unsub = onSnapshot(docRef, (snapshot) => {
+            console.log("updated")
+            selectedWord.value = snapshot.data();
+            flags.value = {};
+            sampleFlags.value = [];
+          });
+          unsubs.push(unsub);
         } catch(e) {
           console.error(e);
         }
