@@ -6,6 +6,10 @@ service cloud.firestore {
       allow read;
       allow delete, update, create: if false;
     }
+    match /books/{bookId} {
+      allow read;
+      allow delete, update, create: if false;
+    }
     match /{document=**} {
       allow read, write: if false;
     }
