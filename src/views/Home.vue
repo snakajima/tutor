@@ -25,6 +25,12 @@
             <span class="font-bold">{{ item.word }}</span> : {{ item.jp }}
           </div>
         </div>
+        <div class="mt-2 font-bold" v-if="selectedWord.result.antonym">反対語<Toggle :flag="flags.similar" @toggle="toggle('antonym')"/></div>
+        <div class="ml-2" v-if="flags.antonym">
+          <div v-for="item in selectedWord.result.antonym" :key="item.word">
+            <span class="font-bold">{{ item.word }}</span> : {{ item.jp }}
+          </div>
+        </div>
         <div class="mt-2 font-bold">語源<Toggle :flag="flags.root" @toggle="toggle('root')"/></div>
         <div class="ml-2" v-if="flags.root" v-html="md.render(selectedWord.result.root)" />
       </div>
