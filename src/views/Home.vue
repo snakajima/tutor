@@ -55,7 +55,7 @@
 import { defineComponent, onUnmounted, ref } from "vue";
 import { firebaseConfig } from "../config/project";
 import { initializeApp } from "firebase/app";
-import { getFirestore, QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import "firebase/firestore";
 import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
 import markdownit from "markdown-it";
@@ -72,7 +72,8 @@ export default defineComponent({
     Toggle,
   },
   setup() {
-    const unsubs: Array<any> = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const unsubs = [] as Array<any>;
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
     const sampleFlags = ref<Array<boolean>>([]);
@@ -106,13 +107,13 @@ export default defineComponent({
         flags.value = {};
         sampleFlags.value = [];
       } else {
-        console.log("no data yet");
+        // console.log("no data yet");
         const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/book1/${word}`;
         try {
           const res = await fetch(url);
           console.log(res.status);
           const unsub = onSnapshot(docRef, (snapshot) => {
-            console.log("updated");
+            // console.log("updated");
             selectedWord.value = snapshot.data();
             flags.value = {};
             sampleFlags.value = [];
