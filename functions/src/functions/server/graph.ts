@@ -31,11 +31,26 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
       },
     }
   };
-  const graph = new GraphAI(graph_data, agents);
-  const result = await graph.run();
-  await doc.update({
-    result: result.tutor
-  })
+  const update = async () => {
+    const graph = new GraphAI(graph_data, agents);
+    const result = await graph.run();
+    await doc.update({
+      result: result.tutor,
+      nograph: false,
+    })
+  }
+
+  try {
+    await update();
+  } catch(e) {
+    console.warn("first catch", e);
+    try {
+      await update();
+    } catch(e2) {
+      console.warn("second catch", e2);
+      await update();
+    }
+  }
 };
 
 export const register = async (req: express.Request, res: express.Response) => {
@@ -43,6 +58,7 @@ export const register = async (req: express.Request, res: express.Response) => {
   const doc = db.doc(`/words/${word}`);
   await doc.create({
     word,
+    nograph: true,
   });
   res.json({ success:true, word });
 };
