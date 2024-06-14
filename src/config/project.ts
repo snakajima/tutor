@@ -5,5 +5,5 @@ export const firebaseConfig = {
   storageBucket: "ai-tango.appspot.com",
   messagingSenderId: "20670388878",
   appId: "1:20670388878:web:ebcc640368f708e65fc7df",
-  measurementId: "G-ZBMX85SNJ2"
+  measurementId: "G-ZBMX85SNJ2",
 };

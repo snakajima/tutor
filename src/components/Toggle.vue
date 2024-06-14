@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import '@material-design-icons/font/filled.css';
+import "@material-design-icons/font/filled.css";
 
 export default defineComponent({
   name: "HomePage",
@@ -17,12 +17,9 @@ export default defineComponent({
       type: Boolean,
     },
   },
-  emits: ['toggle'],
+  emits: ["toggle"],
   setup() {
-    return {}
-  }
+    return {};
+  },
 });
 </script>
-
-    
-
