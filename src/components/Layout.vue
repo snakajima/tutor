@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <div class="bg-warmgray-400 flex min-h-screen flex-col bg-opacity-20">
-      <div class="w-full flex-1">
+      <div class="h-screen">
         <div class="bg-blue-300">
           <div class="relative flex items-center">
             <div @click="toggleMenu()" class="inline-flex h-14 w-14 flex-shrink-0 cursor-pointer items-center justify-center">
@@ -16,7 +16,7 @@
             </div>
           </div>
         </div>
-        <div class="top-0 w-full sm:relative">
+        <div class="h-screen sm:relative">
           <router-view />
         </div>
       </div>
