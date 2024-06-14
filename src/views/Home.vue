@@ -14,35 +14,35 @@
       <div v-if="selectedWord" class="m-1 ml-2">
         <div class="text-3xl">{{ selectedWord.word }}</div>
         <div v-if="selectedWord.result">
-          <div class="mt-2 font-bold">例文<Toggle :flag="flags.samples" @toggle="toggle('samples')" /></div>
+          <div class="mt-2 font-bold"><Toggle :flag="flags.samples" @toggle="toggle('samples')">例文</Toggle></div>
           <div class="ml-2" v-if="flags.samples">
             <div v-for="(item, index) in selectedWord.result.samples" :key="item.en">
-              <div>{{ item.en }}<Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)" /></div>
+              <div><Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)">{{ item.en }}</Toggle></div>
               <div class="ml-2" v-if="sampleFlags[index]">{{ item.jp }}</div>
             </div>
           </div>
-          <div class="mt-2 font-bold">意味：英語<Toggle :flag="flags.meaning" @toggle="toggle('meaning')" /></div>
+          <div class="mt-2 font-bold"><Toggle :flag="flags.meaning" @toggle="toggle('meaning')">意味：英語</Toggle></div>
           <div class="ml-2" v-if="flags.meaning" v-html="md.render(selectedWord.result.meaning)" />
-          <div class="mt-2 font-bold">意味：日本語<Toggle :flag="flags.meaning_jp" @toggle="toggle('meaning_jp')" /></div>
+          <div class="mt-2 font-bold"><Toggle :flag="flags.meaning_jp" @toggle="toggle('meaning_jp')">意味：日本語</Toggle></div>
           <div class="ml-2" v-if="flags.meaning_jp" v-html="md.render(selectedWord.result.meaning_jp)" />
-          <div class="mt-2 font-bold">類義語<Toggle :flag="flags.similar" @toggle="toggle('similar')" /></div>
+          <div class="mt-2 font-bold"><Toggle :flag="flags.similar" @toggle="toggle('similar')">類義語</Toggle></div>
           <div class="ml-2" v-if="flags.similar">
             <div v-for="item in selectedWord.result.similar" :key="item.word">
               <span class="font-bold">{{ item.word }}</span> : {{ item.jp }}
             </div>
           </div>
-          <div class="mt-2 font-bold" v-if="selectedWord.result.antonym">反対語<Toggle :flag="flags.similar" @toggle="toggle('antonym')" /></div>
+          <div class="mt-2 font-bold" v-if="selectedWord.result.antonym"><Toggle :flag="flags.similar" @toggle="toggle('antonym')">反対語</Toggle></div>
           <div class="ml-2" v-if="flags.antonym">
             <div v-for="item in selectedWord.result.antonym" :key="item.word">
               <span class="font-bold">{{ item.word }}</span> : {{ item.jp }}
             </div>
           </div>
-          <div class="mt-2 font-bold">語源<Toggle :flag="flags.root" @toggle="toggle('root')" /></div>
+          <div class="mt-2 font-bold"><Toggle :flag="flags.root" @toggle="toggle('root')">語源</Toggle></div>
           <div class="ml-2" v-if="flags.root" v-html="md.render(selectedWord.result.root)" />
-          <div class="mt-2 font-bold" v-if="selectedWord.result.story">読み物<Toggle :flag="flags.samples" @toggle="toggle('story')" /></div>
+          <div class="mt-2 font-bold" v-if="selectedWord.result.story"><Toggle :flag="flags.samples" @toggle="toggle('story')">読み物</Toggle></div>
           <div v-if="flags.story">
             <div class="ml-2" v-html="md.render(selectedWord.result.story)" />
-            <div class="mt-2 font-bold">読み物中の単語<Toggle :flag="flags.vocab" @toggle="toggle('vocab')" /></div>
+            <div class="mt-2 font-bold"><Toggle :flag="flags.vocab" @toggle="toggle('vocab')">読み物中の単語</Toggle></div>
             <div class="mt-2" v-if="flags.vocab">
               <div class="ml-2" v-for="item in selectedWord.result.vocab" :key="item.en">
                 <span class="font-bold">{{ item.en }}</span> : {{ item.jp }}
