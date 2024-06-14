@@ -35,7 +35,15 @@
           <div class="mt-2 font-bold">語源<Toggle :flag="flags.root" @toggle="toggle('root')" /></div>
           <div class="ml-2" v-if="flags.root" v-html="md.render(selectedWord.result.root)" />
           <div class="mt-2 font-bold" v-if="selectedWord.result.story">読み物<Toggle :flag="flags.samples" @toggle="toggle('story')" /></div>
-          <div class="ml-2" v-if="flags.story" v-html="md.render(selectedWord.result.story)" />
+          <div v-if="flags.story">
+            <div class="ml-2" v-html="md.render(selectedWord.result.story)" />
+            <div class="mt-2 font-bold">読み物中の単語<Toggle :flag="flags.vocab" @toggle="toggle('vocab')" /></div>
+            <div class="mt-2" v-if="flags.vocab">
+              <div class="ml-2" v-for="item in selectedWord.result.vocab" :key="item.en">
+                <span class="font-bold">{{ item.en }}</span> : {{ item.jp }}
+              </div>
+            </div>
+          </div>
         </div>
         <div v-else class="mt-2">Please wait. AI is generating...</div>
       </div>
