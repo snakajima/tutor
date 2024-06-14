@@ -79,6 +79,14 @@ export default defineComponent({
     onUnmounted(() => {
       unsub();
     });
+    const openBook = async(bookId:string) => {
+      const refDoc = doc(db, `/books/${bookId}`);
+      const docBook = await getDoc(refDoc);
+      const data = docBook.data();
+      console.log("%o", data!.words);
+    };
+    openBook("book1");
+
     const selectWord = async (word:string) => {
       const docRef = doc(refWords, word)
       const docSnap = await getDoc(docRef);
