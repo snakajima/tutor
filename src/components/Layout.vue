@@ -21,7 +21,6 @@
         </div>
       </div>
     </div>
-    <Languages class="mt-4" />
   </div>
 </template>
 
