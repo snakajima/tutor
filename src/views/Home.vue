@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row">
-    <div class="h-screen basis-1/4 bg-indigo-500 text-white text-lg overflow-y-auto">
+    <div class="basis-1/4 bg-indigo-500 text-white text-lg h-screen overflow-y-auto">
       <div v-for="word in words" @click="selectWord(word)" :key="word">
         <div class="font-bold" v-if="word === selectedWord?.word">
          {{ word }}
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="basis-3/4 text-left">
+    <div class="basis-3/4 text-left h-screen overflow-y-auto">
       <div v-if="selectedWord" class="m-1 ml-2">
         <div class="text-3xl">{{ selectedWord.word }}</div>
         <div v-if="selectedWord.result">

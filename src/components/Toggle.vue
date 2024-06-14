@@ -1,5 +1,5 @@
 <template>
-  <span @click="$emit('toggle')">
+  <span class="cursor-pointer" @click="$emit('toggle')">
     <slot></slot>
     <span v-if="flag" class="material-icons translate-y-2">keyboard_arrow_up</span>
     <span v-else class="material-icons translate-y-2">keyboard_arrow_down</span>
