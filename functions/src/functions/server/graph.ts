@@ -55,10 +55,28 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
 
 export const register = async (req: express.Request, res: express.Response) => {
   const word = req.params.word.toLowerCase();
+  const bookid = req.params.bookid;
+  const docBook = await db.doc(`/books/${bookid}`).get();
+  if (!docBook) {
+    res.json({success:false, reason:`no book: ${bookid}` });
+    return;
+  }
+  const data = docBook.data();
+  if (!data) {
+    res.json({ success:false, reason:`no book data: ${bookid}` });
+    return;
+  }
+  const words:Array<string> = data.words;
+  if (words.indexOf(word) < 0) {
+    res.json({ success:false, reason:`no word in book: ${word} in ${bookid}` });
+    return;
+  }
+
   const doc = db.doc(`/words/${word}`);
   await doc.create({
     word,
     nograph: true,
+    version: 1,
   });
   res.json({ success:true, word });
 };
