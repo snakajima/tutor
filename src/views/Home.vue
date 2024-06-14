@@ -2,7 +2,12 @@
   <div class="flex flex-row">
     <div class="h-screen basis-1/4 bg-indigo-500 text-white text-lg overflow-y-auto">
       <div v-for="word in words" @click="selectWord(word)" :key="word">
-        {{ word }}
+        <div class="font-bold" v-if="word === selectedWord?.word">
+         {{ word }}
+        </div>
+        <div v-else>
+          {{ word }}
+        </div>
       </div>
     </div>
     <div class="basis-3/4 text-left">
