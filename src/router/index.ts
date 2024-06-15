@@ -7,6 +7,7 @@ import Home from "@/views/Home.vue";
 import Account from "@/views/Account.vue";
 import About from "@/views/About.vue";
 import MyPage from "@/views/MyPage.vue";
+import Admin from "@/views/Admin.vue";
 
 const routeChildren: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,10 @@ const routeChildren: Array<RouteRecordRaw> = [
   {
     path: "mypage",
     component: MyPage,
+  },
+  {
+    path: "admin",
+    component: Admin,
   },
 ];
 
