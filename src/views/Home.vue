@@ -165,7 +165,9 @@ export default defineComponent({
       console.log("generateSound", word);
       const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/sound/${word}`;
       const res = await fetch(url);
-      console.log(res.status);
+      const result = await res.json()
+      console.log(result);
+      playSound(result.url);
     };
     return {
       words,
