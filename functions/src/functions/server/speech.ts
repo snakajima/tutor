@@ -15,7 +15,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-const sound = async (input: string, fileName: string) => {
+const sound = async (fileName: string, input: string) => {
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",
     voice: "shimmer",
@@ -32,6 +32,6 @@ const sound = async (input: string, fileName: string) => {
 
 export const generate = async (req: express.Request, res: express.Response) => {
   const word = req.params.word.toLowerCase();
-  const url = await sound(word, word);
+  const url = await sound(`words/${word}.mp3`, word);
   res.json({ success:true, word, url });
 }
