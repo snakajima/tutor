@@ -12,7 +12,10 @@
     </div>
     <div class="basis-3/4 text-left h-screen overflow-y-auto">
       <div v-if="wordData" class="m-1 ml-2">
-        <div class="text-3xl">{{ wordData.word }}</div>
+        <div>
+          <span class="text-3xl">{{ wordData.word }}</span>
+          <span v-if="wordData.speach" @click="playSound(wordData.speach)">play</span>
+        </div>
         <div v-if="wordData.result">
           <div class="mt-2 font-bold"><Toggle :flag="flags.samples" @toggle="toggle('samples')">例文</Toggle></div>
           <div class="ml-2" v-if="flags.samples">
@@ -152,6 +155,11 @@ export default defineComponent({
       value[index] = !value[index];
       sampleFlags.value = value;
     };
+    const playSound = (url: string) => {
+      console.log("playSound", url);
+      var audio = new Audio(url);
+      audio.play()
+    };
     return {
       words,
       selectWord,
@@ -162,6 +170,7 @@ export default defineComponent({
       flags,
       sampleFlags,
       toggleSample,
+      playSound,
     };
   },
 });
