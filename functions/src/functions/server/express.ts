@@ -1,6 +1,6 @@
 import * as express from "express";
 import { register, initialize } from "./graph";
-import { generate } from "./speech";
+import { generate, generateSample } from "./speech";
 
 export const app = express();
 
@@ -15,4 +15,5 @@ app.use(express.json());
 app.get("/api/register/:bookid/:word", register);
 app.get("/api/init", initialize);
 app.get("/api/sound/:word", generate);
+app.get("/api/sample/:word/:index", generateSample);
 

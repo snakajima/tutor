@@ -55,3 +55,34 @@ export const generate = async (req: express.Request, res: express.Response) => {
 
   res.json({ success:true, word, url });
 }
+
+export const generateSample = async (req: express.Request, res: express.Response) => {
+  const word = req.params.word.toLowerCase();
+  const index = parseInt(req.params.index);
+  const docRef = db.doc(`/words/${word}`);
+  const doc = await docRef.get();
+  const data = doc.data();
+  if (!data) {
+    res.json({ success:false, reason:`invalid word: ${word}` });
+    return;
+  }
+  const result = data.result;
+  const sample = result.samples[index];
+  if (!sample) {
+    res.json({ success:false, reason:`no sample (something is wrong): ${word}` });
+    return;
+  }
+  if (sample.voice) {
+    res.json({ success:false, reason:`already have: ${sample.voice}` });
+    return;
+  }
+
+  const uniqueId = uuidv4();
+  const url = await sound(`sample/${uniqueId}.mp3`, sample.en);
+  result.samples[index] = { ...sample, voice:url };
+  await docRef.update({
+    result,    
+  })
+
+  res.json({ success:true, word, url });
+}
