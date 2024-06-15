@@ -84,8 +84,8 @@ export default defineComponent({
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
     const sampleFlags = ref<Array<boolean>>([]);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const selectedWord = ref<string | undefined>(undefined);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const wordData = ref<Record<string, any> | undefined>(undefined);
     const refWords = collection(db, "words");
     const cleanup = () => {
@@ -101,6 +101,7 @@ export default defineComponent({
       const data = docBook.data();
       if (data) {
         words.value = data.words;
+        console.log(words.value.length);
       }
     };
     openBook("book1");
