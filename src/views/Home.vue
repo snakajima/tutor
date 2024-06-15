@@ -80,7 +80,7 @@ export default defineComponent({
   },
   setup() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const unsubs = [] as Array<any>;
+    const unsubs = {} as Record<string, any>;
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
     const sampleFlags = ref<Array<boolean>>([]);
@@ -89,7 +89,13 @@ export default defineComponent({
     const wordData = ref<Record<string, any> | undefined>(undefined);
     const refWords = collection(db, "words");
     const cleanup = () => {
-      unsubs.forEach((unsub) => unsub());
+      Object.keys(unsubs).forEach((key) => {
+        const unsub = unsubs[key];
+        if (unsub) {
+          unsub();
+        }
+        delete unsubs[key];
+      });
       unsubs.length = 0;
     };
     onUnmounted(() => {
@@ -107,7 +113,11 @@ export default defineComponent({
     openBook("book1");
 
     const selectWord = async (word: string) => {
-      cleanup();
+      const unsub = unsubs.word;
+      if (unsub) {
+        unsub();
+        delete unsubs.word;
+      }
       selectedWord.value = word;
       const docRef = doc(refWords, word);
       const docSnap = await getDoc(docRef);
@@ -128,7 +138,7 @@ export default defineComponent({
             flags.value = {};
             sampleFlags.value = [];
           });
-          unsubs.push(unsub);
+          unsubs.word = unsub;
         } catch (e) {
           console.error(e);
         }
