@@ -3,7 +3,7 @@
     <div class="basis-1/4 bg-indigo-500 text-white text-lg h-screen overflow-y-auto">
       <div v-for="word in words" @click="selectWord(word)" :key="word">
         <div class="font-bold" v-if="word === selectedWord?.word">
-         {{ word }}
+          {{ word }}
         </div>
         <div v-else>
           {{ word }}
@@ -17,7 +17,9 @@
           <div class="mt-2 font-bold"><Toggle :flag="flags.samples" @toggle="toggle('samples')">例文</Toggle></div>
           <div class="ml-2" v-if="flags.samples">
             <div v-for="(item, index) in selectedWord.result.samples" :key="item.en">
-              <div><Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)">{{ item.en }}</Toggle></div>
+              <div>
+                <Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)">{{ item.en }}</Toggle>
+              </div>
               <div class="ml-2" v-if="sampleFlags[index]">{{ item.jp }}</div>
             </div>
           </div>
