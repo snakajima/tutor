@@ -23,6 +23,8 @@
             <div v-for="(item, index) in wordData.result.samples" :key="item.en">
               <div>
                 <Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)">{{ item.en }}</Toggle>
+                <span class="material-icons ml-2 cursor-pointer" v-if="item.voice" @click="playSound(item.voice)">volume_up</span>
+                <span class="material-icons ml-2 cursor-pointer" v-else @click="generateSampleVoice(wordData.word, index)">volume_down</span>
               </div>
               <div class="ml-2" v-if="sampleFlags[index]">{{ item.jp }}</div>
             </div>
@@ -169,6 +171,14 @@ export default defineComponent({
       console.log(result);
       playSound(result.url);
     };
+    const generateSampleVoice = async(word: string, index: number) => {
+      console.log("generateSampleVoice", word, index);
+      const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/sample/${word}/${index}`;
+      const res = await fetch(url);
+      const result = await res.json()
+      console.log(result);
+      playSound(result.url);
+    };
     return {
       words,
       selectWord,
@@ -181,6 +191,7 @@ export default defineComponent({
       toggleSample,
       playSound,
       generateWordVoice,
+      generateSampleVoice,
     };
   },
 });
