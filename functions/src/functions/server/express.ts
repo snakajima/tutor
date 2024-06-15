@@ -14,5 +14,5 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.get("/api/register/:bookid/:word", register);
 app.get("/api/init", initialize);
-app.get("/app/sound/:word", generate);
+app.get("/api/sound/:word", generate);
 
