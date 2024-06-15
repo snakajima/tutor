@@ -119,30 +119,25 @@ export default defineComponent({
         delete unsubs.word;
       }
       selectedWord.value = word;
+      flags.value = {};
+      sampleFlags.value = [];
+
       const docRef = doc(refWords, word);
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
       if (data) {
         wordData.value = data;
+      } else {
+        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/book1/${word}`;
+        const res = await fetch(url);
+        console.log(res.status);
+      }
+      unsubs.word = onSnapshot(docRef, (snapshot) => {
+        console.log(`got update on word ${word}`);
+        wordData.value = snapshot.data();
         flags.value = {};
         sampleFlags.value = [];
-      } else {
-        // console.log("no data yet");
-        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/book1/${word}`;
-        try {
-          const res = await fetch(url);
-          console.log(res.status);
-          const unsub = onSnapshot(docRef, (snapshot) => {
-            // console.log("updated");
-            wordData.value = snapshot.data();
-            flags.value = {};
-            sampleFlags.value = [];
-          });
-          unsubs.word = unsub;
-        } catch (e) {
-          console.error(e);
-        }
-      }
+      });
     };
     const toggle = (key: string) => {
       const value = flags.value;
