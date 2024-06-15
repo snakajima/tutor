@@ -141,8 +141,6 @@ export default defineComponent({
       unsubs.word = onSnapshot(docRef, (snapshot) => {
         console.log(`got update on word ${word}`);
         wordData.value = snapshot.data();
-        flags.value = {};
-        sampleFlags.value = [];
       });
     };
     const toggle = (key: string) => {
@@ -159,7 +157,6 @@ export default defineComponent({
       sampleFlags.value = value;
     };
     const playSound = (url: string) => {
-      console.log("playSound", url);
       const audio = new Audio(url);
       audio.play()
     };
