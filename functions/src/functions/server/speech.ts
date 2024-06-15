@@ -42,15 +42,15 @@ export const generate = async (req: express.Request, res: express.Response) => {
     res.json({ success:false, reason:`invalid word: ${word}` });
     return;
   }
-  if (data.speach) {
-    res.json({ success:false, reason:`already have: ${data.speach}` });
+  if (data.voice) {
+    res.json({ success:false, reason:`already have: ${data.voice}` });
     return;
   }
 
   const uniqueId = uuidv4();
   const url = await sound(`words/${uniqueId}.mp3`, word);
   await docRef.update({
-    speach: url,    
+    voice: url,    
   })
 
   res.json({ success:true, word, url });

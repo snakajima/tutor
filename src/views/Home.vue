@@ -14,7 +14,8 @@
       <div v-if="wordData" class="m-1 ml-2">
         <div>
           <span class="text-3xl">{{ wordData.word }}</span>
-          <span v-if="wordData.speach" @click="playSound(wordData.speach)">play</span>
+          <span class="material-icons ml-2 cursor-pointer" v-if="wordData.voice" @click="playSound(wordData.voice)">volume_up</span>
+          <span class="material-icons ml-2 cursor-pointer" v-else @click="generateSound(wordData.word)">volume_down</span>
         </div>
         <div v-if="wordData.result">
           <div class="mt-2 font-bold"><Toggle :flag="flags.samples" @toggle="toggle('samples')">例文</Toggle></div>
@@ -160,6 +161,12 @@ export default defineComponent({
       var audio = new Audio(url);
       audio.play()
     };
+    const generateSound = async (word: string) => {
+      console.log("generateSound", word);
+      const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/sound/${word}`;
+      const res = await fetch(url);
+      console.log(res.status);
+    };
     return {
       words,
       selectWord,
@@ -171,6 +178,7 @@ export default defineComponent({
       sampleFlags,
       toggleSample,
       playSound,
+      generateSound,
     };
   },
 });
