@@ -15,7 +15,7 @@
         <div>
           <span class="text-3xl">{{ wordData.word }}</span>
           <span class="material-icons ml-2 cursor-pointer" v-if="wordData.voice" @click="playSound(wordData.voice)">volume_up</span>
-          <span class="material-icons ml-2 cursor-pointer" v-else @click="generateWordVoice(wordData.word)">volume_down</span>
+          <span class="material-icons ml-2 cursor-pointer" v-else @click="generateWordVoice(wordData.word)">volume_up</span>
         </div>
         <div v-if="wordData.result">
           <div class="mt-2 font-bold"><Toggle :flag="flags.samples" @toggle="toggle('samples')">例文</Toggle></div>
@@ -24,7 +24,7 @@
               <div>
                 <Toggle :flag="sampleFlags[index]" @toggle="toggleSample(index)">{{ item.en }}</Toggle>
                 <span class="material-icons ml-2 cursor-pointer" v-if="item.voice" @click="playSound(item.voice)">volume_up</span>
-                <span class="material-icons ml-2 cursor-pointer" v-else @click="generateSampleVoice(wordData.word, index)">volume_down</span>
+                <span class="material-icons ml-2 cursor-pointer" v-else @click="generateSampleVoice(wordData.word, index)">volume_up</span>
               </div>
               <div class="ml-2" v-if="sampleFlags[index]">{{ item.jp }}</div>
             </div>
