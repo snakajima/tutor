@@ -48,7 +48,7 @@ export const generate = async (req: express.Request, res: express.Response) => {
   }
 
   const uniqueId = uuidv4();
-  const url = await sound(`words/${uniqueId}.mp3`, word);
+  const url = await sound(`words/${uniqueId}.mp3`, word + ". "); // ". " (to improve the quality)
   await docRef.update({
     voice: url,    
   })
