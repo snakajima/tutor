@@ -1,5 +1,6 @@
 import * as express from "express";
 import { register, initialize } from "./graph";
+import { generate } from "./speech";
 
 export const app = express();
 
@@ -13,4 +14,5 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.get("/api/register/:bookid/:word", register);
 app.get("/api/init", initialize);
+app.get("/app/sound/:word", generate);
 
