@@ -158,7 +158,7 @@ export default defineComponent({
     };
     const playSound = (url: string) => {
       console.log("playSound", url);
-      var audio = new Audio(url);
+      const audio = new Audio(url);
       audio.play()
     };
     const generateSound = async (word: string) => {
