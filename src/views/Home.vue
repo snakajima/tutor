@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="basis-3/4 text-left h-screen overflow-y-auto">
+    <div class="basis-3/4 text-left">
       <div v-if="wordData" class="m-1 ml-2">
         <div>
           <span class="text-3xl">{{ wordData.word }}</span>
@@ -49,7 +49,7 @@
               <span class="font-bold">{{ item.word }}</span> : {{ item.jp }}
             </div>
           </div>
-          <div class="mt-2 font-bold" v-if="wordData.result.antonym"><Toggle :flag="flags.similar" @toggle="toggle('antonym')">反対語</Toggle></div>
+          <div class="mt-2 font-bold" v-if="wordData.result.antonym"><Toggle :flag="flags.antonym" @toggle="toggle('antonym')">反対語</Toggle></div>
           <div class="ml-2" v-if="flags.antonym">
             <div v-for="item in wordData.result.antonym" :key="item.word">
               <span class="font-bold">{{ item.word }}</span> : {{ item.jp }}
@@ -57,7 +57,7 @@
           </div>
           <div class="mt-2 font-bold"><Toggle :flag="flags.root" @toggle="toggle('root')">語源</Toggle></div>
           <div class="ml-2" v-if="flags.root" v-html="md.render(wordData.result.root)" />
-          <div class="mt-2 font-bold" v-if="wordData.result.story"><Toggle :flag="flags.samples" @toggle="toggle('story')">読み物</Toggle></div>
+          <div class="mt-2 font-bold" v-if="wordData.result.story"><Toggle :flag="flags.story" @toggle="toggle('story')">読み物</Toggle></div>
           <div v-if="flags.story">
             <div class="ml-2" v-html="md.render(wordData.result.story)" />
             <div class="mt-2 font-bold"><Toggle :flag="flags.vocab" @toggle="toggle('vocab')">読み物中の単語</Toggle></div>
