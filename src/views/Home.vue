@@ -1,12 +1,17 @@
 <template>
   <div class="flex flex-row">
-    <div class="basis-1/4 bg-indigo-500 text-white text-lg h-screen overflow-y-auto">
-      <div v-for="word in words" @click="selectWord(word)" :key="word">
-        <div class="font-bold" v-if="word === selectedWord">
-          {{ word }}
-        </div>
-        <div v-else>
-          {{ word }}
+    <div class="basis-1/4 bg-indigo-500 text-white text-lg">
+      <div v-for="book in books" in words>
+        {{ book.title }}
+      </div>
+      <div class=" h-screen overflow-y-auto bg-indigo-400">
+        <div v-for="word in words" @click="selectWord(word)" :key="word">
+          <div class="font-bold" v-if="word === selectedWord">
+            {{ word }}
+          </div>
+          <div v-else>
+            {{ word }}
+          </div>
         </div>
       </div>
     </div>
@@ -87,6 +92,16 @@ export default defineComponent({
   setup() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const unsubs = {} as Record<string, any>;
+    const books = ref<Array<Record<string, string>>>([{
+      id: "book1",
+      title: "Sample 1"
+    },{
+      id: "book2",
+      title: "Sample 2"
+    },{
+      id: "wordle",
+      title: "Wordle"
+    }]);
     const book = ref<string>("wordle");
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
@@ -178,6 +193,7 @@ export default defineComponent({
       playSound(result.url);
     };
     return {
+      books,
       words,
       selectWord,
       selectedWord,
