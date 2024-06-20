@@ -3,7 +3,7 @@ import * as admin from "firebase-admin";
 import * as express from "express";
 import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
-import { graph_tutor } from "../graphs/tutor";
+import { graph_tutor } from "../graphs/tutor_g";
 
 if (!admin.apps.length) {
   admin.initializeApp();

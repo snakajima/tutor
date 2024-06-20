@@ -2313,8 +2313,8 @@ const wordle:Array<string> = [
     "rower",
     "artsy",
     "rural",
-    "shave"
-],
+    "shave"];
+/*
 "valid": [
     "aahed",
     "aalii",
@@ -12974,3 +12974,6 @@ const wordle:Array<string> = [
     "zymes",
     "zymic"
 ];
+*/
+
+console.log(wordle);

@@ -116,7 +116,7 @@ export default defineComponent({
         console.log(words.value.length);
       }
     };
-    openBook("book1");
+    openBook("book2");
 
     const selectWord = async (word: string) => {
       const unsub = unsubs.word;
@@ -134,7 +134,7 @@ export default defineComponent({
       if (data) {
         wordData.value = data;
       } else {
-        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/book1/${word}`;
+        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/book2/${word}`;
         const res = await fetch(url);
         console.log(res.status);
       }
