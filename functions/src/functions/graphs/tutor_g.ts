@@ -37,7 +37,9 @@ export const graph_tutor = {
       params: {
         model: "gemini-1.5-flash",
         apiKey: ":apiKey",
-        system: "あなたは英語の教師です。与えられた単語の意味を日本語で説明してください。",
+        system: "あなたの役割は英和の辞書を作ることです。与えられた単語の意味を以下の例に従って説明してください。\n" +
+          "[Sample]\n" +
+          "arrogant【形】〔他人より自分の方が優秀だと思って態度が〕傲慢［尊大・横柄］な、思い上がった【名】arrogance【副】arrogantly",
       },
       inputs: { prompt: ":word" },
     },
@@ -122,7 +124,7 @@ export const graph_tutor = {
       params: {
         model: "gemini-1.5-flash",
         apiKey: ":apiKey",
-        system: "Write a short story using the given word multiple times within 200 words.",
+        system: "You are a story writer. Write a short story using the given word multiple times within 200 words. Do no ask any question. Just write it.",
       },
       inputs: { prompt: ":word" },
     },
