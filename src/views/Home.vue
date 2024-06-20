@@ -3,7 +3,7 @@
     <div class="basis-1/4 bg-indigo-500 text-white text-lg">
       <div v-for="book in books" class="cursor-pointer" @click="selectBook(book.id)" :key="book.id">
         <div class="font-bold" v-if="book.id === bookId">
-          {{ book.title }}
+          ・{{ book.title }}・
         </div>
         <div v-else>
           {{ book.title }}
@@ -12,7 +12,7 @@
       <div class=" h-screen overflow-y-auto bg-indigo-400">
         <div v-for="word in words" class="cursor-pointer" @click="selectWord(word)" :key="word">
           <div class="font-bold" v-if="word === selectedWord">
-            {{ word }}
+            ・{{ word }}・
           </div>
           <div v-else>
             {{ word }}
