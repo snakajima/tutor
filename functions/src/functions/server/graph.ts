@@ -3,7 +3,8 @@ import * as admin from "firebase-admin";
 import * as express from "express";
 import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
-import { graph_tutor } from "../graphs/tutor_g";
+import * as tutor_gemini from "../graphs/tutor_g";
+import * as tutor_openai from "../graphs/tutor";
 import { wordle } from "./wordle";
 
 if (!admin.apps.length) {
@@ -18,7 +19,7 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
   console.log("onCreate", snapshot.data(), word);
   const doc = db.doc(`/words/${word}`);
 
-  const graph_data:GraphData = {
+  const graph_data_gemini:GraphData = {
     version: 0.3,
     nodes: {
       tutor: {
@@ -28,28 +29,43 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
           word,
         },
         isResult: true,
-        graph: graph_tutor
+        graph: tutor_gemini.graph_tutor
       },
     }
   };
-  const update = async () => {
+  const graph_data_openai:GraphData = {
+    version: 0.3,
+    nodes: {
+      tutor: {
+        agent: "nestedAgent",
+        inputs: {
+          apiKey: process.env.OPENAI_API_KEY,
+          word,
+        },
+        isResult: true,
+        graph: tutor_openai.graph_tutor
+      },
+    }
+  };
+  const update = async (graph_data: GraphData, model: string) => {
     const graph = new GraphAI(graph_data, agents);
     const result = await graph.run();
     await doc.update({
       result: result.tutor,
       nograph: false,
+      model,
     })
   }
 
   try {
-    await update();
+    await update(graph_data_gemini, "gemini-1.5-flash");
   } catch(e) {
     console.warn("first catch", e);
     try {
-      await update();
+      await update(graph_data_openai, "gpt-4o");
     } catch(e2) {
       console.warn("second catch", e2);
-      await update();
+      await update(graph_data_openai, "gpt-4o");
     }
   }
 };

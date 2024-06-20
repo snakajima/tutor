@@ -87,6 +87,7 @@ export default defineComponent({
   setup() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const unsubs = {} as Record<string, any>;
+    const book = ref<string>("wordle");
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
     const sampleFlags = ref<Array<boolean>>([]);
@@ -116,7 +117,7 @@ export default defineComponent({
         console.log(words.value.length);
       }
     };
-    openBook("book2");
+    openBook(book.value);
 
     const selectWord = async (word: string) => {
       const unsub = unsubs.word;
@@ -134,7 +135,7 @@ export default defineComponent({
       if (data) {
         wordData.value = data;
       } else {
-        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/book2/${word}`;
+        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/${book.value}/${word}`;
         const res = await fetch(url);
         console.log(res.status);
       }
