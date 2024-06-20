@@ -1,11 +1,16 @@
 <template>
   <div class="flex flex-row">
     <div class="basis-1/4 bg-indigo-500 text-white text-lg">
-      <div v-for="book in books" in words>
-        {{ book.title }}
+      <div v-for="book in books" class="cursor-pointer" @click="selectBook(book.id)" :key="book.id">
+        <div class="font-bold" v-if="book.id === bookId">
+          {{ book.title }}
+        </div>
+        <div v-else>
+          {{ book.title }}
+        </div>
       </div>
       <div class=" h-screen overflow-y-auto bg-indigo-400">
-        <div v-for="word in words" @click="selectWord(word)" :key="word">
+        <div v-for="word in words" class="cursor-pointer" @click="selectWord(word)" :key="word">
           <div class="font-bold" v-if="word === selectedWord">
             {{ word }}
           </div>
@@ -94,15 +99,15 @@ export default defineComponent({
     const unsubs = {} as Record<string, any>;
     const books = ref<Array<Record<string, string>>>([{
       id: "book1",
-      title: "Sample 1"
+      title: "Toeic 500"
     },{
       id: "book2",
-      title: "Sample 2"
+      title: "Toeic 700"
     },{
       id: "wordle",
       title: "Wordle"
     }]);
-    const book = ref<string>("wordle");
+    const bookId = ref<string>("");
     const words = ref<Array<string>>([]);
     const flags = ref<Record<string, boolean>>({});
     const sampleFlags = ref<Array<boolean>>([]);
@@ -123,8 +128,10 @@ export default defineComponent({
     onUnmounted(() => {
       cleanup();
     });
-    const openBook = async (bookId: string) => {
-      const refDoc = doc(db, `/books/${bookId}`);
+    const selectBook = async (book_id: string) => {
+      bookId.value = book_id;
+      words.value = [];
+      const refDoc = doc(db, `/books/${book_id}`);
       const docBook = await getDoc(refDoc);
       const data = docBook.data();
       if (data) {
@@ -132,7 +139,7 @@ export default defineComponent({
         console.log(words.value.length);
       }
     };
-    openBook(book.value);
+    selectBook("book1");
 
     const selectWord = async (word: string) => {
       const unsub = unsubs.word;
@@ -150,7 +157,7 @@ export default defineComponent({
       if (data) {
         wordData.value = data;
       } else {
-        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/${book.value}/${word}`;
+        const url = `https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/register/${bookId.value}/${word}`;
         const res = await fetch(url);
         console.log(res.status);
       }
@@ -193,10 +200,12 @@ export default defineComponent({
       playSound(result.url);
     };
     return {
+      bookId,
       books,
       words,
       selectWord,
       selectedWord,
+      selectBook,
       wordData,
       md,
       toggle,
