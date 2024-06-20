@@ -4,6 +4,7 @@ import * as express from "express";
 import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
 import { graph_tutor } from "../graphs/tutor_g";
+import { wordle } from "./wordle";
 
 if (!admin.apps.length) {
   admin.initializeApp();
@@ -23,7 +24,7 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
       tutor: {
         agent: "nestedAgent",
         inputs: {
-          apiKey: process.env.OPENAI_API_KEY,
+          apiKey: process.env.GOOGLE_GENAI_API_KEY,
           word,
         },
         isResult: true,
@@ -82,6 +83,7 @@ export const register = async (req: express.Request, res: express.Response) => {
 };
 
 export const initialize = async (req: express.Request, res: express.Response) => {
+  /*
   const words = ["accommodate", "acquire", "adapt", "adequate", "advocate", "affect", "aggregate", "alternative", 
     "amend", "anticipate", "approximate", "assess", "assist", "attribute", "award", "benchmark", "bias", 
     "blend", "boost", "brief", "budget", "canonical", "capacity", "challenge", "circulate", "clarify", "coherent", 
@@ -140,6 +142,11 @@ export const initialize = async (req: express.Request, res: express.Response) =>
     title: "Intermediate 2",
     words: words2,
   });
-    
-  res.json({ success:true, words });
+  */
+  await db.doc("/books/wordle").create({
+    title: "Wordle",
+    words: wordle,
+  });
+
+  res.json({ success:true, wordle });
 };
