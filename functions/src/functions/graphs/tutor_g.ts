@@ -6,9 +6,9 @@ export const graph_tutor = {
   version: 0.3,
   nodes: {
     meaning_llm: {
-      agent: "openAIAgent",
+      agent: "geminiAgent",
       params: {
-        model: "gpt-4o",
+        model: "gemini-pro",
         apiKey: ":apiKey",
         system: "You are a dictionary writer. Write the meaning of the given word.\n" +
           "[Sample]" +
@@ -33,9 +33,9 @@ export const graph_tutor = {
       inputs: [":meaning_llm.choices.$0.message.content"],
     },
     meaning_jp_llm: {
-      agent: "openAIAgent",
+      agent: "geminiAgent",
       params: {
-        model: "gpt-4o",
+        model: "gemini-pro",
         apiKey: ":apiKey",
         system: "あなたは英語の教師です。与えられた単語の意味を日本語で説明してください。",
       },
@@ -47,25 +47,28 @@ export const graph_tutor = {
       inputs: [":meaning_jp_llm.choices.$0.message.content"],
     },
     samples_llm: {
-      agent: "openAIAgent",
+      agent: "geminiAgent",
       params: {
-        model: "gpt-4o",
+        model: "gemini-pro",
         apiKey: ":apiKey",
         system:
           "与えられた単語を含む、英語の文章を10個作って、日本語に訳して。あまり難しい単語は使わずに。フォーマットはJSONで、以下のフォーマットで。\n" +
-          "```json\n[{\"en\":\"Hello.\", \"jp\":\"こんにちは。\"]\n```",
+          "```json\n[{\"en\":\"Hello.\", \"jp\":\"こんにちは。\"}]\n```",
       },
       inputs: { prompt: ":word" },
     },
     samples: {
       agent: "jsonParserAgent",
+      console: {
+        before: true
+      },
       isResult: true,
       inputs: [":samples_llm.choices.$0.message.content"],
     },
     similar_llm: {
-      agent: "openAIAgent",
+      agent: "geminiAgent",
       params: {
-        model: "gpt-4o",
+        model: "gemini-pro",
         apiKey: ":apiKey",
         system:
           "与えられた英単語と類似する意味の英単語をいくつか並べて、日本語で違いを説明して。フォーマットはJSONで、以下のフォーマットで。\n" +
@@ -75,13 +78,16 @@ export const graph_tutor = {
     },
     similar: {
       agent: "jsonParserAgent",
+      console: {
+        before: true
+      },
       isResult: true,
       inputs: [":similar_llm.choices.$0.message.content"],
     },
     antonym_llm: {
-      agent: "openAIAgent",
+      agent: "geminiAgent",
       params: {
-        model: "gpt-4o",
+        model: "gemini-pro",
         apiKey: ":apiKey",
         system:
           "与えられた英単語と反対の意味を持つ英単語をいくつか並べて、日本語で違いを説明して。フォーマットはJSONで、以下のフォーマットで。\n" +
@@ -91,13 +97,16 @@ export const graph_tutor = {
     },
     antonym: {
       agent: "jsonParserAgent",
+      console: {
+        before: true
+      },
       isResult: true,
       inputs: [":antonym_llm.choices.$0.message.content"],
     },
     root_llm: {
-      agent: "openAIAgent",
+      agent: "geminiAgent",
       params: {
-        model: "gpt-4o",
+        model: "gemini-pro",
         apiKey: ":apiKey",
         system: "あなたは英語の教師です。与えられた単語の語源を日本語で解説して。",
       },
@@ -109,9 +118,9 @@ export const graph_tutor = {
       inputs: [":root_llm.choices.$0.message.content"],
     },
     story_llm: {
-      agent: "openAIAgent",
+      agent: "geminiAgent",
       params: {
-        model: "gpt-4o",
+        model: "gemini-pro",
         apiKey: ":apiKey",
         system: "Write a short story using the given word multiple times within 200 words.",
       },
@@ -123,18 +132,21 @@ export const graph_tutor = {
       inputs: [":story_llm.choices.$0.message.content"],
     },
     vocab_llm: {
-      agent: "openAIAgent",
+      agent: "geminiAgent",
       params: {
-        model: "gpt-4o",
+        model: "gemini-pro",
         apiKey: ":apiKey",
         system:
           "あなたは英語の教師です。与えられた文章から、比較的難しい英単語を１０個選び、過去形・複数形のものは現在形・単数形に戻した上で、文章中での日本語に訳して。フォーマットはJSONで、以下のフォーマットで。\n" +
-          "```json\n[{\"en\":\"Hello.\", \"jp\":\"こんにちは。\"]\n```",
+          "```json\n[{\"en\":\"Hello.\", \"jp\":\"こんにちは。\"}]\n```",
       },
       inputs: { prompt: ":story" },
     },
     vocab: {
       agent: "jsonParserAgent",
+      console: {
+        before: true
+      },
       isResult: true,
       inputs: [":vocab_llm.choices.$0.message.content"],
     },
@@ -154,7 +166,7 @@ const main = async () => {
       tutor: {
         agent: "nestedAgent",
         inputs: {
-          apiKey: process.env.OPENAI_API_KEY,
+          apiKey: process.env.GOOGLE_GENAI_API_KEY,
           word: ":word",
         },
         isResult: true,
