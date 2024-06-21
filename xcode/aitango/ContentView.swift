@@ -41,7 +41,7 @@ struct Book: Hashable {
     enum State {
         case idle
         case loading
-        case failed(Error)
+        case failed
         case loaded
     }
     private(set) var state = State.idle
@@ -56,11 +56,14 @@ struct Book: Hashable {
     
     public func load() {
         let ref = db.document("words/" + word)
+        self.state = .loading
         ref.getDocument { [weak self] snapshot, error in
             guard let self else { return }
             if ((error) != nil) {
+                self.state = .failed
                 print("no document")
             } else {
+                self.state = .loaded
                 let data = snapshot?.data()
                 print(word, data?["nograph"] ?? "N/A")
             }
@@ -80,9 +83,13 @@ struct DictionaryView: View {
                 Color.clear.onAppear(perform: {
                     wordInfo.load()
                 })
-            default:
+            case .loading:
+                Text("loading")
+            case .loaded:
                 Text(self.wordInfo.word)
                 Text(self.wordInfo.path)
+            default:
+                Text("Something else")
             }
         }
     }
