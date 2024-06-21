@@ -50,7 +50,7 @@ struct Book: Hashable {
     public var word: String
     public var path: String
     
-    public var meaning: String?
+    public var meaning: LocalizedStringKey?
     
     init(word: String, path: String) {
         self.word = word
@@ -64,7 +64,7 @@ struct Book: Hashable {
         guard let result = data["result"] as? Dictionary<String, Any> else {
             return
         }
-        meaning = result["meaning"] as? String
+        meaning = LocalizedStringKey(result["meaning"] as! String)
     }
     
     public func load() {
