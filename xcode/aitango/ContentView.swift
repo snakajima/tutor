@@ -37,6 +37,19 @@ struct Book: Hashable {
     }
 }
 
+struct DictionaryView: View {
+    private var word: String
+    init(word: String) {
+        self.word = word
+    }
+    var body: some View {
+        VStack {
+            Text(self.word)
+            Text(self.word)
+        }
+    }
+}
+
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
@@ -53,7 +66,7 @@ struct ContentView: View {
                             List {
                                 ForEach(book.words, id: \.self) { word in
                                     NavigationLink {
-                                        Text(word)
+                                        DictionaryView(word: word)
                                     } label: {
                                         Text(word)
                                     }
