@@ -38,12 +38,23 @@ struct Book: Hashable {
 }
 
 @Observable class WordInfo {
+    enum State {
+        case idle
+        case loading
+        case failed(Error)
+        case loaded
+    }
+    private(set) var state = State.idle
+    
     private var db = Firestore.firestore()
     public var word: String
     public var path: String
     init(word: String, path: String) {
         self.word = word
         self.path = path
+    }
+    
+    public func load() {
         let ref = db.document("words/" + word)
         ref.getDocument { [weak self] snapshot, error in
             guard let self else { return }
@@ -64,8 +75,15 @@ struct DictionaryView: View {
     }
     var body: some View {
         VStack {
-            Text(self.wordInfo.word)
-            Text(self.wordInfo.path)
+            switch wordInfo.state {
+            case .idle:
+                Color.clear.onAppear(perform: {
+                    wordInfo.load()
+                })
+            default:
+                Text(self.wordInfo.word)
+                Text(self.wordInfo.path)
+            }
         }
     }
 }
