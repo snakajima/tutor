@@ -52,11 +52,20 @@ struct Book: Hashable {
     
     public var meaning: LocalizedStringKey?
     public var meaning_jp: LocalizedStringKey?
+    public var listner: ListenerRegistration?
     
     init(word: String, path: String) {
         self.word = word
         self.path = path
     }
+    
+    deinit {
+        if let listner = listner {
+            listner.remove()
+            print("deinit", self.word)
+        }
+    }
+
     private func populate(data: Dictionary<String, Any>) {
         let nograph = data["nograph"] as! Bool
         if (nograph) {
@@ -74,11 +83,18 @@ struct Book: Hashable {
         self.state = .loading
         ref.getDocument { [weak self] snapshot, error in
             guard let self else { return }
-            let data = snapshot?.data()
-            if (data != nil) {
+            
+            if let data = snapshot?.data() {
                 self.state = .loaded
-                populate(data: data!)
-                print(word, data?["nograph"] ?? "N/A")
+                populate(data: data)
+                
+                listner = ref.addSnapshotListener{ [weak self] snapshot, error in
+                    guard let self else { return }
+                    print("updated", word)
+                    if let data = snapshot?.data() {
+                        populate(data: data)
+                    }
+                }
             } else {
                 self.state = .nodata
             }
