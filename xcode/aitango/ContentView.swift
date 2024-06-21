@@ -39,20 +39,22 @@ struct Book: Hashable {
 
 @Observable class WordInfo {
     public var word: String
-    init(word: String) {
+    public var path: String
+    init(word: String, path: String) {
         self.word = word
+        self.path = path
     }
 }
 
 struct DictionaryView: View {
     private var wordInfo: WordInfo
-    init(word: String) {
-        self.wordInfo = WordInfo(word: word)
+    init(word: String, path: String) {
+        self.wordInfo = WordInfo(word: word, path: path)
     }
     var body: some View {
         VStack {
             Text(self.wordInfo.word)
-            Text(self.wordInfo.word)
+            Text(self.wordInfo.path)
         }
     }
 }
@@ -73,7 +75,7 @@ struct ContentView: View {
                             List {
                                 ForEach(book.words, id: \.self) { word in
                                     NavigationLink {
-                                        DictionaryView(word: word)
+                                        DictionaryView(word: word, path: "register/" + book.id)
                                     } label: {
                                         Text(word)
                                     }
