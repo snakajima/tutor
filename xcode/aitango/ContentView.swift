@@ -88,6 +88,9 @@ struct Book: Hashable {
 
 struct DictionaryView: View {
     private var model: WordModel
+    @State private var isMeaningVisible: Bool = false
+    @State private var isMeaningJPVisible: Bool = false
+
     init(word: String, path: String) {
         self.model = WordModel(word: word, path: path)
     }
@@ -104,10 +107,23 @@ struct DictionaryView: View {
                 Text("No Data")
             case .loaded:
                 if ((model.meaning) != nil) {
-                    Text(model.meaning!)
+                    if (isMeaningVisible) {
+                        Text("閉じる").onTapGesture {
+                            isMeaningVisible = false
+                        }
+                        Text(model.meaning!)
+                    } else {
+                        Text("意味（英語）").onTapGesture {
+                            isMeaningVisible = true
+                        }
+                    }
                 }
                 if ((model.meaning_jp) != nil) {
-                    Text(model.meaning_jp!)
+                    if (isMeaningJPVisible) {
+                        Text(model.meaning_jp!)
+                    } else {
+                        Text("意味（日本語）")
+                    }
                 }
                 Text(model.path)
             }
