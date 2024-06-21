@@ -15,7 +15,7 @@ struct Book: Hashable {
     var words: [String]
 }
 
-@Observable class ChatService {
+@Observable class StoreBooks {
     public var books: [Book] = []
     private var db = Firestore.firestore()
     
@@ -40,7 +40,7 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    private var foo = ChatService()
+    private var books = StoreBooks()
     
     var body: some View {
         NavigationSplitView {
