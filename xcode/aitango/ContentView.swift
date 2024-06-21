@@ -41,7 +41,7 @@ struct Book: Hashable {
     enum State {
         case idle
         case loading
-        case failed
+        case nodata
         case loaded
     }
     private(set) var state = State.idle
@@ -49,9 +49,22 @@ struct Book: Hashable {
     private var db = Firestore.firestore()
     public var word: String
     public var path: String
+    
+    public var meaning: String?
+    
     init(word: String, path: String) {
         self.word = word
         self.path = path
+    }
+    private func populate(data: Dictionary<String, Any>) {
+        let nograph = data["nograph"] as! Bool
+        if (nograph) {
+            return
+        }
+        guard let result = data["result"] as? Dictionary<String, Any> else {
+            return
+        }
+        meaning = result["meaning"] as? String
     }
     
     public func load() {
@@ -59,13 +72,13 @@ struct Book: Hashable {
         self.state = .loading
         ref.getDocument { [weak self] snapshot, error in
             guard let self else { return }
-            if ((error) != nil) {
-                self.state = .failed
-                print("no document")
-            } else {
+            let data = snapshot?.data()
+            if (data != nil) {
                 self.state = .loaded
-                let data = snapshot?.data()
+                populate(data: data!)
                 print(word, data?["nograph"] ?? "N/A")
+            } else {
+                self.state = .nodata
             }
         }
     }
@@ -85,11 +98,13 @@ struct DictionaryView: View {
                 })
             case .loading:
                 Text("loading")
+            case .nodata:
+                Text("No Data")
             case .loaded:
-                Text(model.word)
+                if ((model.meaning) != nil) {
+                    Text(model.meaning!)
+                }
                 Text(model.path)
-            default:
-                Text("Something else")
             }
         }
     }
