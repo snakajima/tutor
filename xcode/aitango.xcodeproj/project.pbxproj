@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		744B1E062C25A5DD0052B4AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */; };
+		744B1E092C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 744B1E082C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		74F1892A2C1EA6B3005FA174 /* aitangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F189292C1EA6B3005FA174 /* aitangoApp.swift */; };
 		74F1892C2C1EA6B3005FA174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892B2C1EA6B3005FA174 /* ContentView.swift */; };
 		74F1892E2C1EA6B3005FA174 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892D2C1EA6B3005FA174 /* Item.swift */; };
@@ -15,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74F189262C1EA6B3005FA174 /* aitango.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aitango.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F189292C1EA6B3005FA174 /* aitangoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aitangoApp.swift; sourceTree = "<group>"; };
 		74F1892B2C1EA6B3005FA174 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -29,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				744B1E092C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +58,7 @@
 		74F189282C1EA6B3005FA174 /* aitango */ = {
 			isa = PBXGroup;
 			children = (
+				744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */,
 				74F189292C1EA6B3005FA174 /* aitangoApp.swift */,
 				74F1892B2C1EA6B3005FA174 /* ContentView.swift */,
 				74F1892D2C1EA6B3005FA174 /* Item.swift */,
@@ -88,6 +93,9 @@
 			dependencies = (
 			);
 			name = aitango;
+			packageProductDependencies = (
+				744B1E082C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport */,
+			);
 			productName = aitango;
 			productReference = 74F189262C1EA6B3005FA174 /* aitango.app */;
 			productType = "com.apple.product-type.application";
@@ -116,6 +124,9 @@
 				Base,
 			);
 			mainGroup = 74F1891D2C1EA6B3005FA174;
+			packageReferences = (
+				744B1E072C25A8C40052B4AE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 74F189272C1EA6B3005FA174 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -132,6 +143,7 @@
 			files = (
 				74F189342C1EA6B4005FA174 /* Preview Assets.xcassets in Resources */,
 				74F189302C1EA6B4005FA174 /* Assets.xcassets in Resources */,
+				744B1E062C25A5DD0052B4AE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +375,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		744B1E072C25A8C40052B4AE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		744B1E082C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 744B1E072C25A8C40052B4AE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 74F1891E2C1EA6B3005FA174 /* Project object */;
 }
