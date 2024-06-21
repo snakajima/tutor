@@ -48,7 +48,15 @@ struct ContentView: View {
             List {
                 ForEach(books.books, id: \.id) { book in
                     NavigationLink {
-                        Text(book.words[0])
+                        List {
+                            ForEach(book.words, id: \.self) { word in
+                                NavigationLink {
+                                    Text(word)
+                                } label: {
+                                    Text(word)
+                                }
+                            }
+                        }
                     } label: {
                         Text(book.title)
                     }
