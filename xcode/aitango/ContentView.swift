@@ -51,6 +51,7 @@ struct Book: Hashable {
     public var path: String
     
     public var meaning: LocalizedStringKey?
+    public var meaning_jp: LocalizedStringKey?
     
     init(word: String, path: String) {
         self.word = word
@@ -65,6 +66,7 @@ struct Book: Hashable {
             return
         }
         meaning = LocalizedStringKey(result["meaning"] as! String)
+        meaning_jp = LocalizedStringKey(result["meaning_jp"] as! String)
     }
     
     public func load() {
@@ -103,6 +105,9 @@ struct DictionaryView: View {
             case .loaded:
                 if ((model.meaning) != nil) {
                     Text(model.meaning!)
+                }
+                if ((model.meaning_jp) != nil) {
+                    Text(model.meaning_jp!)
                 }
                 Text(model.path)
             }
