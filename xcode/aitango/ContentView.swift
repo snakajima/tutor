@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Book: Hashable {
-    let id = UUID()
+    var id: String
     var title: String
     var words: [String]
 }
@@ -30,8 +30,8 @@ struct Book: Hashable {
                 }
                 self.books = documents.compactMap { snapshot -> Book in
                     let document = snapshot.data()
-                    print("doc=", document["title"] ?? "N/A")
-                    return Book(title: document["title"] as! String, words: document["words"] as! [String])
+                    print("doc=", document["title"] ?? "N/A", snapshot.documentID)
+                    return Book(id: snapshot.documentID, title: document["title"] as! String, words: document["words"] as! [String])
                 }
             }
     }
@@ -48,7 +48,7 @@ struct ContentView: View {
             List {
                 ForEach(books.books, id: \.id) { book in
                     NavigationLink {
-                        Text(book.title)
+                        Text(book.words[0])
                     } label: {
                         Text(book.title)
                     }
