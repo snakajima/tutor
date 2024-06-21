@@ -16,7 +16,7 @@ struct Book: Hashable {
     var words: [String]
 }
 
-@Observable class StoreBooks {
+@Observable class BooksModel {
     public var books: [Book] = []
     private var db = Firestore.firestore()
     
@@ -37,7 +37,7 @@ struct Book: Hashable {
     }
 }
 
-@Observable class WordInfo {
+@Observable class WordModel {
     enum State {
         case idle
         case loading
@@ -72,22 +72,22 @@ struct Book: Hashable {
 }
 
 struct DictionaryView: View {
-    private var wordInfo: WordInfo
+    private var model: WordModel
     init(word: String, path: String) {
-        self.wordInfo = WordInfo(word: word, path: path)
+        self.model = WordModel(word: word, path: path)
     }
     var body: some View {
         VStack {
-            switch wordInfo.state {
+            switch model.state {
             case .idle:
                 Color.clear.onAppear(perform: {
-                    wordInfo.load()
+                    model.load()
                 })
             case .loading:
                 Text("loading")
             case .loaded:
-                Text(self.wordInfo.word)
-                Text(self.wordInfo.path)
+                Text(model.word)
+                Text(model.path)
             default:
                 Text("Something else")
             }
@@ -99,7 +99,7 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    private var books = StoreBooks()
+    private var books = BooksModel()
     
     var body: some View {
         NavigationStack {
