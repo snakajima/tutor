@@ -24,6 +24,7 @@ struct aitangoApp: App {
         }
     }()
 
+    // https://peterfriese.dev/blog/2020/swiftui-new-app-lifecycle-firebase/#start-using-the-swiftui-app-life-cycle
     init() {
         FirebaseApp.configure()
     }

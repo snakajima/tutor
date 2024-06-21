@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		744B1E062C25A5DD0052B4AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */; };
 		744B1E092C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 744B1E082C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		744B1E0C2C25D8B00052B4AE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 744B1E0B2C25D8B00052B4AE /* FirebaseFirestore */; };
+		744B1E0E2C25D8B60052B4AE /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 744B1E0D2C25D8B60052B4AE /* FirebaseDatabaseSwift */; };
+		744B1E102C25D9010052B4AE /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 744B1E0F2C25D9010052B4AE /* FirebaseFirestoreSwift */; };
 		74F1892A2C1EA6B3005FA174 /* aitangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F189292C1EA6B3005FA174 /* aitangoApp.swift */; };
 		74F1892C2C1EA6B3005FA174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892B2C1EA6B3005FA174 /* ContentView.swift */; };
 		74F1892E2C1EA6B3005FA174 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892D2C1EA6B3005FA174 /* Item.swift */; };
@@ -18,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		744B1E112C25E72D0052B4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		74F189262C1EA6B3005FA174 /* aitango.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aitango.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F189292C1EA6B3005FA174 /* aitangoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aitangoApp.swift; sourceTree = "<group>"; };
 		74F1892B2C1EA6B3005FA174 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,18 +36,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				744B1E0E2C25D8B60052B4AE /* FirebaseDatabaseSwift in Frameworks */,
 				744B1E092C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				744B1E0C2C25D8B00052B4AE /* FirebaseFirestore in Frameworks */,
+				744B1E102C25D9010052B4AE /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		744B1E0A2C25D8B00052B4AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		74F1891D2C1EA6B3005FA174 = {
 			isa = PBXGroup;
 			children = (
 				74F189282C1EA6B3005FA174 /* aitango */,
 				74F189272C1EA6B3005FA174 /* Products */,
+				744B1E0A2C25D8B00052B4AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +73,7 @@
 		74F189282C1EA6B3005FA174 /* aitango */ = {
 			isa = PBXGroup;
 			children = (
+				744B1E112C25E72D0052B4AE /* Info.plist */,
 				744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */,
 				74F189292C1EA6B3005FA174 /* aitangoApp.swift */,
 				74F1892B2C1EA6B3005FA174 /* ContentView.swift */,
@@ -95,6 +111,9 @@
 			name = aitango;
 			packageProductDependencies = (
 				744B1E082C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport */,
+				744B1E0B2C25D8B00052B4AE /* FirebaseFirestore */,
+				744B1E0D2C25D8B60052B4AE /* FirebaseDatabaseSwift */,
+				744B1E0F2C25D9010052B4AE /* FirebaseFirestoreSwift */,
 			);
 			productName = aitango;
 			productReference = 74F189262C1EA6B3005FA174 /* aitango.app */;
@@ -290,6 +309,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = aitango/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -328,6 +348,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = aitango/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -392,6 +413,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 744B1E072C25A8C40052B4AE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		744B1E0B2C25D8B00052B4AE /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 744B1E072C25A8C40052B4AE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		744B1E0D2C25D8B60052B4AE /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 744B1E072C25A8C40052B4AE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		744B1E0F2C25D9010052B4AE /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 744B1E072C25A8C40052B4AE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

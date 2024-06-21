@@ -7,11 +7,36 @@
 
 import SwiftUI
 import SwiftData
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
+@Observable class ChatService {
+    public var books: [String] = []
+    private var db = Firestore.firestore()
+    
+    init() {
+        db.collection("/books")
+            .addSnapshotListener { [weak self] querySnapshot, error in
+                guard let self else { return }
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents found")
+                    return
+                }
+                self.books = documents.compactMap { snapshot -> String? in
+                    let document = snapshot.data()
+                    print("doc=", document)
+                    return "abc"
+                }
+            }
+    }
+}
 
 struct ContentView: View {
+    
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-
+    private var foo = ChatService()
+    
     var body: some View {
         NavigationSplitView {
             List {
