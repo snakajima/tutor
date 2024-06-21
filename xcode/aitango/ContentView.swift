@@ -107,25 +107,21 @@ struct DictionaryView: View {
                 Text("No Data")
             case .loaded:
                 if ((model.meaning) != nil) {
+                    Button("意味（英語）") {
+                        isMeaningVisible.toggle()
+                    }
                     if (isMeaningVisible) {
-                        Text("閉じる").onTapGesture {
-                            isMeaningVisible = false
-                        }
                         Text(model.meaning!)
-                    } else {
-                        Text("意味（英語）").onTapGesture {
-                            isMeaningVisible = true
-                        }
                     }
                 }
                 if ((model.meaning_jp) != nil) {
+                    Button("意味（日本語）") {
+                        isMeaningJPVisible.toggle()
+                    }
                     if (isMeaningJPVisible) {
                         Text(model.meaning_jp!)
-                    } else {
-                        Text("意味（日本語）")
                     }
                 }
-                Text(model.path)
             }
         }
     }
