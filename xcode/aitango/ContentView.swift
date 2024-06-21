@@ -11,6 +11,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Book: Hashable {
+    let id = UUID()
     var title: String
     var words: [String]
 }
@@ -45,11 +46,11 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+                ForEach(books.books, id: \.id) { book in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text(book.title)
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(book.title)
                     }
                 }
                 .onDelete(perform: deleteItems)
