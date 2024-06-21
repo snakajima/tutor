@@ -38,11 +38,22 @@ struct Book: Hashable {
 }
 
 @Observable class WordInfo {
+    private var db = Firestore.firestore()
     public var word: String
     public var path: String
     init(word: String, path: String) {
         self.word = word
         self.path = path
+        let ref = db.document("words/" + word)
+        ref.getDocument { [weak self] snapshot, error in
+            guard let self else { return }
+            if ((error) != nil) {
+                print("no document")
+            } else {
+                let data = snapshot?.data()
+                print(word, data?["nograph"] ?? "N/A")
+            }
+        }
     }
 }
 
