@@ -37,15 +37,22 @@ struct Book: Hashable {
     }
 }
 
-struct DictionaryView: View {
-    private var word: String
+@Observable class WordInfo {
+    public var word: String
     init(word: String) {
         self.word = word
     }
+}
+
+struct DictionaryView: View {
+    private var wordInfo: WordInfo
+    init(word: String) {
+        self.wordInfo = WordInfo(word: word)
+    }
     var body: some View {
         VStack {
-            Text(self.word)
-            Text(self.word)
+            Text(self.wordInfo.word)
+            Text(self.wordInfo.word)
         }
     }
 }
