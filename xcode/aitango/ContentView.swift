@@ -48,6 +48,7 @@ struct ContentView: View {
             List {
                 ForEach(books.books, id: \.id) { book in
                     NavigationLink {
+                        Text(book.title)
                         List {
                             ForEach(book.words, id: \.self) { word in
                                 NavigationLink {
