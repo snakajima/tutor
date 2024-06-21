@@ -10,22 +10,27 @@ import SwiftData
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+struct Book: Hashable {
+    var title: String
+    var words: [String]
+}
+
 @Observable class ChatService {
-    public var books: [String] = []
+    public var books: [Book] = []
     private var db = Firestore.firestore()
     
     init() {
-        db.collection("/books")
+        db.collection("books")
             .addSnapshotListener { [weak self] querySnapshot, error in
                 guard let self else { return }
                 guard let documents = querySnapshot?.documents else {
                     print("No documents found")
                     return
                 }
-                self.books = documents.compactMap { snapshot -> String? in
+                self.books = documents.compactMap { snapshot -> Book in
                     let document = snapshot.data()
-                    print("doc=", document)
-                    return "abc"
+                    print("doc=", document["title"] ?? "N/A")
+                    return Book(title: document["title"] as! String, words: document["words"] as! [String])
                 }
             }
     }
