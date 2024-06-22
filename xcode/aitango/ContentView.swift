@@ -52,6 +52,7 @@ struct Book: Hashable {
     public var word: String
     public var path: String
     
+    public var samples: [Dictionary<String, String>]?
     public var meaning: LocalizedStringKey?
     public var meaning_jp: LocalizedStringKey?
     public var listner: ListenerRegistration?
@@ -77,6 +78,7 @@ struct Book: Hashable {
             return
         }
         self.state = .loaded
+        samples = result["samples"] as? [Dictionary<String, String>]
         meaning = LocalizedStringKey(result["meaning"] as! String)
         meaning_jp = LocalizedStringKey(result["meaning_jp"] as! String)
     }
@@ -129,6 +131,7 @@ struct DictionaryView: View {
     private var model: WordModel
     @State private var isMeaningVisible: Bool = false
     @State private var isMeaningJPVisible: Bool = false
+    @State private var isSamplesVisible: Bool = false
 
     init(word: String, path: String) {
         self.model = WordModel(word: word, path: path)
@@ -149,6 +152,14 @@ struct DictionaryView: View {
             case .generating:
                 Text("Generating...")
             case .loaded:
+                if (model.samples != nil) {
+                    Button("例文") {
+                        isSamplesVisible.toggle()
+                    }.font(. system(size: 24))
+                    if (isSamplesVisible) {
+                        Text("...")
+                    }
+                }
                 if ((model.meaning) != nil) {
                     HStack {
                         Button("意味（英語）") {
