@@ -5,6 +5,7 @@
 //  Created by SATOSHI NAKAJIMA on 6/15/24.
 //
 
+import Foundation
 import SwiftUI
 import SwiftData
 import FirebaseFirestore
@@ -42,6 +43,7 @@ struct Book: Hashable {
         case idle
         case loading
         case nodata
+        case generating
         case loaded
     }
     private(set) var state = State.idle
@@ -74,8 +76,37 @@ struct Book: Hashable {
         guard let result = data["result"] as? Dictionary<String, Any> else {
             return
         }
+        self.state = .loaded
         meaning = LocalizedStringKey(result["meaning"] as! String)
         meaning_jp = LocalizedStringKey(result["meaning_jp"] as! String)
+    }
+    public func generate() {
+        self.state = .generating
+        guard let url = URL(string: "https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/" + self.path) else {
+            print("Invalid URL")
+            return
+        }
+        print(url)
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let self else { return }
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            self.addListner()
+        }
+        task.resume()
+    }
+    
+    private func addListner() {
+        let ref = db.document("words/" + word)
+        listner = ref.addSnapshotListener{ [weak self] snapshot, error in
+            guard let self else { return }
+            print("updated", word)
+            if let data = snapshot?.data() {
+                populate(data: data)
+            }
+        }
     }
     
     public func load() {
@@ -85,16 +116,8 @@ struct Book: Hashable {
             guard let self else { return }
             
             if let data = snapshot?.data() {
-                self.state = .loaded
                 populate(data: data)
-                
-                listner = ref.addSnapshotListener{ [weak self] snapshot, error in
-                    guard let self else { return }
-                    print("updated", word)
-                    if let data = snapshot?.data() {
-                        populate(data: data)
-                    }
-                }
+                addListner()
             } else {
                 self.state = .nodata
             }
@@ -120,7 +143,11 @@ struct DictionaryView: View {
             case .loading:
                 Text("loading")
             case .nodata:
-                Text("No Data")
+                Text("No Data").onAppear() {
+                    model.generate()
+                }
+            case .generating:
+                Text("Generating...")
             case .loaded:
                 if ((model.meaning) != nil) {
                     Button("意味（英語）") {
@@ -159,7 +186,7 @@ struct ContentView: View {
                             List {
                                 ForEach(book.words, id: \.self) { word in
                                     NavigationLink {
-                                        DictionaryView(word: word, path: "register/" + book.id)
+                                        DictionaryView(word: word, path: "register/" + book.id + "/" + word)
                                     } label: {
                                         Text(word)
                                     }
