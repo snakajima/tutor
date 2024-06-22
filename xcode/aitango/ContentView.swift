@@ -40,7 +40,6 @@ struct Book: Hashable {
 }
 
 @Observable class WordModel {
-    public var player: AVPlayer?
     private var session = AVAudioSession.sharedInstance()
     
     public func activateSession() {
