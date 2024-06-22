@@ -134,7 +134,7 @@ struct DictionaryView: View {
         self.model = WordModel(word: word, path: path)
     }
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 10) {
             switch model.state {
             case .idle:
                 Color.clear.onAppear(perform: {
@@ -150,8 +150,11 @@ struct DictionaryView: View {
                 Text("Generating...")
             case .loaded:
                 if ((model.meaning) != nil) {
-                    Button("意味（英語）") {
-                        isMeaningVisible.toggle()
+                    HStack {
+                        Button("意味（英語）") {
+                            isMeaningVisible.toggle()
+                        }
+                        Spacer()
                     }
                     if (isMeaningVisible) {
                         Text(model.meaning!)
@@ -165,6 +168,7 @@ struct DictionaryView: View {
                         Text(model.meaning_jp!)
                     }
                 }
+                Spacer()
             }
         }
     }
