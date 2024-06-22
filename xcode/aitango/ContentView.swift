@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 import SwiftUI
 import SwiftData
 import FirebaseFirestore
@@ -39,6 +40,27 @@ struct Book: Hashable {
 }
 
 @Observable class WordModel {
+    public var player: AVPlayer?
+    private var session = AVAudioSession.sharedInstance()
+    
+    public func activateSession() {
+        do {
+            try session.setCategory(
+                .playback,
+                mode: .default,
+                options: []
+            )
+        } catch _ {}
+        
+        do {
+            try session.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch _ {}
+        
+        do {
+            try session.overrideOutputAudioPort(.speaker)
+        } catch _ {}
+    }
+    
     enum State {
         case idle
         case loading
@@ -170,9 +192,21 @@ struct DictionaryView: View {
                             HStack {
                                 Text(sample.en)
                                 Spacer()
-                                Button("Play") {
+                                Button("", systemImage: "speaker.wave.3.fill") {
                                     print("play")
-                                }
+                                    model.activateSession()
+                                    
+                                    let url = URL(fileURLWithPath: "https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/sample/" + model.word + "/" + "0")
+                                    let playerItem: AVPlayerItem = AVPlayerItem(url: url)
+                                    if let player = model.player {
+                                        player.replaceCurrentItem(with: playerItem)
+                                    } else {
+                                        model.player = AVPlayer(playerItem: playerItem)
+                                    }
+                                    
+                                                  if let player = model.player {
+                                        player.play()
+                                    }                                }.font(. system(size: 24))
                             }
                         }
                     }
