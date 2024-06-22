@@ -185,7 +185,9 @@ struct ContentView: View {
                             List {
                                 ForEach(book.words, id: \.self) { word in
                                     NavigationLink {
-                                        DictionaryView(word: word, path: "register/" + book.id + "/" + word).navigationTitle(word)
+                                        DictionaryView(word: word, path: "register/" + book.id + "/" + word)
+                                        .navigationTitle(word)
+                                        .padding([.leading, .trailing], 10)
                                     } label: {
                                         Text(word)
                                     }
