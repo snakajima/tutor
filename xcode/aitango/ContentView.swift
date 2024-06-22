@@ -153,7 +153,7 @@ struct DictionaryView: View {
                     HStack {
                         Button("意味（英語）") {
                             isMeaningVisible.toggle()
-                        }
+                        }.font(. system(size: 24))
                         Spacer()
                     }
                     if (isMeaningVisible) {
@@ -163,7 +163,7 @@ struct DictionaryView: View {
                 if ((model.meaning_jp) != nil) {
                     Button("意味（日本語）") {
                         isMeaningJPVisible.toggle()
-                    }
+                    }.font(. system(size: 24))
                     if (isMeaningJPVisible) {
                         Text(model.meaning_jp!)
                     }
