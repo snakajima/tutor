@@ -167,7 +167,13 @@ struct DictionaryView: View {
                     }.font(. system(size: 24))
                     if (isSamplesVisible) {
                         ForEach(samples, id: \.id) { sample in
-                            Text(sample.en)
+                            HStack {
+                                Text(sample.en)
+                                Spacer()
+                                Button("Play") {
+                                    print("play")
+                                }
+                            }
                         }
                     }
                 }
