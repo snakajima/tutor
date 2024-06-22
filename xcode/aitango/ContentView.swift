@@ -51,8 +51,14 @@ struct Book: Hashable {
     private var db = Firestore.firestore()
     public var word: String
     public var path: String
-    
-    public var samples: [Dictionary<String, String>]?
+
+    struct SampleText: Identifiable {
+        let en: String
+        let jp: String
+        let id = UUID()
+    }
+
+    public var samples: [SampleText]?
     public var meaning: LocalizedStringKey?
     public var meaning_jp: LocalizedStringKey?
     public var listner: ListenerRegistration?
@@ -69,6 +75,7 @@ struct Book: Hashable {
         }
     }
 
+    
     private func populate(data: Dictionary<String, Any>) {
         let nograph = data["nograph"] as! Bool
         if (nograph) {
@@ -78,7 +85,9 @@ struct Book: Hashable {
             return
         }
         self.state = .loaded
-        samples = result["samples"] as? [Dictionary<String, String>]
+        samples = (result["samples"] as! [Dictionary<String, String>]).map { sample in
+            return SampleText(en: sample["en"]!, jp: sample["jp"]!)
+        }
         meaning = LocalizedStringKey(result["meaning"] as! String)
         meaning_jp = LocalizedStringKey(result["meaning_jp"] as! String)
     }
@@ -152,12 +161,14 @@ struct DictionaryView: View {
             case .generating:
                 Text("Generating...")
             case .loaded:
-                if (model.samples != nil) {
+                if let samples = model.samples {
                     Button("例文") {
                         isSamplesVisible.toggle()
                     }.font(. system(size: 24))
                     if (isSamplesVisible) {
-                        Text("...")
+                        ForEach(samples, id: \.id) { sample in
+                            Text(sample.en)
+                        }
                     }
                 }
                 if ((model.meaning) != nil) {
