@@ -77,6 +77,7 @@ struct Book: Hashable {
     struct SampleText: Identifiable {
         let en: String
         let jp: String
+        let voice: String?
         let id = UUID()
     }
 
@@ -108,7 +109,7 @@ struct Book: Hashable {
         }
         self.state = .loaded
         samples = (result["samples"] as! [Dictionary<String, String>]).map { sample in
-            return SampleText(en: sample["en"]!, jp: sample["jp"]!)
+            return SampleText(en: sample["en"]!, jp: sample["jp"]!, voice: sample["voice"])
         }
         meaning = LocalizedStringKey(result["meaning"] as! String)
         meaning_jp = LocalizedStringKey(result["meaning_jp"] as! String)
@@ -163,7 +164,8 @@ struct DictionaryView: View {
     @State private var isMeaningVisible: Bool = false
     @State private var isMeaningJPVisible: Bool = false
     @State private var isSamplesVisible: Bool = false
-
+    @State private var player: AVPlayer?
+    
     init(word: String, path: String) {
         self.model = WordModel(word: word, path: path)
     }
@@ -193,20 +195,13 @@ struct DictionaryView: View {
                                 Text(sample.en)
                                 Spacer()
                                 Button("", systemImage: "speaker.wave.3.fill") {
-                                    print("play")
-                                    model.activateSession()
-                                    
-                                    let url = URL(fileURLWithPath: "https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/sample/" + model.word + "/" + "0")
-                                    let playerItem: AVPlayerItem = AVPlayerItem(url: url)
-                                    if let player = model.player {
-                                        player.replaceCurrentItem(with: playerItem)
-                                    } else {
-                                        model.player = AVPlayer(playerItem: playerItem)
+                                    if let voice = sample.voice {
+                                        print("play", voice)
+                                        let url = URL(fileURLWithPath: voice)
+                                        player = AVPlayer(url: url)
+                                        player?.play()
                                     }
-                                    
-                                                  if let player = model.player {
-                                        player.play()
-                                    }                                }.font(. system(size: 24))
+                                }.font(. system(size: 24))
                             }
                         }
                     }
