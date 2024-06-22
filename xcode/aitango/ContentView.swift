@@ -50,15 +50,21 @@ struct Book: Hashable {
                 mode: .default,
                 options: []
             )
-        } catch _ {}
+        } catch _ {
+            print("session.setCategory failed")
+        }
         
         do {
             try session.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch _ {}
+        } catch _ {
+            print("session.setActivate failed")
+        }
         
         do {
             try session.overrideOutputAudioPort(.speaker)
-        } catch _ {}
+        } catch _ {
+            print("session.overrideOutputaudioPort failed")
+        }
     }
     
     enum State {
@@ -197,6 +203,7 @@ struct DictionaryView: View {
                                 Button("", systemImage: "speaker.wave.3.fill") {
                                     if let voice = sample.voice {
                                         print("play", voice)
+                                        model.activateSession()
                                         let url = URL(fileURLWithPath: voice)
                                         player = AVPlayer(url: url)
                                         player?.play()
