@@ -182,17 +182,16 @@ struct ContentView: View {
                 ForEach(books.books, id: \.id) { book in
                     NavigationLink {
                         VStack {
-                            Text(book.title)
                             List {
                                 ForEach(book.words, id: \.self) { word in
                                     NavigationLink {
-                                        DictionaryView(word: word, path: "register/" + book.id + "/" + word)
+                                        DictionaryView(word: word, path: "register/" + book.id + "/" + word).navigationTitle(word)
                                     } label: {
                                         Text(word)
                                     }
                                 }
                             }
-                        }
+                        }.navigationTitle(book.title)
                     } label: {
                         Text(book.title)
                     }
