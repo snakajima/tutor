@@ -15,6 +15,7 @@
 		744B1E132C27039B0052B4AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744B1E122C27039B0052B4AE /* AVFoundation.framework */; };
 		744B1E152C27D0570052B4AE /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744B1E142C27D0570052B4AE /* BookModel.swift */; };
 		744B1E172C27D0C70052B4AE /* WordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744B1E162C27D0C70052B4AE /* WordModel.swift */; };
+		744B1E192C27D1520052B4AE /* DictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744B1E182C27D1520052B4AE /* DictionaryView.swift */; };
 		74F1892A2C1EA6B3005FA174 /* aitangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F189292C1EA6B3005FA174 /* aitangoApp.swift */; };
 		74F1892C2C1EA6B3005FA174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892B2C1EA6B3005FA174 /* ContentView.swift */; };
 		74F1892E2C1EA6B3005FA174 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892D2C1EA6B3005FA174 /* Item.swift */; };
@@ -28,6 +29,7 @@
 		744B1E122C27039B0052B4AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.5.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		744B1E142C27D0570052B4AE /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		744B1E162C27D0C70052B4AE /* WordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordModel.swift; sourceTree = "<group>"; };
+		744B1E182C27D1520052B4AE /* DictionaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryView.swift; sourceTree = "<group>"; };
 		74F189262C1EA6B3005FA174 /* aitango.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aitango.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F189292C1EA6B3005FA174 /* aitangoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aitangoApp.swift; sourceTree = "<group>"; };
 		74F1892B2C1EA6B3005FA174 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */,
 				74F189292C1EA6B3005FA174 /* aitangoApp.swift */,
 				74F1892B2C1EA6B3005FA174 /* ContentView.swift */,
+				744B1E182C27D1520052B4AE /* DictionaryView.swift */,
 				744B1E162C27D0C70052B4AE /* WordModel.swift */,
 				744B1E142C27D0570052B4AE /* BookModel.swift */,
 				74F1892D2C1EA6B3005FA174 /* Item.swift */,
@@ -187,6 +190,7 @@
 				74F1892E2C1EA6B3005FA174 /* Item.swift in Sources */,
 				744B1E152C27D0570052B4AE /* BookModel.swift in Sources */,
 				74F1892A2C1EA6B3005FA174 /* aitangoApp.swift in Sources */,
+				744B1E192C27D1520052B4AE /* DictionaryView.swift in Sources */,
 				744B1E172C27D0C70052B4AE /* WordModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
