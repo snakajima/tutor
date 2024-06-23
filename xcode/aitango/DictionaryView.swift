@@ -15,6 +15,7 @@ struct DictionaryView: View {
     @State private var isMeaningJPVisible: Bool = false
     @State private var isSamplesVisible: Bool = false
     @State private var player: AVPlayer?
+    @State private var audioPlayer: AVAudioPlayer?
     
     init(word: String, path: String) {
         self.model = WordModel(word: word, path: path)
@@ -47,9 +48,16 @@ struct DictionaryView: View {
                                 Button("", systemImage: "speaker.wave.3.fill") {
                                     if let voice = sample.voice {
                                         print("play", voice)
+                                        /*
                                         let url = URL(fileURLWithPath: voice)
                                         player = AVPlayer(url: url)
                                         player?.play()
+                                        */
+                                        if let sound = Bundle.main.path(forResource: "sample_sound", ofType: "mp3") {
+                                            player = AVPlayer(url: URL(fileURLWithPath: sound))
+                                            guard let player else { return }
+                                            player.play()
+                                        }
                                     }
                                 }.font(. system(size: 24))
                             }
