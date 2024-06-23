@@ -67,7 +67,7 @@ struct DictionaryView: View {
                             }
                         }
                     }
-                    if ((model.meaning) != nil) {
+                    if let meaning = model.meaning {
                         HStack {
                             Button("意味（英語）") {
                                 isMeaningVisible.toggle()
@@ -75,15 +75,15 @@ struct DictionaryView: View {
                             Spacer()
                         }
                         if (isMeaningVisible) {
-                            Text(model.meaning!)
+                            Text(meaning)
                         }
                     }
-                    if ((model.meaning_jp) != nil) {
+                    if let meaning_jp = model.meaning_jp {
                         Button("意味（日本語）") {
                             isMeaningJPVisible.toggle()
                         }.font(. system(size: 24))
                         if (isMeaningJPVisible) {
-                            Text(model.meaning_jp!)
+                            Text(meaning_jp)
                         }
                     }
                     if let similar = model.similar {
