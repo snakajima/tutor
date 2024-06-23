@@ -14,6 +14,9 @@ struct DictionaryView: View {
     @State private var isMeaningVisible: Bool = false
     @State private var isMeaningJPVisible: Bool = false
     @State private var isSamplesVisible: Bool = false
+    @State private var isSimilarVisible: Bool = false
+    @State private var isAntonymVisible: Bool = false
+    @State private var isStoryVisible: Bool = false
     @State private var player: AVPlayer?
     @State private var audioPlayer: AVAudioPlayer?
     
@@ -83,9 +86,9 @@ struct DictionaryView: View {
                 }
                 if let similar = model.similar {
                     Button("同義語") {
-                        isMeaningJPVisible.toggle()
+                        isSimilarVisible.toggle()
                     }.font(. system(size: 24))
-                    if (isMeaningJPVisible) {
+                    if (isSimilarVisible) {
                         ForEach(Array(similar.enumerated()), id: \.offset) { index, sample in
                             HStack {
                                 Text(sample.en)
@@ -95,9 +98,9 @@ struct DictionaryView: View {
                 }
                 if let antonym = model.antonym {
                     Button("反対語") {
-                        isMeaningJPVisible.toggle()
+                        isAntonymVisible.toggle()
                     }.font(. system(size: 24))
-                    if (isMeaningJPVisible) {
+                    if (isAntonymVisible) {
                         ForEach(Array(antonym.enumerated()), id: \.offset) { index, sample in
                             HStack {
                                 Text(sample.en)
@@ -106,10 +109,10 @@ struct DictionaryView: View {
                     }
                 }
                 if let story = model.story {
-                    Button("同義語") {
-                        isMeaningJPVisible.toggle()
+                    Button("ストーリー") {
+                        isStoryVisible.toggle()
                     }.font(. system(size: 24))
-                    if (isMeaningJPVisible) {
+                    if (isStoryVisible) {
                         Text(story)
                     }
                 }
