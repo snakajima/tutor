@@ -18,6 +18,7 @@ struct DictionaryView: View {
     @State private var isAntonymVisible: Bool = false
     @State private var isStoryVisible: Bool = false
     @State private var isVocabVisible: Bool = false
+    @State private var areTranslationVisible = Dictionary<Int, Bool>()
     @State private var player: AVPlayer?
     @State private var audioPlayer: AVAudioPlayer?
     
@@ -48,7 +49,9 @@ struct DictionaryView: View {
                         if (isSamplesVisible) {
                             ForEach(Array(samples.enumerated()), id: \.offset) { index, sample in
                                 HStack {
-                                    Text(sample.en)
+                                    Text(sample.en).onTapGesture {
+                                        areTranslationVisible[index] = !(areTranslationVisible[index] ?? false)
+                                    }
                                     Spacer()
                                     if let voice = sample.voice {
                                         Button("", systemImage: "speaker.wave.3.fill") {
@@ -63,6 +66,9 @@ struct DictionaryView: View {
                                             model.generateSampleVoice(index: index)
                                         }.font(. system(size: 24))
                                     }
+                                }
+                                if areTranslationVisible[index] ?? false {
+                                    Text(sample.jp)
                                 }
                             }
                         }
