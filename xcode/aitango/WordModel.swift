@@ -83,6 +83,22 @@ import FirebaseFirestoreSwift
         task.resume()
     }
     
+    public func generateSampleVoice(index: Int) {
+        print("generateSampleVOice", word, index)
+        guard let url = URL(string: "https://asia-northeast1-ai-tango.cloudfunctions.net/express_server/api/sample/" + word + "/" + String(index)) else {
+            print("Invalid URL")
+            return
+        }
+        print(url)
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+        }
+        task.resume()
+    }
+
     private func addListner() {
         let ref = db.document("words/" + word)
         listner = ref.addSnapshotListener{ [weak self] snapshot, error in

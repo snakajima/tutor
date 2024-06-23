@@ -41,19 +41,23 @@ struct DictionaryView: View {
                         isSamplesVisible.toggle()
                     }.font(. system(size: 24))
                     if (isSamplesVisible) {
-                        ForEach(samples, id: \.id) { sample in
+                        ForEach(Array(samples.enumerated()), id: \.offset) { index, sample in
                             HStack {
                                 Text(sample.en)
                                 Spacer()
-                                Button("", systemImage: "speaker.wave.3.fill") {
-                                    if let voice = sample.voice {
+                                if let voice = sample.voice {
+                                    Button("", systemImage: "speaker.wave.3.fill") {
                                         if let url = URL(string: voice) {
                                             player = AVPlayer(url: url)
                                             guard let player else { return }
                                             player.play()
                                         }
-                                    }
-                                }.font(. system(size: 24))
+                                    }.font(. system(size: 24))
+                                } else {
+                                    Button("", systemImage: "speaker.wave.2.fill") {
+                                        model.generateSampleVoice(index: index)
+                                    }.font(. system(size: 24))
+                                }
                             }
                         }
                     }
