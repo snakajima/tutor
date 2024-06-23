@@ -16,6 +16,7 @@ struct DictionaryView: View {
     @State private var isSamplesVisible: Bool = false
     @State private var isSimilarVisible: Bool = false
     @State private var isAntonymVisible: Bool = false
+    @State private var isRootVisible: Bool = false
     @State private var isStoryVisible: Bool = false
     @State private var isVocabVisible: Bool = false
     @State private var areTranslationVisible = Dictionary<Int, Bool>()
@@ -46,6 +47,7 @@ struct DictionaryView: View {
                                 isSamplesVisible.toggle()
                             }.font(. system(size: 24))
                             if (isSamplesVisible) {
+                                Spacer()
                                 Text("日本語訳は英文をタップ")
                                     .font(.system(size: 14))
                                     .foregroundColor(.gray)
@@ -121,6 +123,14 @@ struct DictionaryView: View {
                                     Text(sample.jp)
                                 }
                             }
+                        }
+                    }
+                    if let root = model.root {
+                        Button("語源") {
+                            isRootVisible.toggle()
+                        }.font(. system(size: 24))
+                        if isRootVisible {
+                            Text(root)
                         }
                     }
                     if let story = model.story {

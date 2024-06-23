@@ -39,6 +39,7 @@ import FirebaseFirestoreSwift
     public var meaning_jp: LocalizedStringKey?
     public var similar: [SampleText]?
     public var antonym: [SampleText]?
+    public var root: LocalizedStringKey?
     public var story: LocalizedStringKey?
     public var vocab: [SampleText]?
 
@@ -77,6 +78,7 @@ import FirebaseFirestoreSwift
         antonym = (result["antonym"] as! [Dictionary<String, String>]).map { sample in
             return SampleText(en: sample["word"]!, jp: sample["jp"]!, voice: sample["voice"])
         }
+        root = LocalizedStringKey(result["root"] as! String)
         story = LocalizedStringKey(result["story"] as! String)
         vocab = (result["vocab"] as! [Dictionary<String, String>]).map { sample in
             return SampleText(en: sample["en"]!, jp: sample["jp"]!, voice: sample["voice"])
