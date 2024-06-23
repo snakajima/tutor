@@ -91,7 +91,7 @@ struct DictionaryView: View {
                     if (isSimilarVisible) {
                         ForEach(Array(similar.enumerated()), id: \.offset) { index, sample in
                             HStack {
-                                Text("**\(sample.en)**")
+                                Text("**\(sample.en)**").frame(width: 100, alignment: .leading)
                                 Text(sample.jp)
                             }
                         }
@@ -104,7 +104,7 @@ struct DictionaryView: View {
                     if (isAntonymVisible) {
                         ForEach(Array(antonym.enumerated()), id: \.offset) { index, sample in
                             HStack {
-                                Text("**\(sample.en)**")
+                                Text("**\(sample.en)**").frame(width: 100, alignment: .leading)
                                 Text(sample.jp)
                             }
                         }
