@@ -47,14 +47,8 @@ struct DictionaryView: View {
                                 Spacer()
                                 Button("", systemImage: "speaker.wave.3.fill") {
                                     if let voice = sample.voice {
-                                        print("play", voice)
-                                        /*
-                                        let url = URL(fileURLWithPath: voice)
-                                        player = AVPlayer(url: url)
-                                        player?.play()
-                                        */
-                                        if let sound = Bundle.main.path(forResource: "sample_sound", ofType: "mp3") {
-                                            player = AVPlayer(url: URL(fileURLWithPath: sound))
+                                        if let url = URL(string: voice) {
+                                            player = AVPlayer(url: url)
                                             guard let player else { return }
                                             player.play()
                                         }
