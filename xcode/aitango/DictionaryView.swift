@@ -17,6 +17,7 @@ struct DictionaryView: View {
     @State private var isSimilarVisible: Bool = false
     @State private var isAntonymVisible: Bool = false
     @State private var isStoryVisible: Bool = false
+    @State private var isVocabVisible: Bool = false
     @State private var player: AVPlayer?
     @State private var audioPlayer: AVAudioPlayer?
     
@@ -117,6 +118,19 @@ struct DictionaryView: View {
                         }.font(. system(size: 24))
                         if (isStoryVisible) {
                             Text(story)
+                            if let vocab = model.vocab {
+                                Button("ストーリー中の単語") {
+                                    isVocabVisible.toggle()
+                                }.font(. system(size: 24))
+                                if (isVocabVisible) {
+                                    ForEach(Array(vocab.enumerated()), id: \.offset) { index, sample in
+                                        HStack {
+                                            Text("**\(sample.en)**").frame(width: 100, alignment: .leading)
+                                            Text(sample.jp)
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                     Spacer()

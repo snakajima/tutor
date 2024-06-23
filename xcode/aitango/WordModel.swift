@@ -38,6 +38,7 @@ import FirebaseFirestoreSwift
     public var similar: [SampleText]?
     public var antonym: [SampleText]?
     public var story: LocalizedStringKey?
+    public var vocab: [SampleText]?
 
     public var listner: ListenerRegistration?
     
@@ -75,6 +76,9 @@ import FirebaseFirestoreSwift
             return SampleText(en: sample["word"]!, jp: sample["jp"]!, voice: sample["voice"])
         }
         story = LocalizedStringKey(result["story"] as! String)
+        vocab = (result["vocab"] as! [Dictionary<String, String>]).map { sample in
+            return SampleText(en: sample["en"]!, jp: sample["jp"]!, voice: sample["voice"])
+        }
     }
     public func generate() {
         self.state = .generating
