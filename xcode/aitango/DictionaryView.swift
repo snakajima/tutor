@@ -43,9 +43,16 @@ struct DictionaryView: View {
                     Text("Generating...")
                 case .loaded:
                     if let samples = model.samples {
-                        Button("例文") {
-                            isSamplesVisible.toggle()
-                        }.font(. system(size: 24))
+                        HStack {
+                            Button("例文") {
+                                isSamplesVisible.toggle()
+                            }.font(. system(size: 24))
+                            if (isSamplesVisible) {
+                                Text("日本語訳は英文をタップ")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.gray)
+                            }
+                        }
                         if (isSamplesVisible) {
                             ForEach(Array(samples.enumerated()), id: \.offset) { index, sample in
                                 HStack {
