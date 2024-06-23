@@ -110,6 +110,14 @@ import FirebaseFirestoreSwift
                 print("Error: \(error.localizedDescription)")
                 return
             }
+            if let data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data)
+                    print("json", json) // .url
+                } catch {
+                    print("Error parsing JSON: \(error)")
+                }
+            }
         }
         task.resume()
     }
