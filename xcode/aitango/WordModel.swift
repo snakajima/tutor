@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 import SwiftUI
 import SwiftData
 import FirebaseFirestore
@@ -24,6 +25,7 @@ import FirebaseFirestoreSwift
     private var db = Firestore.firestore()
     public var word: String
     public var path: String
+    private var player: AVPlayer?
 
     struct SampleText: Identifiable {
         let en: String
@@ -113,7 +115,14 @@ import FirebaseFirestoreSwift
             if let data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data)
-                    print("json", json) // .url
+                    print("json", json)
+                    if let json = json as? [String: Any], let voice = json["url"] as? String, let url = URL(string: voice) {
+                        print("url", url)
+                        self.player = AVPlayer(url: url)
+                        guard let player = self.player else { return }
+                        player.play()
+                    }
+
                 } catch {
                     print("Error parsing JSON: \(error)")
                 }
