@@ -15,36 +15,12 @@ import FirebaseFirestoreSwift
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    // @Query private var items: [Item]
+    @State var session = AudioSession()
     private var books = BooksModel()
     
-    public func activateSession() {
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setCategory(
-                .playback,
-                mode: .default,
-                options: []
-            )
-        } catch _ {
-            print("session.setCategory failed")
-        }
-        
-        do {
-            try session.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch _ {
-            print("session.setActivate failed")
-        }
-        
-        do {
-            try session.overrideOutputAudioPort(.speaker)
-        } catch _ {
-            print("session.overrideOutputaudioPort failed")
-        }
-    }
-    
     init() {
-        activateSession()
+        session.activateSession()
     }
     
     var body: some View {
@@ -69,21 +45,6 @@ struct ContentView: View {
                         Text(book.title)
                     }
                 }
-            }
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
             }
         }
     }
