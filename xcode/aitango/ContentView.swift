@@ -40,32 +40,6 @@ struct Book: Hashable {
 }
 
 @Observable class WordModel {
-    private var session = AVAudioSession.sharedInstance()
-    
-    public func activateSession() {
-        do {
-            try session.setCategory(
-                .playback,
-                mode: .default,
-                options: []
-            )
-        } catch _ {
-            print("session.setCategory failed")
-        }
-        
-        do {
-            try session.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch _ {
-            print("session.setActivate failed")
-        }
-        
-        do {
-            try session.overrideOutputAudioPort(.speaker)
-        } catch _ {
-            print("session.overrideOutputaudioPort failed")
-        }
-    }
-    
     enum State {
         case idle
         case loading
@@ -202,7 +176,6 @@ struct DictionaryView: View {
                                 Button("", systemImage: "speaker.wave.3.fill") {
                                     if let voice = sample.voice {
                                         print("play", voice)
-                                        model.activateSession()
                                         let url = URL(fileURLWithPath: voice)
                                         player = AVPlayer(url: url)
                                         player?.play()
@@ -242,6 +215,35 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     private var books = BooksModel()
+    
+    public func activateSession() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(
+                .playback,
+                mode: .default,
+                options: []
+            )
+        } catch _ {
+            print("session.setCategory failed")
+        }
+        
+        do {
+            try session.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch _ {
+            print("session.setActivate failed")
+        }
+        
+        do {
+            try session.overrideOutputAudioPort(.speaker)
+        } catch _ {
+            print("session.overrideOutputaudioPort failed")
+        }
+    }
+    
+    init() {
+        activateSession()
+    }
     
     var body: some View {
         NavigationStack {
