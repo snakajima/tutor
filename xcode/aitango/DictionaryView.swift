@@ -81,6 +81,38 @@ struct DictionaryView: View {
                         Text(model.meaning_jp!)
                     }
                 }
+                if let similar = model.similar {
+                    Button("同義語") {
+                        isMeaningJPVisible.toggle()
+                    }.font(. system(size: 24))
+                    if (isMeaningJPVisible) {
+                        ForEach(Array(similar.enumerated()), id: \.offset) { index, sample in
+                            HStack {
+                                Text(sample.en)
+                            }
+                        }
+                    }
+                }
+                if let antonym = model.antonym {
+                    Button("反対語") {
+                        isMeaningJPVisible.toggle()
+                    }.font(. system(size: 24))
+                    if (isMeaningJPVisible) {
+                        ForEach(Array(antonym.enumerated()), id: \.offset) { index, sample in
+                            HStack {
+                                Text(sample.en)
+                            }
+                        }
+                    }
+                }
+                if let story = model.story {
+                    Button("同義語") {
+                        isMeaningJPVisible.toggle()
+                    }.font(. system(size: 24))
+                    if (isMeaningJPVisible) {
+                        Text(story)
+                    }
+                }
                 Spacer()
             }
         }
