@@ -27,11 +27,12 @@ struct AudioSession {
         } catch _ {
             print("session.setActivate failed")
         }
-        
+        /*
         do {
             try session.overrideOutputAudioPort(.speaker)
         } catch let error as NSError {
             print("session.overrideOutputaudioPort failed: \(error.localizedDescription)")
         }
+        */
     }
 }
