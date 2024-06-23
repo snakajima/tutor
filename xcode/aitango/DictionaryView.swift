@@ -19,8 +19,6 @@ struct DictionaryView: View {
     @State private var isStoryVisible: Bool = false
     @State private var isVocabVisible: Bool = false
     @State private var areTranslationVisible = Dictionary<Int, Bool>()
-    @State private var player: AVPlayer?
-    @State private var audioPlayer: AVAudioPlayer?
     
     init(word: String, path: String) {
         self.model = WordModel(word: word, path: path)
@@ -63,8 +61,8 @@ struct DictionaryView: View {
                                     if let voice = sample.voice {
                                         Button("", systemImage: "speaker.wave.3.fill") {
                                             if let url = URL(string: voice) {
-                                                player = AVPlayer(url: url)
-                                                guard let player else { return }
+                                                model.player = AVPlayer(url: url)
+                                                guard let player = model.player else { return }
                                                 player.play()
                                             }
                                         }.font(. system(size: 24))

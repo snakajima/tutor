@@ -25,7 +25,7 @@ import FirebaseFirestoreSwift
     private var db = Firestore.firestore()
     public var word: String
     public var path: String
-    private var player: AVPlayer?
+    public var player: AVPlayer?
 
     struct SampleText: Identifiable {
         let en: String
