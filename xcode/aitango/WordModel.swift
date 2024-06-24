@@ -54,7 +54,7 @@ import FirebaseFirestoreSwift
     deinit {
         if let listner = listner {
             listner.remove()
-            print("deinit", self.word)
+            print("WordModel:deinit listner.remove", self.word)
         }
     }
 
@@ -135,6 +135,7 @@ import FirebaseFirestoreSwift
     }
 
     private func addListner() {
+        print("WordModel:addListner \(word)")
         let ref = db.document("words/" + word)
         listner = ref.addSnapshotListener{ [weak self] snapshot, error in
             guard let self else { return }
