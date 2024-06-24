@@ -13,7 +13,6 @@ import AVFoundation
 struct DictionaryView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @State private var model: WordModel
     @State private var isMeaningVisible: Bool = false
     @State private var isMeaningJPVisible: Bool = false
     @State private var isSamplesVisible: Bool = false
@@ -24,6 +23,9 @@ struct DictionaryView: View {
     @State private var isVocabVisible: Bool = false
     @State private var areTranslationVisible = Dictionary<Int, Bool>()
     
+    @State private var model: WordModel
+    // @Query(filter: #Predicate<WordItem> { item in item.id == model.word }) var wordItems: [WordItem]
+
     init(word: String, path: String) {
         self.model = WordModel(word: word, path: path)
     }
@@ -34,6 +36,19 @@ struct DictionaryView: View {
                 case .idle:
                     Color.clear.onAppear(perform: {
                         model.load()
+                        
+                        // print("wordIems", wordItems)
+                        /*
+                        let predicate = #Predicate<WordItem> { $0.id == model.word }
+                        let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
+                        do {
+                            let wordItems = try modelContext.fetch(descriptor)
+                            print(wordItems)
+                        } catch {
+                            print("failed to fetch")
+                        }
+                        */
+                        
                         let wordItem = WordItem(word: model.word)
                         print("inserting", model.word)
                         modelContext.insert(wordItem)
