@@ -59,5 +59,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: WordItem.self, inMemory: true)
+        .modelContainer(for: BookModel.self, inMemory: true)
 }
