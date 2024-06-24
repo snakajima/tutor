@@ -12,6 +12,30 @@ import SwiftData
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+struct WordLinkView: View {
+    private let word: String
+    private let bookId: String
+    
+    init(word: String, bookId: String) {
+        self.word = word
+        self.bookId = bookId
+    }
+
+    var body: some View {
+        NavigationLink {
+            DictionaryView(word: word, path: "register/" + bookId + "/" + word)
+            .navigationTitle(word)
+            .padding([.leading, .trailing], 10)
+        } label: {
+            HStack {
+                Text(word)
+                Spacer()
+                Rectangle().fill(.yellow).frame(width:24, height:24)
+            }
+        }
+    }
+}
+
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
@@ -34,13 +58,7 @@ struct ContentView: View {
                             VStack {
                                 List {
                                     ForEach(book.words, id: \.self) { word in
-                                        NavigationLink {
-                                            DictionaryView(word: word, path: "register/" + book.id + "/" + word)
-                                            .navigationTitle(word)
-                                            .padding([.leading, .trailing], 10)
-                                        } label: {
-                                            Text(word)
-                                        }
+                                        WordLinkView(word: word, bookId: book.id)
                                     }
                                 }
                             }.navigationTitle(book.title)
