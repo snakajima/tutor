@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 enum Level: String, CaseIterable, Identifiable, Codable {
     case none
@@ -16,6 +17,23 @@ enum Level: String, CaseIterable, Identifiable, Codable {
     case green
     case blue
     var id: Self { self }
+    
+    public func color() -> Color {
+        switch(self) {
+        case .none:
+            return .gray
+        case .red:
+            return .red
+        case .orange:
+            return .orange
+        case .yellow:
+            return .yellow
+        case .green:
+            return .green
+        case .blue:
+            return .blue
+        }
+    }
 }
 
 @Model

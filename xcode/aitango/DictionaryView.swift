@@ -33,11 +33,11 @@ struct DictionaryView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                Picker("Planet", selection: $wordItem.level) {
-                    ForEach(Level.allCases) { planet in
-                        Text(planet.rawValue.capitalized)
+                Picker("Level", selection: $wordItem.level) {
+                    ForEach(Level.allCases) { level in
+                        Text(level.rawValue)
                     }
-                }.pickerStyle(.segmented)
+                }.pickerStyle(.segmented).colorMultiply(wordItem.level.color())
                 switch model.state {
                 case .idle:
                     Color.clear.onAppear(perform: {
