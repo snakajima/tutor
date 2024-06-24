@@ -24,6 +24,7 @@ struct DictionaryView: View {
     @State private var areTranslationVisible = Dictionary<Int, Bool>()
     
     @State private var model: WordModel
+    @State private var wordItem: WordItem?
     // @Query(filter: #Predicate<WordItem> { item in item.id == model.word }) var wordItems: [WordItem]
 
     init(word: String, path: String) {
@@ -44,17 +45,19 @@ struct DictionaryView: View {
                             let wordItems = try modelContext.fetch(descriptor)
                             print(wordItems)
                             if wordItems.count == 0 {
-                                let wordItem = WordItem(word: word)
+                                wordItem = WordItem(word: word)
                                 print("inserting", word)
-                                modelContext.insert(wordItem)
-                                do {
-                                    try modelContext.save()
-                                } catch {
-                                    print("modelContex.save() failed")
-                                }
+                                modelContext.insert(wordItem!)
                             } else {
-                                let wordItem = wordItems[0]
-                                print("already have", word, wordItem)
+                                wordItem = wordItems[0]
+                                wordItem?.lastAccess = Date()
+                                print("already have", word, wordItem!)
+                            }
+                            
+                            do {
+                                try modelContext.save()
+                            } catch {
+                                print("modelContex.save() failed")
                             }
                         } catch {
                             print("failed to fetch")
