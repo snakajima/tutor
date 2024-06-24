@@ -52,7 +52,7 @@ struct DictionaryView: View {
                                 wordItem?.lastAccess = Date()
                                 print("updating last access", word)
                             }
-                            try modelContext.save()
+                            // try modelContext.save()
                         } catch {
                             print("DictionaryView:onApper \(error)")
                         }
