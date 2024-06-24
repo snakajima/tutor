@@ -21,7 +21,7 @@ struct ContentView: View {
     
     // @Query private var items: [Item]
     @State var session = AudioSession()
-    private var books = BooksModel()
+    private var books = BooksStore()
     
     init() {
         session.activateSession()

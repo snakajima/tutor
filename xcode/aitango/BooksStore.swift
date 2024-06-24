@@ -15,7 +15,7 @@ struct Book: Hashable {
     var words: [String]
 }
 
-@Observable class BooksModel {
+@Observable class BooksStore {
     public var books: [Book] = []
     private var db = Firestore.firestore()
     
