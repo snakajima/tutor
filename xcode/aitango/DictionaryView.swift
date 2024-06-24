@@ -43,16 +43,16 @@ struct DictionaryView: View {
                         let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
                         do {
                             let wordItems = try modelContext.fetch(descriptor)
-                            if wordItems.count == 0 {
+                            if let item = wordItems.first {
+                                item.lastAccess = Date()
+                                wordItem = item
+                                print("updating last access", word)
+                            } else {
                                 wordItem = WordItem(word: word)
                                 print("inserting", word)
                                 modelContext.insert(wordItem!)
-                            } else {
-                                wordItem = wordItems[0]
-                                wordItem?.lastAccess = Date()
-                                print("updating last access", word)
                             }
-                            // try modelContext.save()
+                            // Note: No need to call modelContext.save() in SwiftData
                         } catch {
                             print("DictionaryView:onApper \(error)")
                         }
