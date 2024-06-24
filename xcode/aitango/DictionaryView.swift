@@ -49,7 +49,7 @@ struct DictionaryView: View {
                         do {
                             let wordItems = try modelContext.fetch(descriptor)
                             if let item = wordItems.first {
-                                item.lastAccess = Date()
+                                item.recordAccess()
                                 wordItem = item
                                 print("updating last access", word)
                             } else {

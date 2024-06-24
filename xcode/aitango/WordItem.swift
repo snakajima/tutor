@@ -41,10 +41,16 @@ final class WordItem {
     @Attribute(.unique) var id: String
     var lastAccess: Date
     var level: Level
+    var accessed = false
     
     init(word: String) {
         self.id = word
         self.lastAccess = Date()
         self.level = .none
+    }
+    
+    public func recordAccess() {
+        accessed = true
+        lastAccess = Date()
     }
 }
