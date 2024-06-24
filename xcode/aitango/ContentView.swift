@@ -15,6 +15,8 @@ import FirebaseFirestoreSwift
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
+    @Query var wordItems: [WordItem]
+    
     // @Query private var items: [Item]
     @State var session = AudioSession()
     private var books = BooksModel()
@@ -24,26 +26,33 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(books.books, id: \.id) { book in
-                    NavigationLink {
-                        VStack {
-                            List {
-                                ForEach(book.words, id: \.self) { word in
-                                    NavigationLink {
-                                        DictionaryView(word: word, path: "register/" + book.id + "/" + word)
-                                        .navigationTitle(word)
-                                        .padding([.leading, .trailing], 10)
-                                    } label: {
-                                        Text(word)
+        VStack {
+            NavigationStack {
+                List {
+                    ForEach(books.books, id: \.id) { book in
+                        NavigationLink {
+                            VStack {
+                                List {
+                                    ForEach(book.words, id: \.self) { word in
+                                        NavigationLink {
+                                            DictionaryView(word: word, path: "register/" + book.id + "/" + word)
+                                            .navigationTitle(word)
+                                            .padding([.leading, .trailing], 10)
+                                        } label: {
+                                            Text(word)
+                                        }
                                     }
                                 }
-                            }
-                        }.navigationTitle(book.title)
-                    } label: {
-                        Text(book.title)
+                            }.navigationTitle(book.title)
+                        } label: {
+                            Text(book.title)
+                        }
                     }
+                }
+            }
+            List {
+                ForEach(wordItems) { wordItem in
+                    Text(wordItem.id)
                 }
             }
         }
@@ -52,5 +61,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: WordItem.self, inMemory: true)
 }

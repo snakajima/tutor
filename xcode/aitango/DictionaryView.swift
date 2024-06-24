@@ -7,10 +7,13 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 import AVFoundation
 
 struct DictionaryView: View {
-    private var model: WordModel
+    @Environment(\.modelContext) private var modelContext
+    
+    @State private var model: WordModel
     @State private var isMeaningVisible: Bool = false
     @State private var isMeaningJPVisible: Bool = false
     @State private var isSamplesVisible: Bool = false
@@ -31,6 +34,24 @@ struct DictionaryView: View {
                 case .idle:
                     Color.clear.onAppear(perform: {
                         model.load()
+                        let wordItem = WordItem(word: model.word)
+                        print("inserting", model.word)
+                        modelContext.insert(wordItem)
+                        do {
+                            try modelContext.save()
+                        } catch {
+                            print("modelContex.save() failed")
+                        }
+                        /*
+                        let predicate = #Predicate<WordItem> { $0.id == model.word }
+                        let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
+                        do {
+                            let wordItems = try modelContext.fetch(descriptor)
+                            print(wordItems)
+                        } catch {
+                            print("failed to fetch")
+                        }
+                        */
                     })
                 case .loading:
                     Text("loading")
