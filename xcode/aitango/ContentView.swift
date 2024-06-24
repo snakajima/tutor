@@ -15,7 +15,7 @@ import FirebaseFirestoreSwift
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @Query var wordItems: [WordItem]
+    @Query(sort: \WordItem.lastAccess, order: .reverse) var wordItems: [WordItem]
     
     // @Query private var items: [Item]
     @State var session = AudioSession()
