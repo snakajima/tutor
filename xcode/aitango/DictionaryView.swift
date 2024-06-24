@@ -23,12 +23,12 @@ struct DictionaryView: View {
     @State private var isVocabVisible: Bool = false
     @State private var areTranslationVisible = Dictionary<Int, Bool>()
     
-    @State private var model: WordStore
+    @State private var store: WordStore
     @State private var wordItem = WordItem(word: "dummy")
-    // @Query(filter: #Predicate<WordItem> { item in item.id == model.word }) var wordItems: [WordItem]
+    // @Query(filter: #Predicate<WordItem> { item in item.id == store.word }) var wordItems: [WordItem]
 
     init(word: String, path: String) {
-        self.model = WordStore(word: word, path: path)
+        self.store = WordStore(word: word, path: path)
     }
     var body: some View {
         ScrollView {
@@ -38,23 +38,23 @@ struct DictionaryView: View {
                         Text(level.rawValue)
                     }
                 }.pickerStyle(.segmented).colorMultiply(wordItem.level.color())
-                switch model.state {
+                switch store.state {
                 case .idle:
                     Color.clear.onAppear(perform: {
-                        model.load()
-                        wordItem = WordItem.getItem(modelContext: modelContext, word: model.word) ?? wordItem
+                        store.load()
+                        wordItem = WordItem.getItem(modelContext: modelContext, word: store.word) ?? wordItem
                         wordItem.recordAccess()
                     })
                 case .loading:
                     Text("loading")
                 case .nodata:
                     Text("No Data").onAppear() {
-                        model.generate()
+                        store.generate()
                     }
                 case .generating:
                     Text("Generating...")
                 case .loaded:
-                    if let samples = model.samples {
+                    if let samples = store.samples {
                         HStack {
                             Button("例文") {
                                 isSamplesVisible.toggle()
@@ -76,14 +76,14 @@ struct DictionaryView: View {
                                     if let voice = sample.voice {
                                         Button("", systemImage: "speaker.wave.3.fill") {
                                             if let url = URL(string: voice) {
-                                                model.player = AVPlayer(url: url)
-                                                guard let player = model.player else { return }
+                                                store.player = AVPlayer(url: url)
+                                                guard let player = store.player else { return }
                                                 player.play()
                                             }
                                         }.font(. system(size: 24))
                                     } else {
                                         Button("", systemImage: "speaker.wave.2.fill") {
-                                            model.generateSampleVoice(index: index)
+                                            store.generateSampleVoice(index: index)
                                         }.font(. system(size: 24))
                                     }
                                 }
@@ -93,7 +93,7 @@ struct DictionaryView: View {
                             }
                         }
                     }
-                    if let meaning = model.meaning {
+                    if let meaning = store.meaning {
                         HStack {
                             Button("意味（英語）") {
                                 isMeaningVisible.toggle()
@@ -104,7 +104,7 @@ struct DictionaryView: View {
                             Text(meaning)
                         }
                     }
-                    if let meaning_jp = model.meaning_jp {
+                    if let meaning_jp = store.meaning_jp {
                         Button("意味（日本語）") {
                             isMeaningJPVisible.toggle()
                         }.font(. system(size: 24))
@@ -112,7 +112,7 @@ struct DictionaryView: View {
                             Text(meaning_jp)
                         }
                     }
-                    if let similar = model.similar {
+                    if let similar = store.similar {
                         Button("同義語") {
                             isSimilarVisible.toggle()
                         }.font(. system(size: 24))
@@ -125,7 +125,7 @@ struct DictionaryView: View {
                             }
                         }
                     }
-                    if let antonym = model.antonym {
+                    if let antonym = store.antonym {
                         Button("反対語") {
                             isAntonymVisible.toggle()
                         }.font(. system(size: 24))
@@ -138,7 +138,7 @@ struct DictionaryView: View {
                             }
                         }
                     }
-                    if let root = model.root {
+                    if let root = store.root {
                         Button("語源") {
                             isRootVisible.toggle()
                         }.font(. system(size: 24))
@@ -146,13 +146,13 @@ struct DictionaryView: View {
                             Text(root)
                         }
                     }
-                    if let story = model.story {
+                    if let story = store.story {
                         Button("ストーリー") {
                             isStoryVisible.toggle()
                         }.font(. system(size: 24))
                         if (isStoryVisible) {
                             Text(story)
-                            if let vocab = model.vocab {
+                            if let vocab = store.vocab {
                                 Button("ストーリー中の単語") {
                                     isVocabVisible.toggle()
                                 }.font(. system(size: 24))
