@@ -13,9 +13,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct WordLinkView: View {
+    @Environment(\.modelContext) private var modelContext
     private let word: String
     private let bookId: String
-    
+    @State private var wordItem = WordItem(word: "dummy")
+
     init(word: String, bookId: String) {
         self.word = word
         self.bookId = bookId
@@ -28,9 +30,20 @@ struct WordLinkView: View {
             .padding([.leading, .trailing], 10)
         } label: {
             HStack {
+                Rectangle().fill(wordItem.level.color()).frame(width:24, height:24)
                 Text(word)
-                Spacer()
-                Rectangle().fill(.yellow).frame(width:24, height:24)
+            }.onAppear() {
+                let predicate = #Predicate<WordItem> { $0.id == word }
+                let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
+                do {
+                    let wordItems = try modelContext.fetch(descriptor)
+                    if let item = wordItems.first {
+                        wordItem = item
+                    }
+                } catch {
+                    print("WordLinkView:onApper \(error)")
+                }
+
             }
         }
     }
