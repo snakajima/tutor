@@ -53,4 +53,22 @@ final class WordItem {
         accessed = true
         lastAccess = Date()
     }
+    
+    public static func getItem(modelContext: ModelContext, word: String) -> WordItem? {
+        let predicate = #Predicate<WordItem> { $0.id == word }
+        let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
+        do {
+            let wordItems = try modelContext.fetch(descriptor)
+            if let wordItem = wordItems.first {
+                return wordItem
+            }
+            print("inserting", word)
+            let wordItem = WordItem(word: word)
+            modelContext.insert(wordItem)
+            return wordItem
+        } catch {
+            print("WordItem.getItem failed \(word), \(error)")
+            return nil
+        }
+    }
 }

@@ -42,25 +42,8 @@ struct DictionaryView: View {
                 case .idle:
                     Color.clear.onAppear(perform: {
                         model.load()
-                        
-                        let word = model.word
-                        let predicate = #Predicate<WordItem> { $0.id == word }
-                        let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
-                        do {
-                            let wordItems = try modelContext.fetch(descriptor)
-                            if let item = wordItems.first {
-                                item.recordAccess()
-                                wordItem = item
-                                print("updating last access", word)
-                            } else {
-                                wordItem = WordItem(word: word)
-                                print("inserting", word)
-                                modelContext.insert(wordItem)
-                            }
-                            // Note: No need to call modelContext.save() in SwiftData
-                        } catch {
-                            print("DictionaryView:onApper \(error)")
-                        }
+                        guard let wordItem = WordItem.getItem(modelContext: modelContext, word: model.word) else { return }
+                        wordItem.recordAccess()
                     })
                 case .loading:
                     Text("loading")
