@@ -30,7 +30,7 @@ struct WordLinkView: View {
             .padding([.leading, .trailing], 10)
         } label: {
             HStack {
-                Rectangle().fill(wordItem.level.color()).frame(width:24, height:24)
+                Circle().fill(wordItem.level.color()).frame(width:24, height:24)
                 Text(word)
             }.onAppear() {
                 let predicate = #Predicate<WordItem> { $0.id == word }
