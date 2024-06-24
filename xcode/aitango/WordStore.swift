@@ -12,7 +12,7 @@ import SwiftData
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-@Observable class WordModel {
+@Observable class WordStore {
     enum State {
         case idle
         case loading

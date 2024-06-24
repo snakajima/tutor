@@ -23,12 +23,12 @@ struct DictionaryView: View {
     @State private var isVocabVisible: Bool = false
     @State private var areTranslationVisible = Dictionary<Int, Bool>()
     
-    @State private var model: WordModel
+    @State private var model: WordStore
     @State private var wordItem = WordItem(word: "dummy")
     // @Query(filter: #Predicate<WordItem> { item in item.id == model.word }) var wordItems: [WordItem]
 
     init(word: String, path: String) {
-        self.model = WordModel(word: word, path: path)
+        self.model = WordStore(word: word, path: path)
     }
     var body: some View {
         ScrollView {
