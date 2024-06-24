@@ -8,13 +8,14 @@
 import Foundation
 import SwiftData
 
-enum Level: String, Codable {
+enum Level: String, CaseIterable, Identifiable, Codable {
     case none
     case red
     case orange
     case yellow
     case green
     case blue
+    var id: Self { self }
 }
 
 @Model

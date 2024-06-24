@@ -24,7 +24,7 @@ struct DictionaryView: View {
     @State private var areTranslationVisible = Dictionary<Int, Bool>()
     
     @State private var model: WordModel
-    @State private var wordItem: WordItem?
+    @State private var wordItem = WordItem(word: "dummy")
     // @Query(filter: #Predicate<WordItem> { item in item.id == model.word }) var wordItems: [WordItem]
 
     init(word: String, path: String) {
@@ -33,9 +33,11 @@ struct DictionaryView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                if let wordItem {
-                    Text(String(wordItem.level.rawValue))
-                }
+                Picker("Planet", selection: $wordItem.level) {
+                    ForEach(Level.allCases) { planet in
+                        Text(planet.rawValue.capitalized)
+                    }
+                }.pickerStyle(.segmented)
                 switch model.state {
                 case .idle:
                     Color.clear.onAppear(perform: {
@@ -53,7 +55,7 @@ struct DictionaryView: View {
                             } else {
                                 wordItem = WordItem(word: word)
                                 print("inserting", word)
-                                modelContext.insert(wordItem!)
+                                modelContext.insert(wordItem)
                             }
                             // Note: No need to call modelContext.save() in SwiftData
                         } catch {
