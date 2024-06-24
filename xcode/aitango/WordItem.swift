@@ -8,12 +8,12 @@
 import Foundation
 import SwiftData
 
-enum Level: Codable {
-    case none
-    case red
-    case orange
-    case yellow
-    case green
+enum Level: String, Codable {
+    case none = "none"
+    case red = "red"
+    case orange = "orange"
+    case yellow = "yellow"
+    case green = "green"
 }
 
 @Model

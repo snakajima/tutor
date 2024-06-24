@@ -33,6 +33,9 @@ struct DictionaryView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
+                if let wordItem {
+                    Text(wordItem.level.rawValue)
+                }
                 switch model.state {
                 case .idle:
                     Color.clear.onAppear(perform: {

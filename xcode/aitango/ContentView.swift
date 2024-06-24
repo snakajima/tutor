@@ -54,7 +54,9 @@ struct ContentView: View {
                         }
                     }
                 }.listStyle(.grouped)
-            }
+            } /*.onAppear() {
+                try! modelContext.delete(model: WordItem.self)
+            } */
         }
     }
 }
