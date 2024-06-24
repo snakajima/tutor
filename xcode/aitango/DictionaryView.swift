@@ -37,26 +37,32 @@ struct DictionaryView: View {
                     Color.clear.onAppear(perform: {
                         model.load()
                         
-                        // print("wordIems", wordItems)
-                        /*
-                        let predicate = #Predicate<WordItem> { $0.id == model.word }
+                        let word = model.word
+                        let predicate = #Predicate<WordItem> { $0.id == word }
                         let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
                         do {
                             let wordItems = try modelContext.fetch(descriptor)
                             print(wordItems)
+                            if wordItems.count == 0 {
+                                let wordItem = WordItem(word: word)
+                                print("inserting", word)
+                                modelContext.insert(wordItem)
+                                do {
+                                    try modelContext.save()
+                                } catch {
+                                    print("modelContex.save() failed")
+                                }
+                            } else {
+                                let wordItem = wordItems[0]
+                                print("already have", word, wordItem)
+                            }
                         } catch {
                             print("failed to fetch")
                         }
+                        // print("wordIems", wordItems)
+                        /*
                         */
                         
-                        let wordItem = WordItem(word: model.word)
-                        print("inserting", model.word)
-                        modelContext.insert(wordItem)
-                        do {
-                            try modelContext.save()
-                        } catch {
-                            print("modelContex.save() failed")
-                        }
                         /*
                         let predicate = #Predicate<WordItem> { $0.id == model.word }
                         let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
