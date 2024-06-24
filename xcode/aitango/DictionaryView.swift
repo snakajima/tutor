@@ -43,7 +43,6 @@ struct DictionaryView: View {
                         let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
                         do {
                             let wordItems = try modelContext.fetch(descriptor)
-                            print(wordItems)
                             if wordItems.count == 0 {
                                 wordItem = WordItem(word: word)
                                 print("inserting", word)
@@ -51,31 +50,12 @@ struct DictionaryView: View {
                             } else {
                                 wordItem = wordItems[0]
                                 wordItem?.lastAccess = Date()
-                                print("already have", word, wordItem!)
+                                print("updating last access", word)
                             }
-                            
-                            do {
-                                try modelContext.save()
-                            } catch {
-                                print("modelContex.save() failed")
-                            }
+                            try modelContext.save()
                         } catch {
-                            print("failed to fetch")
+                            print("DictionaryView:onApper \(error)")
                         }
-                        // print("wordIems", wordItems)
-                        /*
-                        */
-                        
-                        /*
-                        let predicate = #Predicate<WordItem> { $0.id == model.word }
-                        let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
-                        do {
-                            let wordItems = try modelContext.fetch(descriptor)
-                            print(wordItems)
-                        } catch {
-                            print("failed to fetch")
-                        }
-                        */
                     })
                 case .loading:
                     Text("loading")
