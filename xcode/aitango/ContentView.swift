@@ -33,17 +33,7 @@ struct WordLinkView: View {
                 Circle().fill(wordItem.level.color()).frame(width:24, height:24)
                 Text(word)
             }.onAppear() {
-                let predicate = #Predicate<WordItem> { $0.id == word }
-                let descriptor = FetchDescriptor<WordItem>(predicate: predicate)
-                do {
-                    let wordItems = try modelContext.fetch(descriptor)
-                    if let item = wordItems.first {
-                        wordItem = item
-                    }
-                } catch {
-                    print("WordLinkView:onApper \(error)")
-                }
-
+                wordItem = WordItem.getItem(modelContext: modelContext, word: word) ?? wordItem
             }
         }
     }

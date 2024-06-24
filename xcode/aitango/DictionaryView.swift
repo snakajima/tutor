@@ -42,7 +42,7 @@ struct DictionaryView: View {
                 case .idle:
                     Color.clear.onAppear(perform: {
                         model.load()
-                        guard let wordItem = WordItem.getItem(modelContext: modelContext, word: model.word) else { return }
+                        wordItem = WordItem.getItem(modelContext: modelContext, word: model.word) ?? wordItem
                         wordItem.recordAccess()
                     })
                 case .loading:
