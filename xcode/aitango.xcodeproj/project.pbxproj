@@ -19,6 +19,7 @@
 		744B1E1B2C27D1EE0052B4AE /* AudioSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744B1E1A2C27D1EE0052B4AE /* AudioSession.swift */; };
 		744B1E1D2C27D7E60052B4AE /* sample_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 744B1E1C2C27D7E60052B4AE /* sample_sound.mp3 */; };
 		74D5D61A2C2A39570094439E /* WordLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D5D6192C2A39570094439E /* WordLinkView.swift */; };
+		74D5D61C2C2A3D0D0094439E /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D5D61B2C2A3D0D0094439E /* BookModel.swift */; };
 		74E550842C2926F400B065DD /* WordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E550832C2926F400B065DD /* WordItem.swift */; };
 		74F1892A2C1EA6B3005FA174 /* aitangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F189292C1EA6B3005FA174 /* aitangoApp.swift */; };
 		74F1892C2C1EA6B3005FA174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892B2C1EA6B3005FA174 /* ContentView.swift */; };
@@ -37,6 +38,7 @@
 		744B1E1A2C27D1EE0052B4AE /* AudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSession.swift; sourceTree = "<group>"; };
 		744B1E1C2C27D7E60052B4AE /* sample_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sample_sound.mp3; sourceTree = "<group>"; };
 		74D5D6192C2A39570094439E /* WordLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordLinkView.swift; sourceTree = "<group>"; };
+		74D5D61B2C2A3D0D0094439E /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		74E550832C2926F400B065DD /* WordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordItem.swift; sourceTree = "<group>"; };
 		74F189262C1EA6B3005FA174 /* aitango.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aitango.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F189292C1EA6B3005FA174 /* aitangoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aitangoApp.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				744B1E142C27D0570052B4AE /* BooksStore.swift */,
 				74F1892D2C1EA6B3005FA174 /* Item.swift */,
 				74E550832C2926F400B065DD /* WordItem.swift */,
+				74D5D61B2C2A3D0D0094439E /* BookModel.swift */,
 				74F1892F2C1EA6B4005FA174 /* Assets.xcassets */,
 				74F189312C1EA6B4005FA174 /* aitango.entitlements */,
 				74F189322C1EA6B4005FA174 /* Preview Content */,
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74D5D61C2C2A3D0D0094439E /* BookModel.swift in Sources */,
 				74F1892C2C1EA6B3005FA174 /* ContentView.swift in Sources */,
 				74F1892E2C1EA6B3005FA174 /* Item.swift in Sources */,
 				744B1E152C27D0570052B4AE /* BooksStore.swift in Sources */,
