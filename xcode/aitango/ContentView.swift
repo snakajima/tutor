@@ -48,12 +48,12 @@ struct ContentView: View {
                             Text(book.title)
                         }
                     }
-                }
-            }
-            List {
-                ForEach(wordItems) { wordItem in
-                    Text(wordItem.id)
-                }
+                    Section("History") {
+                        ForEach(wordItems) { wordItem in
+                            Text(wordItem.id)
+                        }
+                    }
+                }.listStyle(.grouped)
             }
         }
     }

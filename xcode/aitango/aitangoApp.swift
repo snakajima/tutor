@@ -11,6 +11,7 @@ import FirebaseCore
 
 @main
 struct aitangoApp: App {
+    /*
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             WordItem.self,
@@ -23,6 +24,7 @@ struct aitangoApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    */
 
     // https://peterfriese.dev/blog/2020/swiftui-new-app-lifecycle-firebase/#start-using-the-swiftui-app-life-cycle
     init() {
@@ -33,6 +35,7 @@ struct aitangoApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(for: WordItem.self)
+        //.modelContainer(sharedModelContainer)
     }
 }
