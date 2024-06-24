@@ -34,7 +34,7 @@ struct DictionaryView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 if let wordItem {
-                    Text(wordItem.level.rawValue)
+                    Text(String(wordItem.level.rawValue))
                 }
                 switch model.state {
                 case .idle:
