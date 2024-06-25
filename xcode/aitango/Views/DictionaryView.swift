@@ -27,6 +27,7 @@ struct DictionaryView: View {
     @State private var wordItem = WordItem(word: "_dummy")
     // @Query(filter: #Predicate<WordItem> { item in item.id == store.word }) var wordItems: [WordItem]
     @State private var opacity = 0.0
+    @State private var voiceIndex = -1
 
     init(word: String, path: String) {
         self.store = WordStore(word: word, path: path)
@@ -117,8 +118,20 @@ struct DictionaryView: View {
                                                 player.play()
                                             }
                                         }.font(. system(size: 24))
+                                    } else if voiceIndex == index {
+                                        Button("", systemImage: "speaker.wave.2.fill") {
+                                        }.font(. system(size: 24))
+                                            .opacity(opacity)
+                                            .onAppear {
+                                                withAnimation(.linear(duration: 0.1)
+                                                              .speed(0.1).repeatForever(autoreverses: true)) {
+                                                                  opacity = 1.0
+                                                              }
+                                                      }
                                     } else {
                                         Button("", systemImage: "speaker.wave.2.fill") {
+                                            voiceIndex = index
+                                            opacity = 0.0
                                             store.generateSampleVoice(index: index)
                                         }.font(. system(size: 24))
                                     }
