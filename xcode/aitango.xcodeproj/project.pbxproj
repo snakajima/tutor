@@ -25,7 +25,6 @@
 		74E550842C2926F400B065DD /* WordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E550832C2926F400B065DD /* WordItem.swift */; };
 		74F1892A2C1EA6B3005FA174 /* aitangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F189292C1EA6B3005FA174 /* aitangoApp.swift */; };
 		74F1892C2C1EA6B3005FA174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892B2C1EA6B3005FA174 /* ContentView.swift */; };
-		74F1892E2C1EA6B3005FA174 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892D2C1EA6B3005FA174 /* Item.swift */; };
 		74F189302C1EA6B4005FA174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74F1892F2C1EA6B4005FA174 /* Assets.xcassets */; };
 		74F189342C1EA6B4005FA174 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74F189332C1EA6B4005FA174 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -47,7 +46,6 @@
 		74F189262C1EA6B3005FA174 /* aitango.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aitango.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F189292C1EA6B3005FA174 /* aitangoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aitangoApp.swift; sourceTree = "<group>"; };
 		74F1892B2C1EA6B3005FA174 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		74F1892D2C1EA6B3005FA174 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		74F1892F2C1EA6B4005FA174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74F189312C1EA6B4005FA174 /* aitango.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = aitango.entitlements; sourceTree = "<group>"; };
 		74F189332C1EA6B4005FA174 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -77,6 +75,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		74D5D6402C2B170E0094439E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				74D5D6192C2A39570094439E /* WordLinkView.swift */,
+				744B1E182C27D1520052B4AE /* DictionaryView.swift */,
+				74F1892B2C1EA6B3005FA174 /* ContentView.swift */,
+				74D5D63E2C2A79B50094439E /* HistoryView.swift */,
+				74D5D63C2C2A69000094439E /* BookView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		74D5D6412C2B17290094439E /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				744B1E162C27D0C70052B4AE /* WordStore.swift */,
+				744B1E142C27D0570052B4AE /* BooksStore.swift */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		74D5D6422C2B17360094439E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				74E550832C2926F400B065DD /* WordItem.swift */,
+				74D5D61B2C2A3D0D0094439E /* BookModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		74F1891D2C1EA6B3005FA174 = {
 			isa = PBXGroup;
 			children = (
@@ -101,17 +129,10 @@
 				744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */,
 				74F189292C1EA6B3005FA174 /* aitangoApp.swift */,
 				744B1E1A2C27D1EE0052B4AE /* AudioSession.swift */,
-				74F1892B2C1EA6B3005FA174 /* ContentView.swift */,
-				74D5D63E2C2A79B50094439E /* HistoryView.swift */,
-				74D5D63C2C2A69000094439E /* BookView.swift */,
-				74D5D6192C2A39570094439E /* WordLinkView.swift */,
-				744B1E182C27D1520052B4AE /* DictionaryView.swift */,
+				74D5D6402C2B170E0094439E /* Views */,
 				744B1E1C2C27D7E60052B4AE /* sample_sound.mp3 */,
-				744B1E162C27D0C70052B4AE /* WordStore.swift */,
-				744B1E142C27D0570052B4AE /* BooksStore.swift */,
-				74F1892D2C1EA6B3005FA174 /* Item.swift */,
-				74E550832C2926F400B065DD /* WordItem.swift */,
-				74D5D61B2C2A3D0D0094439E /* BookModel.swift */,
+				74D5D6412C2B17290094439E /* Stores */,
+				74D5D6422C2B17360094439E /* Models */,
 				74F1892F2C1EA6B4005FA174 /* Assets.xcassets */,
 				74F189312C1EA6B4005FA174 /* aitango.entitlements */,
 				74F189322C1EA6B4005FA174 /* Preview Content */,
@@ -211,7 +232,6 @@
 				74D5D61C2C2A3D0D0094439E /* BookModel.swift in Sources */,
 				74D5D63F2C2A79B50094439E /* HistoryView.swift in Sources */,
 				74F1892C2C1EA6B3005FA174 /* ContentView.swift in Sources */,
-				74F1892E2C1EA6B3005FA174 /* Item.swift in Sources */,
 				744B1E152C27D0570052B4AE /* BooksStore.swift in Sources */,
 				74F1892A2C1EA6B3005FA174 /* aitangoApp.swift in Sources */,
 				74E550842C2926F400B065DD /* WordItem.swift in Sources */,
