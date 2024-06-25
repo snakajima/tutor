@@ -24,7 +24,7 @@ struct DictionaryView: View {
     @State private var areTranslationVisible = Dictionary<Int, Bool>()
     
     @State private var store: WordStore
-    @State private var wordItem = WordItem(word: "dummy")
+    @State private var wordItem = WordItem(word: "_dummy")
     // @Query(filter: #Predicate<WordItem> { item in item.id == store.word }) var wordItems: [WordItem]
 
     init(word: String, path: String) {
@@ -40,6 +40,17 @@ struct DictionaryView: View {
                 }.pickerStyle(.segmented)
                     .padding([.leading, .trailing], 10)
                     .colorMultiply(wordItem.level.color())
+                    .onAppear(perform: {
+                        // Handle the case where the store.state is cached
+                        if store.state == .loaded && wordItem.id == "_dummy" {
+                            guard let wordItem = WordItem.getItem(modelContext: modelContext, word: store.word) else {
+                                print("### DictionaryView: Failed to getItem")
+                                return
+                            }
+                            self.wordItem = wordItem
+                            wordItem.recordAccess()
+                        }
+                    })
                 switch store.state {
                 case .idle:
                     Color.clear.onAppear(perform: {
