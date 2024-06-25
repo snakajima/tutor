@@ -19,6 +19,7 @@ struct aitangoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .accentColor(Color(red: 0, green: 120/255, blue: 189/255))
         }
         .modelContainer(for: BookModel.self)
     }
