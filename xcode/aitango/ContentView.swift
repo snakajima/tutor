@@ -12,34 +12,6 @@ import SwiftData
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct BookView: View {
-    private let book: Book
-    @State private var filterLevel = Level.none
-    
-    var body: some View {
-        NavigationLink {
-            VStack {
-                Picker("Level", selection: $filterLevel) {
-                    ForEach(Level.allCases) { level in
-                        Text(level.rawValue)
-                    }
-                }.pickerStyle(.segmented)
-                List {
-                    ForEach(book.words, id: \.self) { word in
-                        WordLinkView(word: word, bookId: book.id)
-                    }
-                }
-            }.navigationTitle(book.title)
-        } label: {
-            Text(book.title)
-        }
-    }
-    
-    init(book: Book) {
-        self.book = book
-    }
-}
-
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
