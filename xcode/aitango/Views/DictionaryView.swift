@@ -169,12 +169,12 @@ struct DictionaryView: View {
                         }.font(. system(size: 24))
                         if (isStoryVisible) {
                             Text(story)
-                            if let vocab = store.vocab {
+                            if store.vocab.count > 0 {
                                 Button("ストーリー中の単語") {
                                     isVocabVisible.toggle()
                                 }.font(. system(size: 24))
                                 if (isVocabVisible) {
-                                    ForEach(Array(vocab.enumerated()), id: \.offset) { index, sample in
+                                    ForEach(Array(store.vocab.enumerated()), id: \.offset) { index, sample in
                                         HStack {
                                             Text("**\(sample.en)**").frame(width: 100, alignment: .leading)
                                             Text(sample.jp)

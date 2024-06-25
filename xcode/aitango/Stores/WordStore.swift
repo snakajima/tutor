@@ -42,7 +42,7 @@ import FirebaseFirestoreSwift
     public var antonym: [SampleText] = []
     public var root: LocalizedStringKey?
     public var story: LocalizedStringKey?
-    public var vocab: [SampleText]?
+    public var vocab: [SampleText] = []
 
     public var listner: ListenerRegistration?
     
@@ -81,7 +81,7 @@ import FirebaseFirestoreSwift
         }
         root = LocalizedStringKey(result["root"] as! String)
         story = LocalizedStringKey(result["story"] as! String)
-        vocab = (result["vocab"] as! [Dictionary<String, String>]).map { sample in
+        vocab = (result["vocab"] as? [Dictionary<String, String>] ?? []).map { sample in
             return SampleText(en: sample["en"]!, jp: sample["jp"]!, voice: sample["voice"])
         }
     }
