@@ -44,7 +44,11 @@ struct DictionaryView: View {
                 case .idle:
                     Color.clear.onAppear(perform: {
                         store.load()
-                        wordItem = WordItem.getItem(modelContext: modelContext, word: store.word) ?? wordItem
+                        guard let wordItem = WordItem.getItem(modelContext: modelContext, word: store.word) else {
+                            print("### DictionaryView: Failed to getItem")
+                            return
+                        }
+                        self.wordItem = wordItem
                         wordItem.recordAccess()
                     })
                 case .loading:
