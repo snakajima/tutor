@@ -28,14 +28,18 @@ struct ContentView: View {
     var body: some View {
         VStack {
             NavigationStack {
+                Text("英単語エージェント")
                 List {
-                    ForEach(books.books, id: \.id) { book in
-                        BookView(book: book)
+                    Section("単語帳") {
+                        ForEach(books.books, id: \.id) { book in
+                            BookView(book: book)
+                        }
                     }
                     Section("History") {
                         HistoryView(wordItems: wordItems)
                     }
                 }.listStyle(.grouped)
+                   // .navigationTitle("英単語エージェント")
             }/* .onAppear() {
                 try! modelContext.delete(model: WordItem.self)
             }*/

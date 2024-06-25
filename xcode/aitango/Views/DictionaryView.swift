@@ -40,7 +40,7 @@ struct DictionaryView: View {
                         Text(level.rawValue)
                     }
                 }.pickerStyle(.segmented)
-                    .padding([.leading, .trailing], 10)
+                    .padding([.leading, .trailing, .bottom], 10)
                     .colorMultiply(wordItem.level.color())
                     .onAppear(perform: {
                         // Handle the case where the store.state is cached
