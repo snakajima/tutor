@@ -19,7 +19,7 @@ struct ContentView: View {
 
     // @Query private var items: [Item]
     @State var session = AudioSession()
-    private var books = BooksStore()
+    private let books = BooksStore()
     
     init() {
         session.activateSession()

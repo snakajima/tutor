@@ -37,7 +37,9 @@ struct DictionaryView: View {
                     ForEach(Level.allCases) { level in
                         Text(level.rawValue)
                     }
-                }.pickerStyle(.segmented).colorMultiply(wordItem.level.color())
+                }.pickerStyle(.segmented)
+                    .padding([.leading, .trailing], 10)
+                    .colorMultiply(wordItem.level.color())
                 switch store.state {
                 case .idle:
                     Color.clear.onAppear(perform: {
