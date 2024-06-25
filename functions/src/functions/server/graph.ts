@@ -5,7 +5,8 @@ import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
 import * as tutor_gemini from "../graphs/tutor_g";
 import * as tutor_openai from "../graphs/tutor";
-import { wordle } from "./wordle";
+// import { wordle } from "./wordle";
+import { toeic500, toeic600, toeic700, toeic800 } from "./toeic";
 
 if (!admin.apps.length) {
   admin.initializeApp();
@@ -159,10 +160,22 @@ export const initialize = async (req: express.Request, res: express.Response) =>
     words: words2,
   });
   */
-  await db.doc("/books/wordle").create({
-    title: "Wordle",
-    words: wordle,
+  await db.doc("/books/toeic500").create({
+    title: "Toeic 500",
+    words: toeic500,
+  });
+  await db.doc("/books/toeic600").create({
+    title: "Toeic 600",
+    words: toeic600,
+  });
+  await db.doc("/books/toeic700").create({
+    title: "Toeic 700",
+    words: toeic700,
+  });
+  await db.doc("/books/toeic800").create({
+    title: "Toeic 800",
+    words: toeic800,
   });
 
-  res.json({ success:true, wordle });
+  res.json({ success:true });
 };

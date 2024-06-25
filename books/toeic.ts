@@ -141,6 +141,9 @@ const toeic800a = [
   const toeic700 = Array.from(new Set([...toeic700a, ...toeic700b, ...toeic700c])).map(a => a.toLowerCase()).sort((a,b) => (a < b) ? -1 : 1);
   const toeic800 = Array.from(new Set([...toeic800a, ...toeic800b, ...toeic800c, ...toeic900])).map(a => a.toLowerCase()).sort((a,b) => (a < b) ? -1 : 1);
 
-console.log(toeic500.length, toeic600.length, toeic700.length, toeic800.length);
-console.log(JSON.stringify(toeic700));
+// console.log(toeic500.length, toeic600.length, toeic700.length, toeic800.length);
+console.log(`export const toeic500 = ${JSON.stringify(toeic500)};`);
+console.log(`export const toeic600 = ${JSON.stringify(toeic600)};`);
+console.log(`export const toeic700 = ${JSON.stringify(toeic700)};`);
+console.log(`export const toeic800 = ${JSON.stringify(toeic800)};`);
 // console.log(toeic400c, toeic500b, toeic500c, toeic600a, toeic600b, toeic600c, toeic700a, toeic700b, toeic700c, toeic800a, toeic800b, toeic800c, toeic900);  
