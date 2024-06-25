@@ -19,10 +19,14 @@ struct HistoryView: View {
     }
     
     var body: some View {
-        List {
-            ForEach(wordItems) { wordItem in
-                WordLinkView(word: wordItem.id, bookId: "_history")
-            }
+        NavigationLink {
+            List {
+                ForEach(wordItems) { wordItem in
+                    WordLinkView(word: wordItem.id, bookId: "_history")
+                }
+            }.navigationTitle("Recent")
+        } label: {
+            Text("Recent")
         }
     }
 }

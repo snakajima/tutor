@@ -33,11 +33,7 @@ struct ContentView: View {
                         BookView(book: book)
                     }
                     Section("History") {
-                        NavigationLink {
-                            HistoryView(wordItems: wordItems)
-                        } label: {
-                            Text("Recent")
-                        }
+                        HistoryView(wordItems: wordItems)
                     }
                 }.listStyle(.grouped)
             }/* .onAppear() {
