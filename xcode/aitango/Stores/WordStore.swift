@@ -35,7 +35,7 @@ import FirebaseFirestoreSwift
         let id = UUID()
     }
 
-    public var samples: [SampleText]?
+    public var samples: [SampleText] = []
     public var meaning: LocalizedStringKey?
     public var meaning_jp: LocalizedStringKey?
     public var similar: [SampleText] = []
@@ -68,7 +68,7 @@ import FirebaseFirestoreSwift
             return
         }
         self.state = .loaded
-        samples = (result["samples"] as! [Dictionary<String, String>]).map { sample in
+        samples = (result["samples"] as? [Dictionary<String, String>] ?? []).map { sample in
             return SampleText(en: sample["en"]!, jp: sample["jp"]!, voice: sample["voice"])
         }
         meaning = LocalizedStringKey(result["meaning"] as! String)

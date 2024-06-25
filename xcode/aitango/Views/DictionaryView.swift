@@ -71,7 +71,7 @@ struct DictionaryView: View {
                 case .generating:
                     Text("Generating...")
                 case .loaded:
-                    if let samples = store.samples {
+                    if store.samples.count > 0 {
                         HStack {
                             Button("例文") {
                                 isSamplesVisible.toggle()
@@ -84,7 +84,7 @@ struct DictionaryView: View {
                             }
                         }
                         if (isSamplesVisible) {
-                            ForEach(Array(samples.enumerated()), id: \.offset) { index, sample in
+                            ForEach(Array(store.samples.enumerated()), id: \.offset) { index, sample in
                                 HStack {
                                     Text(sample.en).onTapGesture {
                                         areTranslationVisible[index] = !(areTranslationVisible[index] ?? false)
