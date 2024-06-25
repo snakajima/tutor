@@ -33,8 +33,14 @@ struct ContentView: View {
                         BookView(book: book)
                     }
                     Section("History") {
-                        ForEach(wordItems) { wordItem in
-                            Text(wordItem.id)
+                        NavigationLink {
+                            List {
+                                ForEach(wordItems) { wordItem in
+                                    Text(wordItem.id)
+                                }
+                            }
+                        } label: {
+                            Text("Recent")
                         }
                     }
                 }.listStyle(.grouped)
