@@ -24,6 +24,7 @@ struct BookView: View {
                         Text(level.rawValue)
                     }
                 }.pickerStyle(.segmented)
+                    .colorMultiply(filterLevel.color())
                     .onChange(of: filterLevel) {
                         print("onChange", filterLevel)
                         if filterLevel == .none {
