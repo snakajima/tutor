@@ -14,10 +14,16 @@ import FirebaseFirestoreSwift
 
 struct BookView: View {
     private let book: Book
+    @State private var filterLevel = Level.none
     
     var body: some View {
         NavigationLink {
             VStack {
+                Picker("Level", selection: $filterLevel) {
+                    ForEach(Level.allCases) { level in
+                        Text(level.rawValue)
+                    }
+                }.pickerStyle(.segmented)
                 List {
                     ForEach(book.words, id: \.self) { word in
                         WordLinkView(word: word, bookId: book.id)
