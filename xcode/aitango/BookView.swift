@@ -7,8 +7,11 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct BookView: View {
+    @Environment(\.modelContext) private var modelContext
+    
     private let book: Book
     @State var words: [String]
     @State private var filterLevel = Level.none
@@ -21,6 +24,28 @@ struct BookView: View {
                         Text(level.rawValue)
                     }
                 }.pickerStyle(.segmented)
+                    .onChange(of: filterLevel) {
+                        print("onChange", filterLevel)
+                        if filterLevel == .none {
+                            words = book.words
+                        } else {
+                            // let predicate = #Predicate<BookModel> { $0.bookId == book.id && $0.wordItem.level == filterLevel }
+                            let bookId = book.id
+                            let predicate = #Predicate<BookModel> { $0.bookId == bookId }
+                            let descriptor = FetchDescriptor<BookModel>(predicate: predicate)
+                            do {
+                                let bookModels = try modelContext.fetch(descriptor)
+                                words = bookModels.filter({ bookModel in
+                                    bookModel.wordItem.level == filterLevel
+                                }).map({ bookModel in
+                                    return bookModel.wordItem.id
+                                })
+                                print("bookModels", bookModels.count)
+                            } catch {
+                                print("BookView.onChange failed \(error)")
+                            }
+                        }
+                    }
                 List {
                     ForEach(words, id: \.self) { word in
                         WordLinkView(word: word, bookId: book.id)
