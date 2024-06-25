@@ -26,7 +26,7 @@ struct DictionaryView: View {
     @State private var store: WordStore
     @State private var wordItem = WordItem(word: "_dummy")
     // @Query(filter: #Predicate<WordItem> { item in item.id == store.word }) var wordItems: [WordItem]
-    @State private var degreesRotating = 0.0
+    @State private var opacity = 0.0
 
     init(word: String, path: String) {
         self.store = WordStore(word: word, path: path)
@@ -71,31 +71,27 @@ struct DictionaryView: View {
                     }
                 case .generating:
                     VStack {
-                        Spacer()
                         Text("AIエージェントが、辞書を作成中...")
                         HStack {
                             Spacer()
-                            Image(systemName: "arrow.clockwise")
-                                .rotationEffect(Angle(degrees: 360))
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    
-                case .loaded:
-                    if store.samples.count > 0 {
-                        VStack {
                             Image(systemName: "book.and.wrench")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 64, height: 64)
-                                .rotationEffect(Angle(degrees: degreesRotating))
+                                .opacity(opacity)
                                 .onAppear {
                                     withAnimation(.linear(duration: 0.1)
-                                                  .speed(0.1).repeatForever(autoreverses: false)) {
-                                                      degreesRotating = 360.0
+                                                  .speed(0.1).repeatForever(autoreverses: true)) {
+                                                      opacity = 1.0
                                                   }
                                           }
+                            Spacer()
+                        }
+                    }
+                    
+                case .loaded:
+                    if store.samples.count > 0 {
+                        HStack {
                             Button("例文") {
                                 isSamplesVisible.toggle()
                             }.font(. system(size: 24))
