@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		744B1E062C25A5DD0052B4AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */; };
 		744B1E092C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 744B1E082C25A8C40052B4AE /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		744B1E0C2C25D8B00052B4AE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 744B1E0B2C25D8B00052B4AE /* FirebaseFirestore */; };
 		744B1E0E2C25D8B60052B4AE /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 744B1E0D2C25D8B60052B4AE /* FirebaseDatabaseSwift */; };
@@ -22,6 +21,7 @@
 		74D5D61C2C2A3D0D0094439E /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D5D61B2C2A3D0D0094439E /* BookModel.swift */; };
 		74D5D63D2C2A69000094439E /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D5D63C2C2A69000094439E /* BookView.swift */; };
 		74D5D63F2C2A79B50094439E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D5D63E2C2A79B50094439E /* HistoryView.swift */; };
+		74D5D6442C2B67BA0094439E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74D5D6432C2B67BA0094439E /* GoogleService-Info.plist */; };
 		74E550842C2926F400B065DD /* WordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E550832C2926F400B065DD /* WordItem.swift */; };
 		74F1892A2C1EA6B3005FA174 /* aitangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F189292C1EA6B3005FA174 /* aitangoApp.swift */; };
 		74F1892C2C1EA6B3005FA174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1892B2C1EA6B3005FA174 /* ContentView.swift */; };
@@ -30,7 +30,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		744B1E112C25E72D0052B4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		744B1E122C27039B0052B4AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.5.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		744B1E142C27D0570052B4AE /* BooksStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksStore.swift; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		74D5D61B2C2A3D0D0094439E /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		74D5D63C2C2A69000094439E /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		74D5D63E2C2A79B50094439E /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		74D5D6432C2B67BA0094439E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74E550832C2926F400B065DD /* WordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordItem.swift; sourceTree = "<group>"; };
 		74F189262C1EA6B3005FA174 /* aitango.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aitango.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F189292C1EA6B3005FA174 /* aitangoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aitangoApp.swift; sourceTree = "<group>"; };
@@ -125,8 +125,8 @@
 		74F189282C1EA6B3005FA174 /* aitango */ = {
 			isa = PBXGroup;
 			children = (
+				74D5D6432C2B67BA0094439E /* GoogleService-Info.plist */,
 				744B1E112C25E72D0052B4AE /* Info.plist */,
-				744B1E052C25A5DD0052B4AE /* GoogleService-Info.plist */,
 				74F189292C1EA6B3005FA174 /* aitangoApp.swift */,
 				744B1E1A2C27D1EE0052B4AE /* AudioSession.swift */,
 				74D5D6402C2B170E0094439E /* Views */,
@@ -216,9 +216,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				744B1E1D2C27D7E60052B4AE /* sample_sound.mp3 in Resources */,
+				74D5D6442C2B67BA0094439E /* GoogleService-Info.plist in Resources */,
 				74F189342C1EA6B4005FA174 /* Preview Assets.xcassets in Resources */,
 				74F189302C1EA6B4005FA174 /* Assets.xcassets in Resources */,
-				744B1E062C25A5DD0052B4AE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
