@@ -12,7 +12,27 @@ import SwiftData
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-
+struct BookView: View {
+    private let book: Book
+    
+    var body: some View {
+        NavigationLink {
+            VStack {
+                List {
+                    ForEach(book.words, id: \.self) { word in
+                        WordLinkView(word: word, bookId: book.id)
+                    }
+                }
+            }.navigationTitle(book.title)
+        } label: {
+            Text(book.title)
+        }
+    }
+    
+    init(book: Book) {
+        self.book = book
+    }
+}
 
 struct ContentView: View {
     
@@ -32,17 +52,7 @@ struct ContentView: View {
             NavigationStack {
                 List {
                     ForEach(books.books, id: \.id) { book in
-                        NavigationLink {
-                            VStack {
-                                List {
-                                    ForEach(book.words, id: \.self) { word in
-                                        WordLinkView(word: word, bookId: book.id)
-                                    }
-                                }
-                            }.navigationTitle(book.title)
-                        } label: {
-                            Text(book.title)
-                        }
+                        BookView(book: book)
                     }
                     Section("History") {
                         ForEach(wordItems) { wordItem in
