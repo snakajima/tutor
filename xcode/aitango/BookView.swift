@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BookView: View {
     private let book: Book
+    @State var words: [String]
     @State private var filterLevel = Level.none
     
     var body: some View {
@@ -21,7 +22,7 @@ struct BookView: View {
                     }
                 }.pickerStyle(.segmented)
                 List {
-                    ForEach(book.words, id: \.self) { word in
+                    ForEach(words, id: \.self) { word in
                         WordLinkView(word: word, bookId: book.id)
                     }
                 }
@@ -33,5 +34,6 @@ struct BookView: View {
     
     init(book: Book) {
         self.book = book
+        self.words = book.words
     }
 }
