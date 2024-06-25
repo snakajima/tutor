@@ -34,11 +34,7 @@ struct ContentView: View {
                     }
                     Section("History") {
                         NavigationLink {
-                            List {
-                                ForEach(wordItems) { wordItem in
-                                    Text(wordItem.id)
-                                }
-                            }
+                            HistoryView()
                         } label: {
                             Text("Recent")
                         }

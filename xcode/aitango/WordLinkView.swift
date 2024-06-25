@@ -31,7 +31,11 @@ struct WordLinkView: View {
             }.onAppear() {
                 guard let wordItem = WordItem.getItem(modelContext: modelContext, word: word) else { return }
                 self.wordItem = wordItem
-                _ = BookModel.getItem(modelContext: modelContext, bookId: bookId, wordItem: wordItem)
+                if bookId.prefix(1) != "_" {
+                    _ = BookModel.getItem(modelContext: modelContext, bookId: bookId, wordItem: wordItem)
+                } else {
+                    print("skip inserting", wordItem.id)
+                }
             }
         }
     }
