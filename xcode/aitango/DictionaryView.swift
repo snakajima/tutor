@@ -129,12 +129,12 @@ struct DictionaryView: View {
                             Text(meaning_jp)
                         }
                     }
-                    if let similar = store.similar {
+                    if store.similar.count > 0 {
                         Button("同義語") {
                             isSimilarVisible.toggle()
                         }.font(. system(size: 24))
                         if (isSimilarVisible) {
-                            ForEach(Array(similar.enumerated()), id: \.offset) { index, sample in
+                            ForEach(Array(store.similar.enumerated()), id: \.offset) { index, sample in
                                 HStack {
                                     Text("**\(sample.en)**").frame(width: 100, alignment: .leading)
                                     Text(sample.jp)
@@ -142,12 +142,12 @@ struct DictionaryView: View {
                             }
                         }
                     }
-                    if let antonym = store.antonym {
+                    if store.antonym.count > 0 {
                         Button("反対語") {
                             isAntonymVisible.toggle()
                         }.font(. system(size: 24))
                         if (isAntonymVisible) {
-                            ForEach(Array(antonym.enumerated()), id: \.offset) { index, sample in
+                            ForEach(Array(store.antonym.enumerated()), id: \.offset) { index, sample in
                                 HStack {
                                     Text("**\(sample.en)**").frame(width: 100, alignment: .leading)
                                     Text(sample.jp)
