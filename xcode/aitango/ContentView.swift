@@ -15,7 +15,8 @@ import FirebaseFirestoreSwift
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
-    
+    @Query(filter: #Predicate<WordItem> { $0.accessed }, sort: \WordItem.lastAccess, order: .reverse) var wordItems: [WordItem]
+
     // @Query private var items: [Item]
     @State var session = AudioSession()
     private var books = BooksStore()
@@ -33,7 +34,7 @@ struct ContentView: View {
                     }
                     Section("History") {
                         NavigationLink {
-                            HistoryView()
+                            HistoryView(wordItems: wordItems)
                         } label: {
                             Text("Recent")
                         }

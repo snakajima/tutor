@@ -12,7 +12,11 @@ import SwiftData
 struct HistoryView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @Query(filter: #Predicate<WordItem> { $0.accessed }, sort: \WordItem.lastAccess, order: .reverse) var wordItems: [WordItem]
+    let wordItems: [WordItem] // Note: Using Query here causes inifinit loop
+    
+    init(wordItems: [WordItem]) {
+        self.wordItems = wordItems
+    }
     
     var body: some View {
         List {
