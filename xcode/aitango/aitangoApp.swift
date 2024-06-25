@@ -35,7 +35,7 @@ struct aitangoApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: WordItem.self)
+        .modelContainer(for: BookModel.self)
         //.modelContainer(sharedModelContainer)
     }
 }
