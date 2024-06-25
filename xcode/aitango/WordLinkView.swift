@@ -29,7 +29,8 @@ struct WordLinkView: View {
                 Circle().fill(wordItem.level.color()).frame(width:24, height:24)
                 Text(word)
             }.onAppear() {
-                wordItem = WordItem.getItem(modelContext: modelContext, word: word) ?? wordItem
+                guard let wordItem = WordItem.getItem(modelContext: modelContext, word: word) else { return }
+                self.wordItem = wordItem
             }
         }
     }
