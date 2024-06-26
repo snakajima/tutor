@@ -36,6 +36,28 @@ struct WordLinkView: View {
                 } else {
                     print("skip inserting", wordItem.id)
                 }
+            }.swipeActions {
+                Button("") {
+                    print("")
+                    guard let wordItem = WordItem.getItem(modelContext: modelContext, word: word) else { return }
+                    wordItem.level = .blue
+                }.tint(.blue)
+                Button("") {
+                    guard let wordItem = WordItem.getItem(modelContext: modelContext, word: word) else { return }
+                    wordItem.level = .green
+                }.tint(.green)
+                Button("") {
+                    guard let wordItem = WordItem.getItem(modelContext: modelContext, word: word) else { return }
+                    wordItem.level = .yellow
+                }.tint(.yellow)
+                Button("") {
+                    guard let wordItem = WordItem.getItem(modelContext: modelContext, word: word) else { return }
+                    wordItem.level = .orange
+                }.tint(.orange)
+                Button("") {
+                    guard let wordItem = WordItem.getItem(modelContext: modelContext, word: word) else { return }
+                    wordItem.level = .red
+                }.tint(.red)
             }
         }
     }
