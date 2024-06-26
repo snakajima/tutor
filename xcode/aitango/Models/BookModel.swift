@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class BookModel {
-    @Attribute(.unique) var id: String
+    var id: String
     var bookId: String
     var wordItem: WordItem
     
