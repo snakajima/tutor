@@ -38,7 +38,7 @@ enum Level: String, CaseIterable, Identifiable, Codable {
 
 @Model
 final class WordItem {
-    @Attribute(.unique) var id: String
+    var id: String
     var lastAccess: Date
     var level: Level
     var accessed = false

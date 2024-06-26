@@ -11,6 +11,19 @@ import FirebaseCore
 
 @main
 struct aitangoApp: App {
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            BookModel.self,
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
+    
     // https://peterfriese.dev/blog/2020/swiftui-new-app-lifecycle-firebase/#start-using-the-swiftui-app-life-cycle
     init() {
         FirebaseApp.configure()
@@ -21,6 +34,6 @@ struct aitangoApp: App {
             ContentView()
                 .accentColor(Color(red: 0, green: 120/255, blue: 189/255))
         }
-        .modelContainer(for: BookModel.self)
+        .modelContainer(sharedModelContainer)
     }
 }
