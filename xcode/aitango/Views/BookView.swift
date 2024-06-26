@@ -27,7 +27,6 @@ struct BookView: View {
                     .padding([.leading, .trailing], 10)
                     .colorMultiply(filterLevel.color())
                     .onChange(of: filterLevel) {
-                        print("onChange", filterLevel)
                         if filterLevel == .none {
                             words = book.words
                         } else {
@@ -38,11 +37,11 @@ struct BookView: View {
                             do {
                                 let bookModels = try modelContext.fetch(descriptor)
                                 words = bookModels.filter({ bookModel in
-                                    bookModel.wordItem.level == filterLevel
+                                    guard let wordItem = bookModel.wordItem else { return false }
+                                    return wordItem.level == filterLevel
                                 }).map({ bookModel in
-                                    return bookModel.wordItem.id
+                                    return bookModel.wordItem!.id // safe cast (see the guard above)
                                 })
-                                print("bookModels", bookModels.count)
                             } catch {
                                 print("BookView.onChange failed \(error)")
                             }

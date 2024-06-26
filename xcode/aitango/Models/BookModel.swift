@@ -12,7 +12,7 @@ import SwiftData
 final class BookModel {
     var id: String
     var bookId: String
-    var wordItem: WordItem
+    var wordItem: WordItem? // optional for CloudKit
     
     init(bookId:String, wordItem: WordItem) {
         self.id = "\(bookId)/\(wordItem.id)"
