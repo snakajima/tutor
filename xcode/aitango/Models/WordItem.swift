@@ -62,7 +62,7 @@ final class WordItem {
             if let wordItem = wordItems.first {
                 return wordItem
             }
-            print("inserting", word)
+            print("WordItem: inserting", word)
             let wordItem = WordItem(word: word)
             modelContext.insert(wordItem)
             return wordItem

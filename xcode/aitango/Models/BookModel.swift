@@ -29,7 +29,7 @@ final class BookModel {
             if let bookModel = bookModels.first {
                 return bookModel
             }
-            print("BookModel:inserting", id)
+            print("BookModel: inserting", id)
             let bookModel = BookModel(bookId: bookId, wordItem: wordItem)
             modelContext.insert(bookModel)
             return bookModel
