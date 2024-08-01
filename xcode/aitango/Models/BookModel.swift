@@ -10,8 +10,8 @@ import SwiftData
 
 @Model
 final class BookModel {
-    var id: String
-    var bookId: String
+    var id: String = "foo/bar" // random default for CloudKit
+    var bookId: String = "foo" // random default for CloudKit
     var wordItem: WordItem? // optional for CloudKit
     
     init(bookId:String, wordItem: WordItem) {

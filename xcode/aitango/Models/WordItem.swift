@@ -38,15 +38,17 @@ enum Level: String, CaseIterable, Identifiable, Codable {
 
 @Model
 final class WordItem {
-    var id: String
-    var lastAccess: Date
-    var level: Level
+    var id: String = "foo" // random default for CloudKit
+    var lastAccess: Date = Date(timeIntervalSince1970: 0) // random default for CloudKit
+    var level: Level = Level.none
     var accessed = false
+    @Relationship(inverse:\BookModel.wordItem) var books: [BookModel]?
     
     init(word: String) {
         self.id = word
         self.lastAccess = Date()
         self.level = .none
+        self.books = [] // for CloudKit (not sure)
     }
     
     public func recordAccess() {
