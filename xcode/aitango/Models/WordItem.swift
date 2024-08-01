@@ -36,6 +36,9 @@ enum Level: String, CaseIterable, Identifiable, Codable {
     }
 }
 
+//
+// WordItem stores the "level" of each word (regardless of books), which the user chooses.
+//
 @Model
 final class WordItem {
     var id: String = "foo" // random default for CloudKit

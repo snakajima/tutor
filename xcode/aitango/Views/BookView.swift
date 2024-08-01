@@ -36,6 +36,7 @@ struct BookView: View {
                             let descriptor = FetchDescriptor<BookModel>(predicate: predicate)
                             do {
                                 let bookModels = try modelContext.fetch(descriptor)
+                                // join query
                                 words = bookModels.filter({ bookModel in
                                     guard let wordItem = bookModel.wordItem else { return false }
                                     return wordItem.level == filterLevel

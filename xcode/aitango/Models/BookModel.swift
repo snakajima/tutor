@@ -8,6 +8,12 @@
 import Foundation
 import SwiftData
 
+//
+// BookModel represents a word in a particular book. This information is derived from
+// the data retrieved from the server (BookStore), and is stored in the local database
+// to perform a join query, such as "all the words with level=red in a particular book".
+// Search "join query" in BookView.
+//
 @Model
 final class BookModel {
     var id: String = "foo/bar" // random default for CloudKit
