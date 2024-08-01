@@ -8,7 +8,7 @@ export const graph_tutor = {
     meaning_llm: {
       agent: "openAIAgent",
       params: {
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         apiKey: ":apiKey",
         system: "You are a dictionary writer. Write the meaning of the given word.\n" +
           "[Sample]" +
@@ -35,7 +35,7 @@ export const graph_tutor = {
     meaning_jp_llm: {
       agent: "openAIAgent",
       params: {
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         apiKey: ":apiKey",
         system: "あなたの役割は英和の辞書を作ることです。与えられた単語の意味を以下の例に従って説明してください。\n" +
           "[Sample]\n" +
@@ -51,7 +51,7 @@ export const graph_tutor = {
     samples_llm: {
       agent: "openAIAgent",
       params: {
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         apiKey: ":apiKey",
         system:
           "与えられた単語を含む、英語の文章を10個作って、日本語に訳して。あまり難しい単語は使わずに。フォーマットはJSONで、以下のフォーマットで。\n" +
@@ -67,7 +67,7 @@ export const graph_tutor = {
     similar_llm: {
       agent: "openAIAgent",
       params: {
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         apiKey: ":apiKey",
         system:
           "与えられた英単語と類似する意味の英単語をいくつか並べて、日本語で違いを説明して。フォーマットはJSONで、以下のフォーマットで。\n" +
@@ -83,7 +83,7 @@ export const graph_tutor = {
     antonym_llm: {
       agent: "openAIAgent",
       params: {
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         apiKey: ":apiKey",
         system:
           "与えられた英単語と反対の意味を持つ英単語をいくつか並べて、日本語で違いを説明して。フォーマットはJSONで、以下のフォーマットで。\n" +
@@ -99,7 +99,7 @@ export const graph_tutor = {
     root_llm: {
       agent: "openAIAgent",
       params: {
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         apiKey: ":apiKey",
         system: "あなたは英語の教師です。与えられた単語の語源を日本語で解説して。",
       },
@@ -113,7 +113,7 @@ export const graph_tutor = {
     story_llm: {
       agent: "openAIAgent",
       params: {
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         apiKey: ":apiKey",
         system: "You are a story writer. Write a short story using the given word multiple times within 200 words. Do no ask any question. Just write it.",
       },
@@ -127,7 +127,7 @@ export const graph_tutor = {
     vocab_llm: {
       agent: "openAIAgent",
       params: {
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         apiKey: ":apiKey",
         system:
           "あなたは英語の教師です。与えられた文章から、比較的難しい英単語を１０個選び、過去形・複数形のものは現在形・単数形に戻した上で、文章中での日本語に訳して。フォーマットはJSONで、以下のフォーマットで。\n" +

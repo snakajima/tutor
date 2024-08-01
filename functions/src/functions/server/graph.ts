@@ -3,7 +3,7 @@ import * as admin from "firebase-admin";
 import * as express from "express";
 import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/agents";
-import * as tutor_gemini from "../graphs/tutor_g";
+// import * as tutor_gemini from "../graphs/tutor_g";
 import * as tutor_openai from "../graphs/tutor";
 // import { wordle } from "./wordle";
 import { toeic500, toeic600, toeic700, toeic800 } from "./toeic";
@@ -20,6 +20,7 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
   console.log("onCreate", snapshot.data(), word);
   const doc = db.doc(`/words/${word}`);
 
+  /*
   const graph_data_gemini:GraphData = {
     version: 0.3,
     nodes: {
@@ -34,6 +35,7 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
       },
     }
   };
+  */
   const graph_data_openai:GraphData = {
     version: 0.3,
     nodes: {
@@ -59,11 +61,12 @@ export const onWordCreate = async (snapshot: functions.firestore.QueryDocumentSn
   }
 
   try {
-    await update(graph_data_gemini, "gemini-1.5-flash");
+    //await update(graph_data_gemini, "gemini-1.5-flash");
+    await update(graph_data_openai, "gpt-4o-mini");
   } catch(e) {
     console.warn("first catch", e);
     try {
-      await update(graph_data_openai, "gpt-4o");
+      await update(graph_data_openai, "gpt-4o-mini");
     } catch(e2) {
       console.warn("second catch", e2);
       await update(graph_data_openai, "gpt-4o");
